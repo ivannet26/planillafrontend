@@ -9,7 +9,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { PanelModule } from 'primeng/panel';
-
+import { BreadcrumbService } from '../../service/breadcrumb.service';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 // Importar las interfaces desde el archivo de modelo
 import { PlanillaTipo, PlanillaTipoView } from 'src/app/demo/model/PlanillaTipo';
 
@@ -25,7 +26,8 @@ import { PlanillaTipo, PlanillaTipoView } from 'src/app/demo/model/PlanillaTipo'
     TooltipModule,
     ConfirmDialogModule,
     ToastModule,
-    PanelModule
+    PanelModule,
+    BreadcrumbModule,
   ],
   providers: [ConfirmationService, MessageService],
   templateUrl: './planilla-tipo.component.html',
@@ -35,13 +37,27 @@ export class PlanillaTipoComponent implements OnInit {
   planillasTipo: PlanillaTipoView[] = [];
   originalPlanilla: PlanillaTipoView | null = null;
 
+  items: any[] = [];
+
   constructor(
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private bS: BreadcrumbService,
   ) {}
 
   ngOnInit() {
     this.loadPlanillasTipo();
+
+    this.bS.setBreadcrumbs([
+      { icon: 'pi pi-home', routerLink: '/home' },
+      { label: 'Sistema' },
+      { label: 'Maestros'}, 
+      { label: 'Planilla tipo', routerLink: '/home/maestros/planilla-tipo' },
+    ]);
+
+    this.bS.currentBreadcrumbs$.subscribe((bc) => {
+      this.items = bc;
+    });
   }
 
   loadPlanillasTipo() {

@@ -3,8 +3,12 @@
 
 <div class="p-1 py-5 max-h-screen">
 
-    <p-panel header="Empresas" styleClass="shadow-xl rounded-xl">
+    <p-panel header="Empresas" styleClass="shadow-xl rounded-xl mb-3">
+        <p-breadcrumb [model]="items" class="max-w-full"></p-breadcrumb>
+        </p-panel>
+
         <div class="content-wrapper"></div>
+        <div class="shadow-xl rounded-xl surface-card px-4 py-4">
         <div class="aligned-content-container">
             <div class="toolbar-controls-wrapper flex justify-content-between align-items-center">
 
@@ -19,6 +23,19 @@
                             icon="pi pi-refresh" class="p-button-info" (click)="refrescarEmpresa()"
                             [disabled]="!isViewMode">
                         </button>
+                    </div>
+
+
+                    <div class="p-toolbar-group-end" *ngIf="isViewMode">
+                        <span class="p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input
+                            pInputText
+                            type="text"
+                            placeholder="Buscar RUC"
+                            (input)="onRucFilter($event)"
+                            class="p-inputtext-sm"/>
+                        </span>
                     </div>
 
                     <div class="p-toolbar-group-end flex flex-wrap gap-4" *ngIf="!isViewMode">
@@ -63,12 +80,15 @@
 
                                 <th style="width:auto; text-align: center;">
                                     RUC
+
+                                    <!--
                                     <div class="mt-1 flex justify-content-center">
                                         <p-columnFilter type="text" field="ruc" matchMode="contains"
                                             placeholder="Buscar RUC" [showMenu]="false"
                                             styleClass="p-inputtext-sm w-15rem">
                                         </p-columnFilter>
                                     </div>
+                                    -->
                                 </th>
 
                                 <th style="width:auto; text-align: center;">Razón Social</th>
@@ -341,6 +361,7 @@
                 </div>
             </div>
         </div>
-    </p-panel>
+        </div>
+    
 
 </div>

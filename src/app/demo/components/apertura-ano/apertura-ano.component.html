@@ -1,1 +1,47 @@
-<p>apertura-ano works!</p>
+<p-toast></p-toast>
+
+<div class="p-1 py-5 max-h-screen">
+
+  <!-- Breadcrumb -->
+  <p-panel header="Apertura de año" styleClass="shadow-xl rounded-xl mb-3">
+    <p-breadcrumb [model]="items" class="max-w-full"></p-breadcrumb>
+  </p-panel>
+
+  <div class="shadow-xl rounded-full surface-card px-4 py-4">
+
+    <div class="card px-4 py-3">
+
+      <div class="grid gap-3 mb-3" style="grid-template-columns: 1fr; max-width: 320px;">
+        <div class="w-full">
+          <label>Año apertura</label>
+          <input pInputText type="text" value="2026" class="w-full p-inputtext-sm" />
+        </div>
+
+        <div class="w-full">
+          <label>Año base</label>
+          <input pInputText type="text" value="2025" class="w-full p-inputtext-sm" />
+        </div>
+
+        <div class="w-full mt-2">
+          <button
+            pButton
+            type="button"
+            label="Guardar"
+            icon="pi pi-save"
+            class="p-button-success"
+            style="width: fit-content;"
+            (click)="guardar()">
+          </button>
+        </div>
+      </div>
+
+      <div>
+        <span style="color: #d32f2f;">
+          Importante : Despues de apertura el año, Actualize Tablas Parametricas
+        </span>
+      </div>
+
+    </div>
+
+  </div>
+</div>

@@ -6,6 +6,10 @@
   <p-confirmDialog></p-confirmDialog>
 
   <p-panel header="Banco" styleClass="shadow-xl rounded-xl mb-3">
+    <p-breadcrumb [model]="items" class="max-w-full"></p-breadcrumb>
+    </p-panel>
+    
+    <div class="shadow-xl rounded-full surface-card px-4 py-4">
     <div class="flex justify-content-between align-items-center mb-3">
       <button pButton type="button"
                 icon="pi pi-plus"
@@ -140,7 +144,6 @@
         </tr>
       </ng-template>
     </p-table>
-
-  </p-panel>
+    </div>
 
 </div>

@@ -18,6 +18,8 @@ import { TooltipModule } from 'primeng/tooltip';
 
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { Table } from 'primeng/table';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { MenuItem } from 'primeng/api';
 
 import { Empresa, RepresentanteLegal, ResponsablePlanilla, Banco } from 'src/app/demo/model/Empresa';
 
@@ -28,7 +30,8 @@ import {
     validarDNI,
     aMayusculas
 } from 'src/app/demo/components/utilities/funciones_utilitarias';
-
+import { BreadcrumbService } from '../../service/breadcrumb.service';
+import { RouterModule } from '@angular/router';
 @Component({
     selector: 'app-empresa',
     standalone: true,
@@ -46,7 +49,9 @@ import {
         ToastModule,
         TooltipModule,
         ConfirmDialogModule,
-        ProgressSpinnerModule
+        ProgressSpinnerModule,
+        BreadcrumbModule,
+        RouterModule
     ],
     providers: [MessageService, ConfirmationService],
     templateUrl: './empresa.component.html',
@@ -55,7 +60,8 @@ import {
 
 export class EmpresaComponent implements OnInit {
 
-    @ViewChild('dt') dt: Table | undefined;
+   // @ViewChild('dt') dt: Table | undefined;
+   @ViewChild('dt') dt!: Table;
 
     empresa: Empresa = this.initForm();
 
@@ -67,6 +73,11 @@ export class EmpresaComponent implements OnInit {
     isViewMode: boolean = true;
     isAddMode: boolean = false;
     isEditMode: boolean = false;
+
+    home: MenuItem = { icon: 'pi pi-home', routerLink: '/home' };
+    breadcrumbItems: MenuItem[] = [];
+
+    items: any[] = [];
 
     // Opciones para combobox
     docTipos = [
@@ -141,12 +152,39 @@ export class EmpresaComponent implements OnInit {
     selectedEmpresa: Empresa | null = null;
 
     //constructor que inicializa los servicios
-    constructor(private messageService: MessageService, private confirmationService: ConfirmationService) { }
+    constructor(
+        private messageService: MessageService, 
+        private confirmationService: ConfirmationService,
+        private bS: BreadcrumbService) { }
 
     //metodo para inicializar
     ngOnInit(): void {
         // Carga inicial de datos simulados
         this.empresas = JSON.parse(JSON.stringify(this.currentEmpresas));
+
+        this.setEmpresaBreadcrumb('lista');
+        this.bS.currentBreadcrumbs$.subscribe((bc) => {
+            this.items = bc;
+        });
+    }
+
+    private setEmpresaBreadcrumb(accion: 'lista'|'nuevo'|'ver'|'editar') {
+        const labelFinal =
+        accion === 'lista' ? 'Empresa' :
+        accion === 'nuevo' ? 'Nuevo' :
+        accion === 'ver' ? 'Ver Detalle' : 'Editar';
+        
+        this.bS.setBreadcrumbs([
+            { icon: 'pi pi-home', routerLink: '/home' },
+            { label: 'Sistema' },
+            { label: 'Maestros' },
+            //{ label: 'Empresa', routerLink: '/home/maestros/empresa' },
+            {
+                label: 'Empresa',
+                command: () => this.cancelar() 
+            },
+            ...(accion === 'lista' ? [] : [{ label: labelFinal }])
+        ]);
     }
 
     private initForm(): Empresa {
@@ -205,6 +243,7 @@ export class EmpresaComponent implements OnInit {
     }
 
     agregarEmpresa(): void {
+        this.setEmpresaBreadcrumb('nuevo');
         // Establece el modo a Agregar
         this.isViewMode = false;
         this.isAddMode = true;
@@ -215,6 +254,8 @@ export class EmpresaComponent implements OnInit {
     }
 
     editarEmpresa(empresa: Empresa): void {
+        this.setEmpresaBreadcrumb('editar');
+
         if (empresa) {
             // Establece el modo a Editar
             this.isViewMode = false;
@@ -229,6 +270,8 @@ export class EmpresaComponent implements OnInit {
     
 
     vistaPrevia(empresa: Empresa): void {
+        this.setEmpresaBreadcrumb('ver');
+
         if (empresa) {
             // Carga los datos de la empresa seleccionada al formulario
             this.empresa = JSON.parse(JSON.stringify(empresa));
@@ -272,6 +315,7 @@ export class EmpresaComponent implements OnInit {
     }
     cancelar(): void {
         this.refrescarEmpresa();
+        this.setEmpresaBreadcrumb('lista');
     }
 
 
@@ -395,4 +439,15 @@ export class EmpresaComponent implements OnInit {
             this.loading = false;
         }, 1000); 
     }
+
+    onGlobalFilter(event: Event) {
+        const value = (event.target as HTMLInputElement).value;
+        this.dt.filterGlobal(value, 'contains');
+    }
+
+    onRucFilter(event: Event) {
+        const value = (event.target as HTMLInputElement).value;
+        this.dt.filter(value, 'ruc', 'contains');
+    }
+
 }

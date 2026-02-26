@@ -24,6 +24,8 @@ import {
   esVacio,
   aMayusculas
 } from 'src/app/demo/components/utilities/funciones_utilitarias';
+import { BreadcrumbService } from '../../service/breadcrumb.service';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 
 @Component({
   selector: 'app-establecimiento',
@@ -43,6 +45,7 @@ import {
     ToastModule,
     TooltipModule,
     ConfirmDialogModule,
+    BreadcrumbModule,
   ],
   providers: [MessageService, ConfirmationService],
   templateUrl: './cargo.component.html',
@@ -80,11 +83,27 @@ export class CargoComponent implements OnInit {
 
   selectedCargo: Cargo | null = null;
 
-  constructor(private messageService: MessageService, private confirmationService: ConfirmationService) { }
+  items: any[] = [];
+
+  constructor(
+    private messageService: MessageService, 
+    private confirmationService: ConfirmationService,
+    private bS: BreadcrumbService) { }
 
   ngOnInit(): void {
     // Carga inicial de datos simulados
     this.cargos = JSON.parse(JSON.stringify(this.currentCargos));
+
+    this.bS.setBreadcrumbs([
+      { icon: 'pi pi-home', routerLink: '/home' },
+      { label: 'Sistema' },
+      { label: 'Maestros'}, 
+      { label: 'Cargo', routerLink: '/home/maestros/cargo' },
+    ]);
+
+    this.bS.currentBreadcrumbs$.subscribe((bc) => {
+      this.items = bc;
+    });
   }
 
   private initializeCargo(): Cargo {

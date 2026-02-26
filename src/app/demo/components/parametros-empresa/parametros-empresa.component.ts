@@ -24,6 +24,8 @@ import { ParametroEmpresaService } from '../../service/parametro-empresa.service
 
 import { verMensajeInformativo } from '../utilities/funciones_utilitarias';
 
+import { BreadcrumbService } from '../../service/breadcrumb.service';
+
 @Component({
   selector: 'app-parametros-empresa',
   standalone: true,
@@ -56,7 +58,8 @@ export class ParametrosEmpresaComponent implements OnInit {
         //private bS: BreadcrumbService,
         private router: Router,
         //private globalService: GlobalService,
-        private messageService: MessageService
+        private messageService: MessageService,
+        private bS: BreadcrumbService
       ) {
 
     }
@@ -72,6 +75,17 @@ export class ParametrosEmpresaComponent implements OnInit {
         })*/
         this.initForm()
         this.cargarParametrosxEmpresa()
+        
+        this.bS.setBreadcrumbs([
+            { icon: 'pi pi-home', routerLink: '/home' },
+            { label: 'Sistema' },
+            { label: 'Maestros'}, 
+            { label: 'Parámetros por Empresa', routerLink: '/home/maestros/parametros-empresa' },
+        ]);
+        
+        this.bS.currentBreadcrumbs$.subscribe((bc) => {
+            this.items = bc;
+        });
     }
 
 

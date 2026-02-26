@@ -29,7 +29,7 @@ import { TrabajadorService } from 'src/app/demo/service/trabajador.service';
 import { verMensajeInformativo } from '../../utilities/funciones_utilitarias';
 import { RegimenesPensionariosComponent } from '../regimenes-pensionarios/regimenes-pensionarios.component';
 import { RemuneracionesComponent } from '../remuneraciones/remuneraciones.component';
-
+import { BreadcrumbService } from 'src/app/demo/service/breadcrumb.service';
 @Component({
   standalone: true,
   selector: 'app-trabajador-detalle',
@@ -57,7 +57,7 @@ import { RemuneracionesComponent } from '../remuneraciones/remuneraciones.compon
     RegimenesPensionariosComponent,
     RemuneracionesComponent,
   ],
-  providers: [MessageService, ConfirmationService]
+  providers: [MessageService, ConfirmationService,BreadcrumbService]
 })
 export class TrabajadorDetalleComponent implements OnInit{
   trabajadorForm: FormGroup = this.fb.group({
@@ -187,13 +187,16 @@ export class TrabajadorDetalleComponent implements OnInit{
   displayBusquedaRegLaboralDialog: boolean = false;
   displayBusquedaTipoDocumentoDialog: boolean = false;
 
+  items: any[] = [];
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private fb: FormBuilder,
-    private trabajadorService: TrabajadorService
+    private trabajadorService: TrabajadorService,
+    private bS: BreadcrumbService
   ) {
   }
 
@@ -340,7 +343,33 @@ export class TrabajadorDetalleComponent implements OnInit{
 
     const empresaId = this.route.snapshot.paramMap.get('empresaId'); // Obtiene el ID de la empresa
     const empleadoId = this.route.snapshot.paramMap.get('empleadoId'); // Obtiene el ID del empleado
+
+    const esNuevo = !empresaId && !empleadoId;
+
     let modo = this.route.snapshot.queryParamMap.get('modo'); // Obtiene el modo (ver/editar/crear)
+
+   if (esNuevo) {
+    modo = 'nuevo';
+  } else if (!modo) {
+    modo = 'ver';
+  }
+
+  let labelFinal = 'Detalle';
+  if (modo === 'nuevo') labelFinal = 'Nuevo';
+  else if (modo === 'ver') labelFinal = 'Ver';
+  else if (modo === 'editar') labelFinal = 'Editar';
+
+    this.bS.setBreadcrumbs([
+      { icon: 'pi pi-home', routerLink: '/home' },
+      { label: 'Sistema' },
+      { label: 'Maestros' },
+      { label: 'Trabajador', routerLink: '/home/maestros/trabajador' },
+      { label: labelFinal }
+    ]);
+
+    this.bS.currentBreadcrumbs$.subscribe((bc) => {
+      this.items = bc;
+    });
 
     console.log('Modo recibido:', modo);
 

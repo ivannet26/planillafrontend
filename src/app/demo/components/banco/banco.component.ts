@@ -11,7 +11,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { PanelModule } from 'primeng/panel';
-
+import { BreadcrumbService } from '../../service/breadcrumb.service';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 // Importar las interfaces desde el archivo de modelo
 import { Banco, BancoView } from 'src/app/demo/model/Banco';
 
@@ -28,7 +29,8 @@ import { Banco, BancoView } from 'src/app/demo/model/Banco';
     CheckboxModule,
     ConfirmDialogModule,
     ToastModule,
-    PanelModule
+    PanelModule,
+    BreadcrumbModule,
   ],
   providers: [ConfirmationService, MessageService],
   templateUrl: './banco.component.html',
@@ -41,13 +43,27 @@ export class BancoComponent implements OnInit {
   originalBanco: BancoView | null = null;
   globalFilterValue: string = '';
 
+  items: any[] = [];
+
   constructor(
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private bS: BreadcrumbService
   ) {}
 
   ngOnInit() {
     this.loadBancos();
+
+    this.bS.setBreadcrumbs([
+      { icon: 'pi pi-home', routerLink: '/home' },
+      { label: 'Sistema' },
+      { label: 'Maestros'}, 
+      { label: 'Banco', routerLink: '/home/maestros/banco' },
+    ]);
+
+    this.bS.currentBreadcrumbs$.subscribe((bc) => {
+      this.items = bc;
+    });
   }
 
   loadBancos() {

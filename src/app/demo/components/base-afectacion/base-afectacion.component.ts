@@ -11,7 +11,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { PanelModule } from 'primeng/panel';
-
+import { BreadcrumbService } from '../../service/breadcrumb.service';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 // Importar las interfaces desde el archivo de modelo
 import { BaseAfectacion, BaseAfectacionView } from 'src/app/demo/model/BaseAfectacion';
 
@@ -28,7 +29,8 @@ import { BaseAfectacion, BaseAfectacionView } from 'src/app/demo/model/BaseAfect
     CheckboxModule,
     ConfirmDialogModule,
     ToastModule,
-    PanelModule
+    PanelModule,
+    BreadcrumbModule
   ],
   providers: [ConfirmationService, MessageService],
   templateUrl: './base-afectacion.component.html',
@@ -40,13 +42,27 @@ export class BaseAfectacionComponent implements OnInit {
   basesAfectacion: BaseAfectacionView[] = [];
   originalBase: BaseAfectacionView | null = null;
 
+  items: any[] = [];
+
   constructor(
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private bS: BreadcrumbService,
   ) {}
 
   ngOnInit() {
     this.loadBasesAfectacion();
+
+    this.bS.setBreadcrumbs([
+      { icon: 'pi pi-home', routerLink: '/home' },
+      { label: 'Sistema' },
+      { label: 'Maestros'}, 
+      { label: 'Base de Afectación', routerLink: '/home/maestros/base-afectacion' },
+    ]);
+
+    this.bS.currentBreadcrumbs$.subscribe((bc) => {
+      this.items = bc;
+    });
   }
 
   loadBasesAfectacion() {

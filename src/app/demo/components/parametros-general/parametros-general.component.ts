@@ -30,6 +30,8 @@ import { ParametroGeneralService } from '../../service/parametro-general.service
 
 import { verMensajeInformativo } from '../utilities/funciones_utilitarias';
 
+import { BreadcrumbService } from '../../service/breadcrumb.service';
+
 @Component({
   selector: 'app-parametros-general',
   standalone: true,
@@ -64,6 +66,8 @@ export class ParametrosGeneralComponent implements OnInit {
   rowsPerPage: number = 10; // Numero de filas por página
   displayDialog: boolean = false;
 
+  items: any[] = [];
+
   constructor(
     private parametroGeneralService: ParametroGeneralService,
     private fb: FormBuilder,
@@ -71,7 +75,8 @@ export class ParametrosGeneralComponent implements OnInit {
     //private bS: BreadcrumbService,
     private router: Router,
     //private globalService: GlobalService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private bS: BreadcrumbService,
   ) {}
 
   ngOnInit(): void {
@@ -84,6 +89,17 @@ export class ParametrosGeneralComponent implements OnInit {
         })*/
     this.initForm();
     this.cargarParametrosGenerales();
+
+    this.bS.setBreadcrumbs([
+      { icon: 'pi pi-home', routerLink: '/home' },
+      { label: 'Sistema' },
+      { label: 'Maestros'}, 
+      { label: 'Parámetros Generales', routerLink: '/home/maestros/parametros-general' },
+    ]);
+
+    this.bS.currentBreadcrumbs$.subscribe((bc) => {
+      this.items = bc;
+    });
   }
 
   initForm() {

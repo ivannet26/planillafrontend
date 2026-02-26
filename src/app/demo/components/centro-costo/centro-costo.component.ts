@@ -24,6 +24,8 @@ import {
   esVacio,
   aMayusculas
 } from 'src/app/demo/components/utilities/funciones_utilitarias';
+import { BreadcrumbService } from '../../service/breadcrumb.service';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 
 @Component({
   selector: 'app-establecimiento',
@@ -43,6 +45,7 @@ import {
     ToastModule,
     TooltipModule,
     ConfirmDialogModule,
+    BreadcrumbModule,
   ],
   providers: [MessageService, ConfirmationService],
   templateUrl: './centro-costo.component.html',
@@ -80,11 +83,27 @@ export class CentroCostoComponent implements OnInit {
 
   selectedCentroCosto: CentroCosto | null = null;
 
-  constructor(private messageService: MessageService, private confirmationService: ConfirmationService) { }
+  items: any[] = [];
+
+  constructor(
+    private messageService: MessageService, 
+    private confirmationService: ConfirmationService,
+    private bS: BreadcrumbService) { }
 
   ngOnInit(): void {
     // Carga inicial de datos simulados
     this.centrosCosto = JSON.parse(JSON.stringify(this.currentCentrosCosto));
+
+    this.bS.setBreadcrumbs([
+      { icon: 'pi pi-home', routerLink: '/home' },
+      { label: 'Sistema' },
+      { label: 'Maestros'}, 
+      { label: 'Centro de Costo', routerLink: '/home/maestros/centro-costo' },
+    ]);
+
+    this.bS.currentBreadcrumbs$.subscribe((bc) => {
+      this.items = bc;
+    });
   }
 
   private initializeCentroCosto(): CentroCosto {

@@ -31,6 +31,7 @@ import { RegimenPensionario } from '../../model/RegimenPensionario';
 import { RegimenPensionarioService } from '../../service/regimen-pensionario.service';
 
 import { verMensajeInformativo } from '../utilities/funciones_utilitarias';
+import { BreadcrumbService } from '../../service/breadcrumb.service';
 
 @Component({
   selector: 'app-regimen-pensionario',
@@ -77,7 +78,8 @@ export class RegimenPensionarioComponent implements OnInit {
     //private bS: BreadcrumbService,
     private router: Router,
     //private globalService: GlobalService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private bS: BreadcrumbService
   ) {}
 
   ngOnInit(): void {
@@ -90,6 +92,17 @@ export class RegimenPensionarioComponent implements OnInit {
             })*/
     this.initForm();
     this.cargarRegimenesPensionarios();
+
+    this.bS.setBreadcrumbs([
+      { icon: 'pi pi-home', routerLink: '/home' },
+      { label: 'Sistema' },
+      { label: 'Maestros'}, 
+      { label: 'Régimen Pensionario', routerLink: '/home/maestros/regimen-pensionario' },
+    ]);
+
+    this.bS.currentBreadcrumbs$.subscribe((bc) => {
+      this.items = bc;
+    });
   }
 
   initForm() {

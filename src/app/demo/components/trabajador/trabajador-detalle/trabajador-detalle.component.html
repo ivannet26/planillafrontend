@@ -3,8 +3,9 @@
 
 
 <p-panel header="Trabajador Detalle " styleClass="shadow-xl rounded-xl mb-3">
-
-
+  <p-breadcrumb [model]="items" class="max-w-full"></p-breadcrumb>
+</p-panel>
+  <div class="shadow-xl rounded-xl surface-card px-4 py-4">
   <div class="button-group mx-1" style="display: flex; gap: 10px;">
 
     <button pButton type="button" label="Regresar" icon="pi pi-arrow-left" (click)="regresar()" class="p-button-secondary"></button>
@@ -664,7 +665,8 @@
       </p-tabView>
 
   </form>
-</p-panel>
+  </div>
+
 
 
 

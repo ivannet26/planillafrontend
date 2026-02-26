@@ -16,7 +16,7 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { DropdownModule } from 'primeng/dropdown';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { CheckboxModule } from 'primeng/checkbox';
-
+import { BreadcrumbService } from '../../service/breadcrumb.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 
 import { SubTipoPlanilla } from '../../model/SubTipoPlanilla';
@@ -57,7 +57,8 @@ export class SubTipoPlanillaComponent implements OnInit{
         //private bS: BreadcrumbService,
         private router: Router,
         //private globalService: GlobalService,
-        private messageService: MessageService
+        private messageService: MessageService,
+        private bS: BreadcrumbService
       ) {
 
     }
@@ -72,6 +73,16 @@ export class SubTipoPlanillaComponent implements OnInit{
         })*/
         this.initForm()
         this.cargarSubTipoPlanillas()
+
+        this.bS.setBreadcrumbs([
+          { icon: 'pi pi-home', routerLink: '/home' },
+          { label: 'Sistema' },
+          { label: 'SubTipo Planilla' },
+        ]);
+        
+        this.bS.currentBreadcrumbs$.subscribe((bc) => {
+          this.items = bc;
+        });
     }
 
 

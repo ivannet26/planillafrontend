@@ -25,12 +25,13 @@ import { PlantillaAsistenciaDetalle } from '../../model/PlantillaAsistenciaDetal
 import { PlantillaAsistenciaService } from '../../service/plantilla-asistencia.service';
 
 import { verMensajeInformativo } from '../utilities/funciones_utilitarias';
-
+import { BreadcrumbService } from '../../service/breadcrumb.service';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 @Component({
   selector: 'app-plantilla-asistencia',
   standalone: true,
   imports: [ToastModule, TableModule, ReactiveFormsModule, CommonModule, ButtonModule, DialogModule, CheckboxModule,
-        CardModule, InputTextModule, PanelModule, ConfirmDialogModule, FormsModule, DropdownModule],
+        CardModule, InputTextModule, PanelModule, ConfirmDialogModule, FormsModule, DropdownModule, BreadcrumbModule],
   templateUrl: './plantilla-asistencia.component.html',
   styleUrls: ['./plantilla-asistencia.component.css'],
   providers: [MessageService, ConfirmationService, EditableRow]
@@ -69,13 +70,25 @@ export class PlantillaAsistenciaComponent implements OnInit {
       private fb: FormBuilder,
       private router: Router,
       private messageService: MessageService,
-      private confirmationService: ConfirmationService
+      private confirmationService: ConfirmationService,
+      private bS: BreadcrumbService,
     ){}
 
     ngOnInit(): void{
       this.initForm();
       this.cargarPlantillaAsistencia();
       // construir mapa una sola vez
+
+      this.bS.setBreadcrumbs([
+        { icon: 'pi pi-home', routerLink: '/home' },
+        { label: 'Sistema' },
+        { label: 'Maestros'}, 
+        { label: 'Plantilla asistencia', routerLink: '/home/maestros/plantilla-asistencia' },
+      ]);
+      
+      this.bS.currentBreadcrumbs$.subscribe((bc) => {
+        this.items = bc;
+      });
     }
 
     initForm() {

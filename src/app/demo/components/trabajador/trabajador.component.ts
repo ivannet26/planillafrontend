@@ -39,6 +39,13 @@ import {
 import { TrabajadorService } from '../../service/trabajador.service';
 
 import { verMensajeInformativo } from '../utilities/funciones_utilitarias';
+import { BreadcrumbService } from '../../service/breadcrumb.service';
+
+type TrabajadorRow = Trabajador & {
+  apellidosynombres: string;
+  pla01centrocosto?: string;
+};
+
 @Component({
   selector: 'app-trabajador',
   standalone: true,
@@ -63,8 +70,10 @@ import { verMensajeInformativo } from '../utilities/funciones_utilitarias';
   ],
   templateUrl: './trabajador.component.html',
   styleUrls: ['./trabajador.component.css'],
-  providers: [MessageService, ConfirmationService],
+  providers: [MessageService, ConfirmationService, BreadcrumbService],
 })
+
+
 export class TrabajadorComponent implements OnInit {
   trabajadorForm: FormGroup = this.fb.group({
     pla01empresacod: ['', Validators.required],
@@ -100,7 +109,8 @@ export class TrabajadorComponent implements OnInit {
     tipdocdesc: [''],
   });
 
-  trabajadorList: Trabajador[] = []; //Quitar el = luego
+  //trabajadorList: Trabajador[] = []; //Quitar el = luego
+  trabajadorList: TrabajadorRow[] = [];
 
   rowsPerPage: number = 10; // Numero de filas por página
 
@@ -115,19 +125,41 @@ export class TrabajadorComponent implements OnInit {
   displayBusquedaRegLaboralDialog: boolean = false;
   displayBusquedaTipoDocumentoDialog: boolean = false;
 
+  importDialogVisible = false;
+  selectedFile: File | null = null;
+  importTrabajadores: any[] = [];
+  importRemuneraciones: any[] = [];
+  importErrores: any[] = [];
+
+  items: any[] = [];
+
   constructor(
     private trabajadorService: TrabajadorService,
     private fb: FormBuilder,
     private confirmationService: ConfirmationService,
     private router: Router,
     //private globalService: GlobalService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private bS: BreadcrumbService
   ) {}
 
   ngOnInit(): void {
     this.initForm();
     this.cargarTrabajadores();
+
+    this.bS.setBreadcrumbs([
+      { icon: 'pi pi-home', routerLink: '/home' },
+      { label: 'Sistema' },
+      { label: 'Maestros' },
+      { label: 'Trabajador', routerLink: '/home/maestros/trabajador' },
+
+    ]);
+
+    this.bS.currentBreadcrumbs$.subscribe((bc) => {
+      this.items = bc;
+    });
   }
+
 
   // Por la complejidad del formulario, usaremos formarrays
   initForm() {
@@ -546,4 +578,75 @@ export class TrabajadorComponent implements OnInit {
     eliminarRegimenPensionario(rowIndex: number) {
       this.trabajadorForm.value.regimenespensionarios.splice(rowIndex, 1);
     }*/
+
+
+    onFileSelected(event: any) {
+      this.selectedFile = event.target.files?.[0] ?? null;
+    }
+    
+    mockProcesar() {
+      this.importTrabajadores = [
+        { fila: 1, docTipo: '01', docNumero: '08680851', apePaterno: 'MARTINEZ', apeMaterno: 'GARCIA', nombres: 'JOEL ALBERTO', fechaNac: '08/12/1968', sexo: 'M', regimenLaboral: '01', fechaIngreso: '16/08/2025' }
+      ];
+      
+      this.importRemuneraciones = [
+        { fila: 1, docTipo: '01', docNumero: '08680851', concepto: '0001', importe: '3000.00' }
+      ];
+      this.importErrores = [];
+    }
+    
+    clearImportMock() {
+      this.selectedFile = null;
+      this.importTrabajadores = [];
+      this.importRemuneraciones = [];
+      this.importErrores = [];
+    }
+
+    guardarImportacionEnLista() {
+      const nuevos = this.importTrabajadores.map((t: any, idx: number) => {
+        const codigo = t.pla01empleadocod ?? this.generarCodigoTrabajador(idx);
+        
+        const apePaterno = t.apePaterno ?? '';
+        const apeMaterno = t.apeMaterno ?? '';
+        const nombres = t.nombres ?? '';
+
+        return {
+          pla01empresacod: '00004',
+          pla01empleadocod: codigo,
+          pla01planillacod: '',
+          pla01docuidentidadtipo: t.docTipo ?? '',
+          pla01docuidentidadnro: t.docNumero ?? '',
+          pla01apepaterno: apePaterno,
+          pla01apematerno: apeMaterno,
+          pla01nombre1: nombres,
+          pla01nombre2: '',
+          pla01direccion: t.direccion ?? '',
+          pla01fechanacimiento: t.fechaNac ? new Date(t.fechaNac) : new Date(0),
+          pla01telefono: t.telefono ?? '',
+          pla01fechaingreso: t.fechaIngreso ? new Date(t.fechaIngreso) : new Date(0),
+          pla01centrocostocod: t.centroCostoCod ?? '',
+          pla01fechacese: new Date(0),
+          pla01sexo: 'M',
+          pla01estado: 'A',
+          apellidosynombres: `${apePaterno} ${apeMaterno} ${nombres}`.trim(),
+          pla01centrocosto: t.centroCosto ?? '',
+          remuneraciones: [],
+          regimenespensionarios: [],
+          periodoslaborales: [],
+        } as TrabajadorRow;
+      });
+      
+      this.trabajadorList = [...this.trabajadorList, ...nuevos];
+      this.importDialogVisible = false;
+    }
+    
+    private generarCodigoTrabajador(idx: number): string {
+      const max = Math.max(
+        0,
+        ...(this.trabajadorList || []).map((x: any) => Number(x.pla01empleadocod ?? 0))
+      );
+      
+      const next = max + idx + 1;
+      return next.toString().padStart(6, '0');
+    }
 }

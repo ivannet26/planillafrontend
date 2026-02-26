@@ -3,7 +3,11 @@
     <p-confirmDialog></p-confirmDialog>
 
     <div class="mb-2">
-        <p-panel header="Centro costo" styleClass="custom-panel-header shadow-xl rounded-xl">
+        <p-panel header="Centro costo" styleClass="custom-panel-header shadow-xl rounded-xl mb-3">
+            <p-breadcrumb [model]="items" class="max-w-full"></p-breadcrumb>
+            </p-panel>
+            
+            <div class="shadow-xl rounded-full surface-card px-4 py-4">
             <div class="aligned-content-container">
                 <div class="mb-2">
                     <p-toolbar styleClass="bg-white border-none">
@@ -121,6 +125,6 @@
                     </p-table>
                 </div>
             </div>
-        </p-panel>
+            </div>
     </div>
 </div>

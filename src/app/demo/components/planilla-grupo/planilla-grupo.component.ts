@@ -10,7 +10,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { PanelModule } from 'primeng/panel';
-
+import { BreadcrumbService } from '../../service/breadcrumb.service';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 // Importar las interfaces desde el archivo de modelo
 import { PlanillaGrupo, PlanillaGrupoView, DropdownOption } from 'src/app/demo/model/PlanillaGrupo';
 
@@ -27,7 +28,8 @@ import { PlanillaGrupo, PlanillaGrupoView, DropdownOption } from 'src/app/demo/m
     DropdownModule,
     ConfirmDialogModule,
     ToastModule,
-    PanelModule
+    PanelModule,
+    BreadcrumbModule,
   ],
   providers: [ConfirmationService, MessageService],
   templateUrl: './planilla-grupo.component.html',
@@ -36,6 +38,8 @@ import { PlanillaGrupo, PlanillaGrupoView, DropdownOption } from 'src/app/demo/m
 export class PlanillaGrupoComponent implements OnInit {
   planillasGrupo: PlanillaGrupoView[] = [];
   originalPlanilla: PlanillaGrupoView | null = null;
+
+  items: any[] = [];
 
   // Opciones para los dropdowns
   tiposSueldo: DropdownOption[] = [
@@ -58,11 +62,23 @@ export class PlanillaGrupoComponent implements OnInit {
 
   constructor(
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private bS: BreadcrumbService,
   ) {}
 
   ngOnInit() {
     this.loadPlanillasGrupo();
+
+    this.bS.setBreadcrumbs([
+      { icon: 'pi pi-home', routerLink: '/home' },
+      { label: 'Sistema' },
+      { label: 'Maestros'}, 
+      { label: 'Planilla grupo', routerLink: '/home/maestros/planilla-grupo' },
+    ]);
+
+    this.bS.currentBreadcrumbs$.subscribe((bc) => {
+      this.items = bc;
+    });
   }
 
   loadPlanillasGrupo() {

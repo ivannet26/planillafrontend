@@ -24,7 +24,8 @@ import {
     esVacio,
     aMayusculas
 } from 'src/app/demo/components/utilities/funciones_utilitarias';
-
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { BreadcrumbService } from '../../service/breadcrumb.service';
 @Component({
     selector: 'app-establecimiento',
     standalone: true,
@@ -43,6 +44,7 @@ import {
         ToastModule,
         TooltipModule,
         ConfirmDialogModule,
+        BreadcrumbModule,
     ],
     providers: [MessageService, ConfirmationService],
     templateUrl: './establecimiento.component.html',
@@ -63,6 +65,8 @@ export class EstablecimientoComponent implements OnInit {
     isEditMode: boolean = false;
 
     editingEstablecimiento: Establecimiento | null = null;
+
+    items: any[] = [];
 
     // Opciones para combobox - tipo establecimiento
     tipoOptions = [
@@ -94,11 +98,22 @@ export class EstablecimientoComponent implements OnInit {
 
     selectedEstablecimiento: Establecimiento | null = null;
 
-    constructor(private messageService: MessageService, private confirmationService: ConfirmationService) { }
+    constructor(private messageService: MessageService, private confirmationService: ConfirmationService, private bS: BreadcrumbService) { }
 
     ngOnInit(): void {
         // Carga inicial de datos simulados
         this.establecimientos = JSON.parse(JSON.stringify(this.currentEstablecimientos));
+
+        this.bS.setBreadcrumbs([
+            { icon: 'pi pi-home', routerLink: '/home' },
+            { label: 'Sistema' },
+            { label: 'Maestros', routerLink: '/home/maestros/empresa' }, 
+            { label: 'Establecimiento', routerLink: '/home/maestros/establecimiento' },
+        ]);
+        
+        this.bS.currentBreadcrumbs$.subscribe((bc) => {
+            this.items = bc;
+        });
     }
 
     private initializeEstablecimiento(): Establecimiento {

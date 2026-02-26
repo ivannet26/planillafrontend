@@ -38,6 +38,7 @@ import {
 import { ConceptoService } from '../../service/concepto.service';
 
 import { verMensajeInformativo } from '../utilities/funciones_utilitarias';
+import { BreadcrumbService } from '../../service/breadcrumb.service';
 
 @Component({
   selector: 'app-concepto',
@@ -60,7 +61,7 @@ import { verMensajeInformativo } from '../utilities/funciones_utilitarias';
   ],
   templateUrl: './concepto.component.html',
   styleUrls: ['./concepto.component.css'],
-  providers: [MessageService, ConfirmationService, EditableRow],
+  providers: [MessageService, ConfirmationService, EditableRow,BreadcrumbService],
 })
 export class ConceptoComponent implements OnInit {
   conceptoForm: FormGroup = this.fb.group({}); //Quitar el = luego
@@ -93,6 +94,7 @@ export class ConceptoComponent implements OnInit {
   conceptosEstandar: { codigo: string; descripcion: string }[] = []; // Lista de conceptos estándar
 
 
+  items: any[] = [];
 
   constructor(
     private conceptoService: ConceptoService,
@@ -101,7 +103,8 @@ export class ConceptoComponent implements OnInit {
     //private bS: BreadcrumbService,
     private router: Router,
     //private globalService: GlobalService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private bS: BreadcrumbService,
   ) {}
 
   ngOnInit(): void {
@@ -114,6 +117,18 @@ export class ConceptoComponent implements OnInit {
               })*/
     this.initForm();
     this.cargarConceptos();
+
+     this.bS.setBreadcrumbs([
+      { icon: 'pi pi-home', routerLink: '/home' },
+      { label: 'Sistema' },
+      { label: 'Maestros' },
+      { label: 'Concepto', routerLink: '/home/maestros/concepto' },
+
+    ]);
+
+    this.bS.currentBreadcrumbs$.subscribe((bc) => {
+      this.items = bc;
+    });
   }
 
   initForm() {

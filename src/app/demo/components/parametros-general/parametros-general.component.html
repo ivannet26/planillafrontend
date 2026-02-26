@@ -3,8 +3,11 @@
 
 <div class="p-1 py-5 max-h-screen">
     <p-panel header="Parámetros Generales" styleClass="shadow-xl rounded-xl mb-3">
-
+        <p-breadcrumb [model]="items" class="max-w-full"></p-breadcrumb>
+        </p-panel>
+        
       <div class="card">
+        <div class="shadow-xl rounded-full surface-card px-4 py-4">
           <!-- Botón Nuevo y Dropdown Filas por Página -->
           <div class="flex justify-content-between align-items-center mb-3">
               <button type="button" pButton icon="pi pi-plus" label="Nuevo Parámetro"
@@ -477,5 +480,5 @@
               </ng-template>
           </p-table>
       </div>
-    </p-panel>
+      </div>
 </div>
