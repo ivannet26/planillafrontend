@@ -62,3 +62,206 @@
 }
 
 
+:host ::ng-deep .header-large .p-panel-header {
+  display: none !important;
+}
+
+:host ::ng-deep .header-large .p-panel-content {
+  border-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+:host ::ng-deep .toolbar-clean {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+.asistencia-content {
+  padding: 1.5rem 1.25rem 0 1.25rem;
+}
+
+::ng-deep .asistencia-table {
+  width: fit-content;
+  max-width: 100%;
+}
+
+::ng-deep .asistencia-table table {
+  border-collapse: collapse;
+  width: auto !important;
+  table-layout: auto;
+}
+
+:host ::ng-deep .align-to-table {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  width: 100%;
+}
+
+:host ::ng-deep .content-wrapper {
+  overflow-x: auto;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.asistencia-content {
+  padding: 1rem 1rem 0 1rem;
+}
+
+:host ::ng-deep .p-panel .p-panel-header {
+  font-size: 15px !important;
+  padding: 0.85rem 1rem !important;
+}
+
+:host ::ng-deep .p-panel .p-panel-content {
+  padding: 0.8rem 1rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb {
+  font-size: 12px !important;
+  padding: 0.5rem 0.75rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb .p-menuitem-link {
+  padding: 0 !important;
+  gap: 0.35rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb .pi {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .p-breadcrumb .p-breadcrumb-chevron {
+  font-size: 11px !important;
+}
+
+:host ::ng-deep .toolbar-clean {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+:host ::ng-deep .p-toolbar {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .p-toolbar .p-button {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .p-toolbar .p-button-sm {
+  height: 34px !important;
+  padding: 0 0.85rem !important;
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .p-toolbar .p-button .p-button-icon,
+:host ::ng-deep .p-toolbar .p-button .p-button-label {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .p-toolbar .p-toolbar-group-end {
+  gap: 0.5rem !important;
+}
+
+:host ::ng-deep .p-toolbar .text-sm {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .dropdown-periodo-fijo .p-dropdown {
+  width: 240px !important;
+  height: 34px !important;
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .dropdown-periodo-fijo .p-dropdown-label {
+  display: flex !important;
+  align-items: center !important;
+  height: 34px !important;
+  font-size: 12px !important;
+  padding: 0 0.65rem !important;
+}
+
+:host ::ng-deep .dropdown-periodo-fijo .p-dropdown-trigger {
+  width: 32px !important;
+}
+
+:host ::ng-deep .asistencia-table .p-datatable-thead > tr > th {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  padding: 0.6rem 0.7rem !important;
+  text-align: center;
+}
+
+:host ::ng-deep .asistencia-table .p-datatable-tbody > tr > td {
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  padding: 0.55rem 0.7rem !important;
+  vertical-align: middle;
+}
+
+:host ::ng-deep .asistencia-table .p-paginator {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .asistencia-table .p-paginator .p-paginator-pages .p-paginator-page,
+:host ::ng-deep .asistencia-table .p-paginator .p-dropdown,
+:host ::ng-deep .asistencia-table .p-paginator .p-dropdown-label {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .input-dias-asistencia {
+  height: 30px !important;
+  font-size: 12px !important;
+  padding: 0.2rem 0.35rem !important;
+}
+
+:host ::ng-deep .asistencia-table input[type="number"] {
+  height: 30px !important;
+  font-size: 12px !important;
+}
+
+::ng-deep .p-tooltip .p-tooltip-text {
+  font-size: 11px !important;
+  padding: 0.3rem 0.45rem !important;
+  line-height: 1.15 !important;
+}
+
+::ng-deep .p-tooltip {
+  max-width: 160px !important;
+}
+
+::ng-deep .p-tooltip .p-tooltip-arrow {
+  transform: scale(0.8);
+}
+
+body .dropdown-inasistencia-panel {
+  min-width: 240px !important;
+  max-width: 280px !important;
+  font-size: 12px !important;
+}
+
+body .dropdown-inasistencia-panel .p-dropdown-items {
+  padding: 0.25rem 0 !important;
+}
+
+body .dropdown-inasistencia-panel .p-dropdown-item {
+  font-size: 12px !important;
+  padding: 0.45rem 0.7rem !important;
+  min-height: 32px !important;
+}
+
+
+
+body .dropdown-periodo-panel {
+  width: 240px !important;
+  min-width: 240px !important;
+  max-width: 240px !important;
+  font-size: 12px !important;
+}
+
+body .dropdown-periodo-panel .p-dropdown-items-wrapper {
+  overflow-x: hidden !important;
+}

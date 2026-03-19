@@ -81,6 +81,9 @@ export class RegimenesPensionariosComponent implements OnInit {
     // Lista de tipos de regimenes pensionarios
     tiposRegimenesPensionarios: { codigo: string; descripcion: string, clase: string, afpcod: string }[] = [];
 
+    regimenSeleccionado: RegimenPensionario | null = null;
+    editingRowIndex: number | null = null;
+
     constructor(
       private fb: FormBuilder,
       private messageService: MessageService,
@@ -167,12 +170,10 @@ export class RegimenesPensionariosComponent implements OnInit {
           delete this.clonedRegimenesPensionarios[rowIndex];
           this.isEditingAnyRow = false;
           this.editingRegimenPensionario = null;
+          this.editingRowIndex = null;
 
           // Habilitar todas las filas
           this.regimenespensionarios.controls.forEach((control) => control.enable());
-
-          this.editingRegimenPensionario = null;
-          this.isEditingAnyRow = false;
 
           // Mostrar mensaje de éxito
           verMensajeInformativo(
@@ -224,7 +225,8 @@ export class RegimenesPensionariosComponent implements OnInit {
       // Restablecer el estado de edición
       this.isEditingAnyRow = false;
       this.editingRegimenPensionario = null;
-
+      this.editingRowIndex = null;
+      
       // Habilitar todas las filas
       this.regimenespensionarios.controls.forEach((control) => control.enable());
 
@@ -430,4 +432,41 @@ export class RegimenesPensionariosComponent implements OnInit {
       console.log('FormArray:', this.regimenespensionarios.value);
       console.log('Lista:', this.regimenesPensionariosLista);
     }
+
+    editarRegimenSeleccionado(): void {
+  if (!this.regimenSeleccionado) return;
+
+  const rowIndex = this.regimenesPensionariosLista.findIndex(
+    r => r.pla31regpensionariocod === this.regimenSeleccionado?.pla31regpensionariocod
+  );
+
+  if (rowIndex === -1) return;
+
+  this.clonedRegimenesPensionarios[rowIndex] = { ...this.regimenesPensionariosLista[rowIndex] };
+  this.editingRegimenPensionario = { ...this.regimenesPensionariosLista[rowIndex] };
+  this.editingRowIndex = rowIndex;
+  this.isEditingAnyRow = true;
+}
+
+eliminarRegimenSeleccionado(): void {
+  if (!this.regimenSeleccionado) return;
+
+  const rowIndex = this.regimenesPensionariosLista.findIndex(
+    r => r.pla31regpensionariocod === this.regimenSeleccionado?.pla31regpensionariocod
+  );
+
+  if (rowIndex === -1) return;
+
+  this.onDelete(this.regimenSeleccionado, rowIndex);
+}
+
+guardarEdicionSeleccionada(): void {
+  if (this.editingRowIndex === null) return;
+  this.onRowEditSave(this.editingRowIndex);
+}
+
+cancelarEdicionSeleccionada(): void {
+  if (this.editingRowIndex === null) return;
+  this.onRowEditCancel(this.editingRowIndex);
+}
 }

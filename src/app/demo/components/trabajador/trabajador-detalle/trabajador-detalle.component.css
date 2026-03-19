@@ -1,0 +1,284 @@
+
+:host ::ng-deep .trabajador-detalle-header-panel {
+  margin-bottom: 1rem !important;
+}
+
+:host ::ng-deep .p-panel .p-panel-header {
+  font-size: 15px !important;
+  padding: 0.85rem 1rem !important;
+}
+
+:host ::ng-deep .p-panel .p-panel-content {
+  padding: 0.9rem 1rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb {
+  font-size: 12px !important;
+  padding: 0.5rem 0.75rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb .p-menuitem-link {
+  padding: 0 !important;
+  gap: 0.35rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb .pi {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .p-breadcrumb .p-breadcrumb-chevron {
+  font-size: 11px !important;
+}
+
+
+
+.trabajador-detalle-container {
+  padding: 1rem 1rem 0.9rem 1rem !important;
+}
+
+
+/* botones */
+.button-group {
+  margin-bottom: 0.9rem;
+}
+
+:host ::ng-deep .detalle-btn.p-button {
+  height: 34px !important;
+  font-size: 12px !important;
+  padding: 0 0.85rem !important;
+  border-radius: 8px !important;
+}
+
+:host ::ng-deep .detalle-btn .p-button-icon,
+:host ::ng-deep .detalle-btn .p-button-label {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .detalle-btn .p-button-label {
+  font-weight: 600 !important;
+}
+
+
+
+.grid {
+  gap: 0.75rem !important;
+}
+
+.mb-3 {
+  margin-bottom: 0.85rem !important;
+}
+
+.mt-3 {
+  margin-top: 0.85rem !important;
+}
+
+.mx-1 {
+  margin-left: 0.25rem !important;
+  margin-right: 0.25rem !important;
+}
+
+
+/* label*/
+label {
+  display: inline-block;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  margin-bottom: 0.3rem !important;
+  color: #374151;
+}
+
+
+:host ::ng-deep input[pInputText],
+:host ::ng-deep .p-inputtext,
+:host ::ng-deep .p-dropdown,
+:host ::ng-deep .p-calendar .p-inputtext {
+  height: 34px !important;
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .p-inputtext {
+  padding: 0.45rem 0.6rem !important;
+}
+
+:host ::ng-deep .p-dropdown .p-dropdown-label {
+  font-size: 12px !important;
+  line-height: 34px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+:host ::ng-deep .p-dropdown .p-dropdown-trigger,
+:host ::ng-deep .p-calendar .p-datepicker-trigger {
+  width: 34px !important;
+}
+
+
+
+:host ::ng-deep .p-radiobutton .p-radiobutton-box {
+  width: 16px !important;
+  height: 16px !important;
+}
+
+:host ::ng-deep .p-radiobutton .p-radiobutton-icon {
+  width: 8px !important;
+  height: 8px !important;
+}
+
+:host ::ng-deep .p-checkbox .p-checkbox-box {
+  width: 16px !important;
+  height: 16px !important;
+}
+
+:host ::ng-deep .p-checkbox .p-checkbox-icon {
+  font-size: 10px !important;
+}
+
+:host ::ng-deep .p-radiobutton + label,
+:host ::ng-deep .p-checkbox + label {
+  font-size: 12px !important;
+}
+
+
+:host ::ng-deep .p-tabview .p-tabview-nav li .p-tabview-nav-link {
+  font-size: 12px !important;
+  padding: 0.7rem 0.9rem !important;
+}
+
+:host ::ng-deep .p-tabview .p-tabview-panels {
+  padding: 0.9rem !important;
+}
+
+
+.p-4 {
+  padding: 0.9rem !important;
+}
+
+.p-3 {
+  padding: 0.75rem !important;
+}
+
+.p-2 {
+  padding: 0.65rem !important;
+}
+
+.gap-4 {
+  gap: 0.85rem !important;
+}
+
+.gap-3 {
+  gap: 0.75rem !important;
+}
+
+
+@media (max-width: 992px) {
+  .trabajador-detalle-container {
+    padding: 0.85rem !important;
+  }
+
+  :host ::ng-deep .p-tabview .p-tabview-nav li .p-tabview-nav-link,
+  label,
+  :host ::ng-deep .p-inputtext,
+  :host ::ng-deep .p-dropdown .p-dropdown-label {
+    font-size: 11.5px !important;
+  }
+}
+
+/* dialogs */
+:host ::ng-deep .trabajador-busqueda-dialog {
+  width: 800px;
+  max-width: 92vw;
+}
+
+:host ::ng-deep .trabajador-busqueda-dialog .p-dialog-header {
+  padding: 0.75rem 0.9rem !important;
+}
+
+:host ::ng-deep .trabajador-busqueda-dialog .p-dialog-title {
+  font-size: 14px !important;
+  font-weight: 600 !important;
+}
+
+:host ::ng-deep .trabajador-busqueda-dialog .p-dialog-header-icon {
+  width: 30px !important;
+  height: 30px !important;
+}
+
+:host ::ng-deep .trabajador-busqueda-dialog .p-dialog-header-icon .pi {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .trabajador-busqueda-dialog .p-dialog-content {
+  padding: 0.8rem 0.9rem !important;
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .trabajador-busqueda-dialog .p-dialog-footer {
+  padding: 0.7rem 0.9rem !important;
+}
+
+/* Botón */
+:host ::ng-deep .trabajador-busqueda-dialog .p-dialog-footer .p-button {
+  height: 34px !important;
+  font-size: 12px !important;
+  padding: 0 0.85rem !important;
+  border-radius: 8px !important;
+}
+
+:host ::ng-deep .trabajador-busqueda-dialog .p-dialog-footer .p-button .p-button-icon,
+:host ::ng-deep .trabajador-busqueda-dialog .p-dialog-footer .p-button .p-button-label {
+  font-size: 12px !important;
+}
+
+
+:host ::ng-deep .trabajador-busqueda-dialog .p-datatable .p-datatable-thead > tr > th {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  padding: 0.5rem 0.65rem !important;
+  line-height: 1.2 !important;
+}
+
+:host ::ng-deep .trabajador-busqueda-dialog .p-datatable .p-datatable-tbody > tr > td {
+  font-size: 12px !important;
+  padding: 0.45rem 0.65rem !important;
+  line-height: 1.25 !important;
+  vertical-align: middle !important;
+}
+
+:host ::ng-deep .trabajador-busqueda-dialog .p-datatable .p-datatable-wrapper {
+  border-radius: 8px;
+}
+
+
+:host ::ng-deep .trabajador-busqueda-dialog .p-datatable-scrollable-body {
+  font-size: 12px !important;
+}
+
+
+:host ::ng-deep .trabajador-busqueda-dialog .p-datatable .p-datatable-tbody > tr {
+  cursor: pointer;
+}
+
+/* Hover */
+:host ::ng-deep .trabajador-busqueda-dialog .p-datatable .p-datatable-tbody > tr:hover > td {
+  background: #f8fafc !important;
+}
+
+
+@media (max-width: 768px) {
+  :host ::ng-deep .trabajador-busqueda-dialog {
+    width: 95vw !important;
+  }
+
+  :host ::ng-deep .trabajador-busqueda-dialog .p-dialog-header,
+  :host ::ng-deep .trabajador-busqueda-dialog .p-dialog-content,
+  :host ::ng-deep .trabajador-busqueda-dialog .p-dialog-footer {
+    padding-left: 0.8rem !important;
+    padding-right: 0.8rem !important;
+  }
+
+  :host ::ng-deep .trabajador-busqueda-dialog .p-dialog-title,
+  :host ::ng-deep .trabajador-busqueda-dialog .p-datatable .p-datatable-thead > tr > th,
+  :host ::ng-deep .trabajador-busqueda-dialog .p-datatable .p-datatable-tbody > tr > td {
+    font-size: 11.5px !important;
+  }
+}

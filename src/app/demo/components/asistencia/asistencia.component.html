@@ -1,10 +1,15 @@
 <p-toast></p-toast>
 <p-confirmDialog></p-confirmDialog>
 
-<p-panel header="Asistencia de Personal" styleClass="shadow-xl rounded-lg">
-    <div class="content-wrapper">
-        <p-toolbar styleClass="mb-4 surface-200 border-round-lg shadow-1 align-to-table">
+<p-panel header="Asistencia" styleClass="shadow-xl rounded-xl mb-3">
+    <p-breadcrumb [model]="items" class="max-w-full"></p-breadcrumb>
+  </p-panel>
+
+<p-panel styleClass="shadow-xl rounded-lg header-large">
+    <div class="content-wrapper asistencia-content">
+        <p-toolbar styleClass="mb-4 toolbar-clean align-to-table">
             <div class="flex justify-center gap-3">
+                <!--
                 <button pButton pRipple icon="pi pi-trash" class="p-button-info p-button-sm" (click)="limpiarDias()"
                     pTooltip="Limpiar" tooltipPosition="bottom">
                 </button>
@@ -16,26 +21,64 @@
                 <button pButton pRipple icon="pi pi-times" class="p-button-info p-button-sm" (click)="cerrarVista()"
                     pTooltip="Cancelar" tooltipPosition="bottom">
                 </button>
+                -->
 
                 <!-- Botón Vista Previa -->
-                <button pButton pRipple icon="pi pi-search" class="p-button-sm" (click)="vistaPreviaGeneral()"
+                <button pButton pRipple icon="pi pi-search" label="Vista Previa" class="p-button-sm" (click)="vistaPreviaGeneral()"
                     pTooltip="Vista Previa" tooltipPosition="bottom">
                 </button>
+
+                <button
+                pButton
+                pRipple
+                icon="pi pi-save"
+                class="p-button-sm toolbar-icon-button"
+                pTooltip="Guardar todo"
+                (click)="guardarTodosLosCambios()"
+                tooltipPosition="bottom">
+            </button>
+
+            <button
+                pButton
+                pRipple
+                icon="pi pi-trash"
+                class="p-button-sm toolbar-icon-button p-button-danger"
+                [disabled]="!selectedEmpleado"
+                pTooltip="Eliminar seleccionado"
+                (click)="eliminarSeleccionado()"
+                [disabled]="!selectedEmpleado"
+                tooltipPosition="bottom">
+            </button>
             </div>
             <div class="p-toolbar-group-start flex flex-wrap gap-3 ">
             </div>
 
             <div class="p-toolbar-group-end flex flex-wrap items-center space-x-2">
                 <span class="text-sm font-semibold whitespace-nowrap px-2">Período Pago:</span>
-                <p-dropdown [options]="periodoPagoOptions" [(ngModel)]="selectedPeriodoPago" optionLabel="label"
-                    optionValue="value" placeholder="Seleccionar Período" styleClass="w-64" (onChange)="loadEmpleados()"
-                    class="mr-2 dropdown-periodo-fijo">
+                <p-dropdown 
+                [options]="periodoPagoOptions" 
+                [(ngModel)]="selectedPeriodoPago" 
+                appendTo="body" 
+                optionLabel="label"
+                optionValue="value" 
+                placeholder="Seleccionar Período" 
+                (onChange)="loadEmpleados()"
+                class="mr-2 dropdown-periodo-fijo" 
+                panelStyleClass="dropdown-periodo-panel">
                 </p-dropdown>
             </div>
         </p-toolbar>
 
-        <p-table #dt [value]="empleados" [paginator]="true" [rows]="rowsPerPage" [totalRecords]="totalDias"
-            (onPage)="onPageChange($event)" dataKey="pla01empleadocod" [rowsPerPageOptions]="[5, 10, 20, 50]"
+        <p-table #dt 
+        [value]="empleados" 
+        [(selection)]="selectedEmpleado"
+        selectionMode="single"
+        [paginator]="true" 
+        [rows]="rowsPerPage" 
+        [totalRecords]="totalDias"
+            (onPage)="onPageChange($event)" 
+            dataKey="pla01empleadocod" 
+            [rowsPerPageOptions]="[5, 10, 20, 50]"
             [paginatorDropdownAppendTo]="'body'"
             styleClass="asistencia-table p-datatable-sm p-datatable-striped p-datatable-gridlines">
 
@@ -46,19 +89,23 @@
                     <th style="width: auto;">
                         Nro. Identidad
                         <div class="mt-1 flex justify-content-center">
+                            <!--
                             <p-columnFilter type="text" field="idIdentidad" matchMode="contains"
                                 placeholder="Buscar Nro. Identidad" [showMenu]="false"
                                 styleClass="p-inputtext-sm w-10rem">
                             </p-columnFilter>
+                            -->
                         </div>
                     </th>
 
                     <th style="width: auto;">
                         Apellidos y Nombres
                         <div class="mt-1 flex justify-content-center">
+                            <!--
                             <p-columnFilter type="text" field="apellidosynombres" matchMode="contains"
                                 placeholder="Buscar Personal" [showMenu]="false" styleClass="p-inputtext-sm w-full">
                             </p-columnFilter>
+                            -->
                         </div>
                     </th>
 
@@ -66,11 +113,12 @@
                     <th style="width: auto;" class="text-center">Estado</th>
                     <th style="width: auto;" class="text-center">{{ getDynamicColumnLabel() }}</th>
                     <th style="width: auto;" class="text-center">Inasistencias</th>
+                    <!--<th style="width: auto;" class="text-center">Acciones</th>-->
                 </tr>
             </ng-template>
 
             <ng-template pTemplate="body" let-empleado>
-                <tr>
+                <tr [pSelectableRow]="empleado">
                     <td class="text-center">{{ empleado.pla01empleadocod }}</td>
                     <td class="text-center">{{ empleado.idIdentidad }}</td>
                     <td class="text-center">{{ empleado.apellidosynombres }}</td>
@@ -98,12 +146,38 @@
                             pTooltip="Ver/Registrar Inasistencias" (click)="openInasistenciaDialog(empleado)">
                         </button>
                     </td>
+
+                    <!--
+                    <td class="text-center">
+                        <div class="flex justify-center gap-2">
+                            <button
+                            pButton
+                            pRipple
+                            icon="pi pi-save"
+                            class="p-button-rounded p-button-text p-button-sm text-blue-500"
+                            pTooltip="Editar"
+                            tooltipPosition="bottom"
+                            (click)="guardarEmpleado(empleado)">
+                            </button>
+                            
+                            <button
+                            pButton
+                            pRipple
+                            icon="pi pi-trash"
+                            class="p-button-rounded p-button-text p-button-sm text-red-500"
+                            pTooltip="Eliminar"
+                            tooltipPosition="bottom"
+                            (click)="eliminarEmpleado(empleado)">
+                            </button>
+                        </div>
+                    </td>
+                    -->
                 </tr>
             </ng-template>
 
             <ng-template pTemplate="emptymessage">
                 <tr>
-                    <td colspan="9" class="text-center">No se encontraron empleados.</td>
+                    <td colspan="8" class="text-center">No se encontraron empleados.</td>
                 </tr>
             </ng-template>
         </p-table>

@@ -77,6 +77,9 @@ export class PeriodosLaboralesComponent implements OnInit{
   mostrarModalMotivoCese: boolean = false; // Controla la visibilidad del modal
   motivosCese: { codigo: string; descripcion: string }[] = []; // Lista de motivos de cese
 
+  periodoSeleccionado: PeriodoLaboral | null = null;
+  editingRowIndex: number | null = null;
+
   constructor(
     private fb: FormBuilder,
     private messageService: MessageService,
@@ -113,10 +116,12 @@ export class PeriodosLaboralesComponent implements OnInit{
 
 
 
-  onRowEditInit(periodo: PeriodoLaboral): void {
-    this.editingPeriodoLaboral = { ...periodo };
-    this.isEditingAnyRow = true;
-  }
+  onRowEditInit(periodo: PeriodoLaboral, rowIndex: number): void {
+  this.clonedPeriodosLaborales[rowIndex] = { ...periodo };
+  this.editingPeriodoLaboral = { ...periodo };
+  this.editingRowIndex = rowIndex;
+  this.isEditingAnyRow = true;
+}
 
 
   onRowEditSave(rowIndex: number): void {
@@ -147,12 +152,10 @@ export class PeriodosLaboralesComponent implements OnInit{
         delete this.clonedPeriodosLaborales[rowIndex];
         this.isEditingAnyRow = false;
         this.editingPeriodoLaboral = null;
+        this.editingRowIndex = null;
 
         // Habilitar todas las filas
         this.periodoslaborales.controls.forEach((control) => control.enable());
-
-        this.editingPeriodoLaboral = null;
-        this.isEditingAnyRow = false;
 
         // Mostrar mensaje de éxito
         verMensajeInformativo(
@@ -192,11 +195,13 @@ export class PeriodosLaboralesComponent implements OnInit{
 
     if (this.clonedPeriodosLaborales[rowIndex]) {
       periodo.setValue(this.clonedPeriodosLaborales[rowIndex]); // Restaura los valores originales
+      this.periodosLaboralesLista[rowIndex] = { ...this.clonedPeriodosLaborales[rowIndex] };
       delete this.clonedPeriodosLaborales[rowIndex]; // Elimina el clon
     }
 
     this.isEditingAnyRow = false; // Indica que no hay filas en edición
     this.editingPeriodoLaboral = null; // Limpia la fila en edición
+    this.editingRowIndex = null;
   }
 
   onDelete(periodo: PeriodoLaboral, rowIndex: number): void {
@@ -358,36 +363,62 @@ export class PeriodosLaboralesComponent implements OnInit{
 
   // Seleccionar un motivo de cese
   seleccionarMotivoCese(motivo: { codigo: string; descripcion: string }) {
-
-    if (this.isNew) {
-      // Si se está creando un nuevo período, actualizar el formulario del nuevo período
-      this.nuevoPeriodoForm.patchValue({
-        desmotivocese: motivo.descripcion
-      });
-    } else if (this.isEditingAnyRow && this.editingPeriodoLaboral) {
-      // Si se está editando un período existente, actualizar el FormArray y la lista
-      const rowIndex = this.periodosLaboralesLista.findIndex(
-        (p) => p.pla30codigo === this.editingPeriodoLaboral?.pla30codigo
-      );
-
-      if (rowIndex !== -1) {
-        const periodo = this.periodoslaborales.at(rowIndex) as FormGroup;
-        periodo.patchValue({
-          desmotivocese: motivo.descripcion
-        });
-
-        // Actualizar la lista sincronizada
-        this.periodosLaboralesLista[rowIndex].desmotivocese = motivo.descripcion;
-      }
-    }
-
-    // Cerrar el modal
-    this.mostrarModalMotivoCese = false;
+  if (this.isNew) {
+    this.nuevoPeriodoForm.patchValue({
+      desmotivocese: motivo.descripcion
+    });
+  } else if (this.editingRowIndex !== null) {
+    this.periodosLaboralesLista[this.editingRowIndex].desmotivocese = motivo.descripcion;
+    this.periodoslaborales.at(this.editingRowIndex).patchValue({
+      desmotivocese: motivo.descripcion
+    });
   }
+
+  this.mostrarModalMotivoCese = false;
+}
 
 
   /*mostrarPeriodosLaborales(): void {
     console.log(this.periodoslaborales.controls);
     console.log(this.periodosLaboralesLista);
   }*/
+
+    editarPeriodoSeleccionado(): void {
+  if (!this.periodoSeleccionado) return;
+
+  const rowIndex = this.periodosLaboralesLista.findIndex(
+    p => p.pla30codigo === this.periodoSeleccionado?.pla30codigo
+  );
+
+  if (rowIndex === -1) return;
+
+  this.clonedPeriodosLaborales[rowIndex] = { ...this.periodosLaboralesLista[rowIndex] };
+  this.editingPeriodoLaboral = { ...this.periodosLaboralesLista[rowIndex] };
+  this.editingRowIndex = rowIndex;
+  this.isEditingAnyRow = true;
+}
+
+
+eliminarPeriodoSeleccionado(): void {
+  if (!this.periodoSeleccionado) return;
+
+  const rowIndex = this.periodosLaboralesLista.findIndex(
+    p => p.pla30codigo === this.periodoSeleccionado?.pla30codigo
+  );
+
+  if (rowIndex === -1) return;
+
+  this.onDelete(this.periodoSeleccionado, rowIndex);
+}
+
+
+guardarEdicionSeleccionada(): void {
+  if (this.editingRowIndex === null) return;
+  this.onRowEditSave(this.editingRowIndex);
+}
+
+cancelarEdicionSeleccionada(): void {
+  if (this.editingRowIndex === null) return;
+  this.onRowEditCancel(this.editingRowIndex);
+}
 }

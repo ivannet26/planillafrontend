@@ -1,1 +1,379 @@
-<p>afp-net works!</p>
+<p-panel header="AFP Net" styleClass="afpnet-header-panel">
+  <p-breadcrumb [model]="items"></p-breadcrumb>
+</p-panel>
+
+
+<p-panel styleClass="shadow-xl rounded-xl py-2 header-large">
+  <div class="surface-card px-4 py-4">
+
+    <div class="afpnet-layout">
+      <div class="afpnet-sidebar">
+        <div
+          class="sidebar-option"
+          [class.active]="vistaSeleccionada === 'resumido'"
+          (click)="vistaSeleccionada = 'resumido'">
+          Resumido
+        </div>
+
+        <div
+          class="sidebar-option"
+          [class.active]="vistaSeleccionada === 'detallado'"
+          (click)="vistaSeleccionada = 'detallado'">
+          Detallado
+        </div>
+      </div>
+
+      <div class="afpnet-content">
+
+        <div class="flex justify-content-start align-items-center mb-3" style="gap: 10px;">
+          <button
+            pButton
+            pRipple
+            icon="pi pi-file"
+            label="Exportar TXT"
+            class="p-button-sm p-button-success"
+            (click)="exportarTxt()"
+            pTooltip="Exportar TXT"
+            tooltipPosition="bottom">
+          </button>
+
+          <button
+          pButton
+          pRipple
+          icon="pi pi-cog"
+          label="Parámetros"
+          class="p-button-sm p-button-secondary"
+          (click)="abrirParametros()"
+          pTooltip="Parámetros AFPNET"
+          tooltipPosition="bottom">
+        </button>
+        </div>
+
+        <!-- tabla resumido -->
+        <div *ngIf="vistaSeleccionada === 'resumido'">
+          <p-table
+            [paginator]="false"
+            [value]="resumenData"
+            responsiveLayout="scroll"
+            styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines"
+          >
+            <ng-template pTemplate="header">
+              <tr>
+                <th class="text-center">AFP</th>
+                <th class="text-center">Alto Riesgo</th>
+                <th class="text-center">Remu. Asegurable</th>
+                <th class="text-center">Aporte Obligatorio</th>
+                <th class="text-center">Aporte Trab. Sin Fin Prev.</th>
+                <th class="text-center">Aporte Trab. Con Fin Prev.</th>
+                <th class="text-center">Aporte Emp. Voluntario</th>
+                <th class="text-center">Fondo Pensiones</th>
+                <th class="text-center">Seguro</th>
+                <th class="text-center">Comisión AFP</th>
+                <th class="text-center">Comisión Retribución</th>
+                <th class="text-center">Aporte Alto Riesgo Trab.</th>
+                <th class="text-center">Aporte Alto Riesgo Empleador</th>
+                <th class="text-center">SNP</th>
+              </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-row>
+              <tr>
+                <td>{{ row.afp }}</td>
+                <td class="text-center">{{ row.altoRiesgo }}</td>
+                <td class="text-center">{{ row.remuAsegurable | number:'1.2-2' }}</td>
+                <td class="text-center">{{ row.aporteObligatorio | number:'1.2-2' }}</td>
+                <td class="text-center">{{ row.aporteTrabSinFin | number:'1.2-2' }}</td>
+                <td class="text-center">{{ row.aporteTrabConFin | number:'1.2-2' }}</td>
+                <td class="text-center">{{ row.aporteEmpVolun | number:'1.2-2' }}</td>
+                <td class="text-center">{{ row.fondoPensiones | number:'1.2-2' }}</td>
+                <td class="text-center">{{ row.seguro | number:'1.2-2' }}</td>
+                <td class="text-center">{{ row.comision | number:'1.2-2' }}</td>
+                <td class="text-center">{{ row.comisionRetribucion | number:'1.2-2' }}</td>
+                <td class="text-center">{{ row.aporteAltoRiesgoTrab | number:'1.2-2' }}</td>
+                <td class="text-center">{{ row.aporteAltoRiesgoEmple | number:'1.2-2' }}</td>
+                <td class="text-center">{{ row.snp | number:'1.2-2' }}</td>
+              </tr>
+            </ng-template>
+
+            <ng-template pTemplate="emptymessage">
+              <tr>
+                <td colspan="14" class="text-center">
+                  No se encontraron registros
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+
+        <!-- tabla detallado -->
+        <div *ngIf="vistaSeleccionada === 'detallado'">
+          <p-table
+            [paginator]="false"
+            [value]="detalleData"
+            responsiveLayout="scroll"
+            styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines"
+          >
+            <ng-template pTemplate="header">
+              <tr>
+                <th class="text-center">AFP</th>
+                <th class="text-center">Trabajador</th>
+                <th class="text-center">Trabajador Doc</th>
+                <th class="text-center">Apellidos y Nombre</th>
+                <th class="text-center">CUSPP</th>
+                <th class="text-center">Remu. Asegurable</th>
+                <th class="text-center">Aporte Obligatorio</th>
+                <th class="text-center">Aporte Trab. Sin Fin</th>
+                <th class="text-center">Aporte Trab. Con Fin</th>
+                <th class="text-center">Aporte Emp. Volun</th>
+                <th class="text-center">Seguro</th>
+                <th class="text-center">Comisión</th>
+                <th class="text-center">Aporte Alto Riesgo Trab.</th>
+                <th class="text-center">Aporte Alto Riesgo Emple.</th>
+                <th class="text-center">SNP</th>
+                <th class="text-center">Alto Riesgo</th>
+                <th class="text-center">Relación Laboral</th>
+                <th class="text-center">Relación Inicio</th>
+                <th class="text-center">Relación Fin</th>
+              </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-row>
+              <tr>
+                <td>{{ row.afp }}</td>
+                <td class="text-center">{{ row.trabajadorCodigo }}</td>
+                <td class="text-center">{{ row.trabajadorDoc }}</td>
+                <td>{{ row.apellidosNombres }}</td>
+                <td>{{ row.cuspp }}</td>
+                <td class="text-center">{{ row.remuAsegurable | number:'1.2-2' }}</td>
+                <td class="text-center">{{ row.aporteObligatorio | number:'1.2-2' }}</td>
+                <td class="text-center">{{ row.aporteTrabSinFin | number:'1.2-2' }}</td>
+                <td class="text-center">{{ row.aporteTrabConFin | number:'1.2-2' }}</td>
+                <td class="text-center">{{ row.aporteEmpVolun | number:'1.2-2' }}</td>
+                <td class="text-center">{{ row.seguro | number:'1.2-2' }}</td>
+                <td class="text-center">{{ row.comision | number:'1.2-2' }}</td>
+                <td class="text-center">{{ row.aporteAltoRiesgoTrab | number:'1.2-2' }}</td>
+                <td class="text-center">{{ row.aporteAltoRiesgoEmple | number:'1.2-2' }}</td>
+                <td class="text-center">{{ row.snp | number:'1.2-2' }}</td>
+                <td class="text-center">{{ row.altoRiesgo }}</td>
+                <td class="text-center">{{ row.relacionLaboral }}</td>
+                <td class="text-center">{{ row.relacionLaboralInicio }}</td>
+                <td class="text-center">{{ row.relacionLaboralFin }}</td>
+              </tr>
+            </ng-template>
+
+            <ng-template pTemplate="emptymessage">
+              <tr>
+                <td colspan="19" class="text-center">
+                  No se encontraron registros
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</p-panel>
+
+<p-dialog
+  header="Parametro AFPNet"
+  [(visible)]="displayParametrosDialog"
+  [modal]="true"
+  [closable]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [style]="{ width: '900px' }"
+  styleClass="afpnet-dialog">
+
+  <div class="parametros-section">
+    <h4>Datos a enviar</h4>
+
+    <div class="parametros-row">
+      <label>Remuneracion asegurable :</label>
+      <input 
+      pInputText 
+      [(ngModel)]="parametrosAfpnet.remuneracionAsegurableCodigo" 
+      class="codigo-input" [disabled]="true" />
+
+      <input 
+      pInputText 
+      [(ngModel)]="parametrosAfpnet.remuneracionAsegurableDesc" 
+      class="desc-input" [disabled]="true" />
+    </div>
+
+    <div class="parametros-row">
+      <label>Aporte voluntario del afiliado con fin previsional :</label>
+      <input 
+      pInputText 
+      [(ngModel)]="parametrosAfpnet.aporteVolConFinCodigo" 
+      class="codigo-input-small editable-yellow"
+      [disabled]="!modoEdicionParametros"
+      maxlength="4" />
+
+      <input 
+      pInputText 
+      [(ngModel)]="parametrosAfpnet.aporteVolConFinDesc" 
+      class="desc-input" [disabled]="true" />
+
+    </div>
+
+    <div class="parametros-row">
+      <label>Aporte voluntario del afiliado sin fin previsional :</label>
+      <input 
+      pInputText 
+      [(ngModel)]="parametrosAfpnet.aporteVolSinFinCodigo"
+      class="codigo-input-small editable-yellow"
+      [disabled]="!modoEdicionParametros" 
+      maxlength="4"/>
+
+      <input 
+      pInputText 
+      [(ngModel)]="parametrosAfpnet.aporteVolSinFinDesc" 
+      class="desc-input" [disabled]="true" />
+
+    </div>
+
+    <div class="parametros-row">
+      <label>Aporte voluntario del empleado :</label>
+      <input 
+      pInputText 
+      [(ngModel)]="parametrosAfpnet.aporteVolEmpleadoCodigo" 
+      class="codigo-input-small editable-yellow"
+      [disabled]="!modoEdicionParametros" 
+      maxlength="4"/>
+
+      <input 
+      pInputText 
+      [(ngModel)]="parametrosAfpnet.aporteVolEmpleadoDesc" 
+      class="desc-input" [disabled]="true" />
+
+    </div>
+  </div>
+
+  <div class="parametros-section">
+    <h4>Datos Para Comparar</h4>
+
+    <div class="parametros-row">
+      <label>Aporte Obligatorio</label>
+      <input 
+      pInputText 
+      [(ngModel)]="parametrosAfpnet.aporteObligatorioCodigo" 
+      class="codigo-input" [disabled]="true" />
+
+      <input 
+      pInputText 
+      [(ngModel)]="parametrosAfpnet.aporteObligatorioDesc" 
+      class="desc-input" [disabled]="true" />
+
+    </div>
+
+    <div class="parametros-row">
+      <label>Seguro :</label>
+      <input 
+      pInputText 
+      [(ngModel)]="parametrosAfpnet.seguroCodigo" 
+      class="codigo-input" 
+      [disabled]="true" />
+
+      <input 
+      pInputText 
+      [(ngModel)]="parametrosAfpnet.seguroDesc" 
+      class="desc-input" 
+      [disabled]="true" />
+
+    </div>
+
+    <div class="parametros-row">
+      <label>Comision AFP</label>
+      <input 
+      pInputText 
+      [(ngModel)]="parametrosAfpnet.comisionCodigo" 
+      class="codigo-input" 
+      [disabled]="true" />
+
+      <input 
+      pInputText 
+      [(ngModel)]="parametrosAfpnet.comisionDesc" 
+      class="desc-input" 
+      [disabled]="true" />
+    </div>
+
+    <div class="parametros-row">
+      <label>Aport. Alto Riesgo Trab.</label>
+      <input 
+      pInputText 
+      [(ngModel)]="parametrosAfpnet.aporteAltoRiesgoTrabCodigo" 
+      class="codigo-input-small editable-yellow"
+      [disabled]="!modoEdicionParametros"
+      maxlength="4" />
+
+      <input 
+      pInputText 
+      [(ngModel)]="parametrosAfpnet.aporteAltoRiesgoTrabDesc" 
+      class="desc-input" 
+      [disabled]="true" />
+    </div>
+
+    <div class="parametros-row">
+      <label>Aporte Alto Riesgo Empleado :</label>
+      <input 
+      pInputText 
+      [(ngModel)]="parametrosAfpnet.aporteAltoRiesgoEmpleCodigo" 
+      class="codigo-input-small editable-yellow"
+      [disabled]="!modoEdicionParametros"
+      maxlength="4"  />
+
+      <input 
+      pInputText 
+      [(ngModel)]="parametrosAfpnet.aporteAltoRiesgoEmpleDesc" 
+      class="desc-input" 
+      [disabled]="true" />
+    </div>
+  </div>
+
+  <div class="parametros-section">
+    <h4>Datos SNP</h4>
+
+    <div class="parametros-row">
+      <label>Sistema Nacional de Pensiones</label>
+      <input 
+      pInputText 
+      [(ngModel)]="parametrosAfpnet.snpCodigo" 
+      class="codigo-input" [disabled]="true" />
+
+      <input 
+      pInputText 
+      [(ngModel)]="parametrosAfpnet.snpDesc" 
+      class="desc-input" 
+      [disabled]="true" />
+
+    </div>
+  </div>
+
+  <ng-template pTemplate="footer">
+
+    <button
+    pButton
+    pRipple
+    type="button"
+    label="Editar"
+    icon="pi pi-pencil"
+    class="p-button-warning"
+    *ngIf="!modoEdicionParametros"
+    (click)="activarEdicionParametros()">
+    </button>
+
+    <button
+      pButton
+      pRipple
+      type="button"
+      label="Guardar"
+      icon="pi pi-save"
+      class="p-button-primary"
+      *ngIf="modoEdicionParametros"
+      (click)="guardarParametros()">
+    </button>
+  </ng-template>
+</p-dialog>

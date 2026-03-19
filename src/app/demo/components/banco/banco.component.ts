@@ -43,6 +43,8 @@ export class BancoComponent implements OnInit {
   originalBanco: BancoView | null = null;
   globalFilterValue: string = '';
 
+  selectedBanco: BancoView | null = null;
+
   items: any[] = [];
 
   constructor(
@@ -200,4 +202,58 @@ export class BancoComponent implements OnInit {
     const value = (event.target as HTMLInputElement).value;
     this.globalFilterValue = value;
   }
+
+  editarSeleccionado(): void {
+  const banco = this.selectedBanco;
+  if (!banco) return;
+
+  const editing = this.bancos.find(b => b.isEditing);
+  if (editing && editing !== banco) {
+    this.messageService.add({
+      severity: 'warn',
+      summary: 'Advertencia',
+      detail: 'Complete o cancele la edición actual'
+    });
+    return;
+  }
+
+  this.originalBanco = { ...banco };
+  banco.isEditing = true;
+}
+
+eliminarSeleccionado(): void {
+  const banco = this.selectedBanco;
+  if (!banco) return;
+
+  const index = this.bancos.findIndex(b => b === banco);
+  if (index === -1) return;
+
+  this.eliminar(banco, index);
+}
+
+guardarSeleccionado(): void {
+  const banco = this.selectedBanco;
+  if (!banco || !banco.isEditing) return;
+
+  const index = this.bancos.findIndex(b => b === banco);
+  if (index === -1) return;
+
+  this.guardar(banco, index);
+  this.selectedBanco = null;
+}
+
+cancelarSeleccionado(): void {
+  const banco = this.selectedBanco;
+  if (!banco || !banco.isEditing) return;
+
+  const index = this.bancos.findIndex(b => b === banco);
+  if (index === -1) return;
+
+  this.cancelar(banco, index);
+  this.selectedBanco = null;
+}
+
+get hayBancoEditando(): boolean {
+  return this.bancos.some(b => !!b.isEditing);
+}
 }

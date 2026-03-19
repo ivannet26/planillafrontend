@@ -40,6 +40,8 @@ export class PlantillaAsistenciaComponent implements OnInit {
 
     plantillaAsistenciaForm: FormGroup = this.fb.group({}); //Quitar el = luego
 
+    selectedPlantillaFila: PlantillaAsistencia | null = null;
+
     plantillaAsistenciaList: PlantillaAsistencia[] = []; //Quitar el = luego
 
     isEditing: boolean = false;
@@ -311,5 +313,61 @@ export class PlantillaAsistenciaComponent implements OnInit {
           }
         });
     }
+
+    editarPlantillaSeleccionada(): void {
+  const seleccionada = this.selectedPlantillaFila;
+  if (!seleccionada || this.isNew || this.isEditingAnyRow) return;
+
+  const index = this.plantillaAsistenciaList.findIndex(
+    p =>
+      p.pla20empresacod === seleccionada.pla20empresacod &&
+      p.pla20plantillacod === seleccionada.pla20plantillacod
+  );
+
+  if (index === -1) return;
+
+  this.editingRowIndex = index;
+  this.editingPlantillaAsistencia = JSON.parse(JSON.stringify(seleccionada));
+  this.isEditingAnyRow = true;
+}
+
+eliminarPlantillaSeleccionada(): void {
+  if (!this.selectedPlantillaFila || this.isEditingAnyRow) return;
+  this.onDelete(this.selectedPlantillaFila);
+}
+
+verDetalleSeleccionado(): void {
+  if (!this.selectedPlantillaFila || this.isEditingAnyRow) return;
+  this.showDetalle(this.selectedPlantillaFila);
+}
+
+
+guardarEdicionSeleccionada(): void {
+  const edited = this.editingPlantillaAsistencia;
+  if (!edited || this.editingRowIndex === null) return;
+
+  this.plantillaAsistenciaService.ActualizarPlantillaAsistencia(edited).subscribe({
+    next: () => {
+      this.editingPlantillaAsistencia = null;
+      this.editingRowIndex = null;
+      this.isEditingAnyRow = false;
+      this.selectedPlantillaFila = null;
+
+      verMensajeInformativo(this.messageService, 'success', 'Éxito', 'Registro actualizado');
+      this.cargarPlantillaAsistencia();
+    },
+    error: () => {
+      verMensajeInformativo(this.messageService, 'error', 'Error', 'Error al actualizar');
+    }
+  });
+}
+
+cancelarEdicionSeleccionada(): void {
+  this.editingPlantillaAsistencia = null;
+  this.editingRowIndex = null;
+  this.isEditingAnyRow = false;
+  this.selectedPlantillaFila = null;
+  this.cargarPlantillaAsistencia();
+}
 
 }

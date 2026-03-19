@@ -1,1 +1,47 @@
-<p>pdt-plame works!</p>
+<p-toast></p-toast>
+
+<p-panel header="PDT Plame" styleClass="shadow-xl rounded-xl mb-3">
+  <p-breadcrumb [model]="items" class="max-w-full"></p-breadcrumb>
+</p-panel>
+
+<p-panel styleClass="shadow-xl rounded-xl py-2 header-large">
+  <div class="content-wrapper plame-content">
+    <div class="mb-3">
+      <button
+        pButton
+        pRipple
+        icon="pi pi-refresh"
+        label="Procesar archivos"
+        class="p-button-warning toolbar-button"
+        (click)="generarArchivosMock()">
+      </button>
+    </div>
+
+    <div class="plame-list">
+      <div class="plame-item">
+        <p-checkbox [(ngModel)]="selectedEstructuras" [value]="'14'"></p-checkbox>
+        <label>ESTRUCTURA 14: "Datos de la jornada laboral por trabajador"</label>
+      </div>
+
+      <div class="plame-item">
+        <p-checkbox [(ngModel)]="selectedEstructuras" [value]="'15'"></p-checkbox>
+        <label>ESTRUCTURA 15: "Trabajador - Días subsidiados y otros no laborados"</label>
+      </div>
+
+      <div class="plame-item">
+        <p-checkbox [(ngModel)]="selectedEstructuras" [value]="'18'"></p-checkbox>
+        <label>ESTRUCTURA 18: "Datos del detalle de la remuneración del trabajador"</label>
+      </div>
+
+      <div class="plame-item">
+        <p-checkbox [(ngModel)]="selectedEstructuras" [value]="'25'"></p-checkbox>
+        <label>ESTRUCTURA 25: "Trabajador - Tasas SCTR-EsSalud y/o convenio IES"</label>
+      </div>
+
+      <div class="plame-item">
+        <p-checkbox [(ngModel)]="selectedEstructuras" [value]="'26'"></p-checkbox>
+        <label>ESTRUCTURA 26: "Trabajador - Otras condiciones"</label>
+      </div>
+    </div>
+  </div>
+</p-panel>

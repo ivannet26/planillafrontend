@@ -11,9 +11,14 @@ import { PasswordModule } from 'primeng/password';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmationService, MessageService } from 'primeng/api';
-
+import { BreadcrumbService } from '../../service/breadcrumb.service';
 // Importar las interfaces desde el archivo de modelo
 import { Usuario, UsuarioView, EmpresaUsuario, DropdownOption } from 'src/app/demo/model/Usuario';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { MenuItem } from 'primeng/api';
+import { Subject, takeUntil } from 'rxjs';
+import { OnDestroy } from '@angular/core';
+import { PanelModule } from 'primeng/panel';
 
 @Component({
   selector: 'app-usuarios',
@@ -29,7 +34,9 @@ import { Usuario, UsuarioView, EmpresaUsuario, DropdownOption } from 'src/app/de
     CheckboxModule,
     PasswordModule,
     ConfirmDialogModule,
-    ToastModule
+    ToastModule,
+    BreadcrumbModule,
+    PanelModule,
   ],
   providers: [ConfirmationService, MessageService],
   templateUrl: './usuarios.component.html',
@@ -47,12 +54,36 @@ export class UsuariosComponent implements OnInit {
   empresasUsuario: EmpresaUsuario[] = [];
   private allEmpresasMap: Map<string, EmpresaUsuario[]> = new Map();
 
+  private destroy$ = new Subject<void>();
+  items: MenuItem[] = [];
+  
   constructor(
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private bS: BreadcrumbService
   ) {}
 
   ngOnInit() {
+    this.bS.setBreadcrumbs([
+    { label: 'Sistema' },
+    { label: 'Seguridad' },
+    { label: 'Usuarios' },
+  ]);
+
+  this.bS.currentBreadcrumbs$
+    .pipe(takeUntil(this.destroy$))
+    .subscribe((crumbs) => (this.items = crumbs ?? []));
+this.bS.setBreadcrumbs([
+    { label: 'Sistema' },
+    { label: 'Seguridad' },
+    { label: 'Usuarios' },
+  ]);
+
+  this.bS.currentBreadcrumbs$
+    .pipe(takeUntil(this.destroy$))
+    .subscribe((crumbs) => (this.items = crumbs ?? []));
+
+
     this.loadPerfiles();
     this.loadAllEmpresasData();
     this.loadUsuarios();
@@ -225,5 +256,10 @@ export class UsuariosComponent implements OnInit {
       summary: 'Éxito',
       detail: 'Usuario guardado correctamente'
     });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

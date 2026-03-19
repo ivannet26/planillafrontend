@@ -9,41 +9,87 @@
             
             <div class="shadow-xl rounded-full surface-card px-4 py-4">
             <div class="aligned-content-container">
-                <div class="mb-2">
-                    <p-toolbar styleClass="bg-white border-none">
-                        <div class="p-toolbar-group-start">
-                            <button pButton type="button" icon="pi pi-plus" label="Nuevo"
-                                class="p-button-info toolbar-button" (click)="agregarCentroCosto()"
-                                pTooltip="Nuevo centro de costo" tooltipPosition="bottom"></button>
+                <div class="mb-2 centrocosto-toolbar-row">
+                    <div class="centrocosto-toolbar">
+                        <div class="centrocosto-toolbar-left">
+                            <button
+                                pButton
+                                type="button"
+                                icon="pi pi-plus"
+                                label="Nuevo"
+                                class="p-button-info centrocosto-btn"
+                                (click)="agregarCentroCosto()"
+                                pTooltip="Nuevo centro de costo"
+                                tooltipPosition="bottom"
+                                [disabled]="!!editingCentroCosto">
+                            </button>
                         </div>
 
-                        <!--<div class="table-controls-header flex justify-content-end align-items-center pr-1">
-                            <div class="flex align-items-center">
-                                <label style="margin-right: 0.4rem; font-size: 15px;" for="rowsPerPageTable">Filas por
-                                    página:</label>
-                                <p-dropdown id="rowsPerPageTable" [options]="[10, 20, 40]" [(ngModel)]="rowsPerPage"
-                                    placeholder="10" styleClass="p-button-sm w-16 text-center">
-                                </p-dropdown>
-                            </div>
-                        </div>-->
-                    </p-toolbar>
+                        <div class="centrocosto-toolbar-right">
+                            <button
+                                *ngIf="editingRowIndex === null"
+                                pButton
+                                type="button"
+                                icon="pi pi-pencil"
+                                class="p-button-info centrocosto-icon-btn"
+                                pTooltip="Editar"
+                                tooltipPosition="bottom"
+                                [disabled]="!selectedCentroCosto || !!editingCentroCosto"
+                                (click)="editarCentroCostoSeleccionado()">
+                            </button>
+
+                            <button
+                                *ngIf="editingRowIndex === null"
+                                pButton
+                                type="button"
+                                icon="pi pi-trash"
+                                class="p-button-danger centrocosto-icon-btn"
+                                pTooltip="Eliminar"
+                                tooltipPosition="bottom"
+                                [disabled]="!selectedCentroCosto || !!editingCentroCosto"
+                                (click)="eliminarCentroCostoSeleccionado()">
+                            </button>
+
+                            <button
+                                *ngIf="editingRowIndex !== null"
+                                pButton
+                                type="button"
+                                icon="pi pi-check"
+                                class="p-button-success centrocosto-icon-btn"
+                                pTooltip="Guardar"
+                                tooltipPosition="bottom"
+                                (click)="guardarEdicionSeleccionada()">
+                            </button>
+
+                            <button
+                                *ngIf="editingRowIndex !== null"
+                                pButton
+                                type="button"
+                                icon="pi pi-times"
+                                class="p-button-danger centrocosto-icon-btn"
+                                pTooltip="Cancelar"
+                                tooltipPosition="bottom"
+                                (click)="cancelarEdicionSeleccionada()">
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="px-4">
+
+                <div class="centrocosto-table-wrapper">
                     <p-table [value]="centrosCosto" [rows]="rowsPerPage" [paginator]="true" responsiveLayout="scroll"
                         [rowsPerPageOptions]="[5, 10, 20, 50]"
-                        styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines centrocosto-table">
+                        selectionMode="single" [(selection)]="selectedCentroCosto" dataKey="pla57codigo"styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines centrocosto-table">
                         <ng-template pTemplate="header">
                             <tr>
                                 <th style="width: auto; text-align: center;">Código</th>
                                 <th style="width: auto; text-align: center;">Descripción</th>
                                 <th style="width: auto; text-align: center;">Activo</th>
-                                <th style="width: auto; text-align: center;">Acciones</th>
                             </tr>
                         </ng-template>
 
                         <ng-template pTemplate="body" let-centroCosto>
-                            <tr>
+                            <tr [pSelectableRow]="centroCosto">
                                 <td class="text-center">
                                     <div
                                         *ngIf="editingCentroCosto?.pla57codigo === centroCosto.pla57codigo; else displayCodigo">
@@ -82,36 +128,6 @@
                                     </ng-template>
                                 </td>
 
-                                <td>
-                                    <div class="flex justify-content-center gap-2">
-
-                                        <div *ngIf="editingCentroCosto?.pla57codigo === centroCosto.pla57codigo">
-                                            <p-button icon="pi pi-check" styleClass="p-button-sm p-button-success"
-                                                pTooltip="Guardar" [text]="true"
-                                                (onClick)="onRowGuardarEdicion(centroCosto)">
-                                            </p-button>
-                                            <p-button icon="pi pi-times"
-                                                styleClass="p-button-sm p-button-danger p-button-text"
-                                                pTooltip="Cancelar" [text]="true"
-                                                (onClick)="onRowCancelarEdicion(centroCosto)">
-                                            </p-button>
-                                        </div>
-
-                                        <div *ngIf="editingCentroCosto?.pla57codigo !== centroCosto.pla57codigo">
-                                            <p-button icon="pi pi-pencil"
-                                                styleClass="p-button-sm p-button-info p-button-text" pTooltip="Editar"
-                                                (onClick)="onRowEditarCentroCosto(centroCosto)"   [text]="true"
-                                                [disabled]="!!editingCentroCosto">
-                                            </p-button>
-                                            <p-button icon="pi pi-trash"
-                                                styleClass="p-button-sm p-button-danger p-button-text"
-                                                pTooltip="Eliminar" [text]="true"
-                                                (onClick)="eliminarCentroCosto(centroCosto)"
-                                                [disabled]="!!editingCentroCosto">
-                                            </p-button>
-                                        </div>
-                                    </div>
-                                </td>
                             </tr>
                         </ng-template>
 

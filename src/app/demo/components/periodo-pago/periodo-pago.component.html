@@ -1,10 +1,15 @@
-<p-panel header="PERIODO PAGO" styleClass="shadow-xl rounded-xl py-2 header-large">
+<p-panel header="Periodo Pago" styleClass="shadow-xl rounded-xl mb-3">
+    <p-breadcrumb [model]="items" class="max-w-full"></p-breadcrumb>
+  </p-panel>
+
+<p-panel  styleClass="shadow-xl rounded-xl py-2 header-large">
     <p-toast></p-toast>
     <p-confirmDialog></p-confirmDialog>
 
-    <div class="content-wrapper">
+    
+    <div class="content-wrapper periodo-content">
 
-        <p-toolbar styleClass="mb-4 surface-200 border-round-lg shadow-1 align-to-table">
+        <p-toolbar styleClass="mb-4 toolbar-clean align-to-table ">
             <ng-template pTemplate="left">
                 <div class="toolbar-group">
                     <button pButton type="button" icon="pi pi-plus" label="Nuevo" class="p-button-info toolbar-button"
@@ -15,8 +20,43 @@
             <ng-template pTemplate="right">
                 <div class="toolbar-group flex align-items-center gap-3">
 
-                    <button pButton type="button" icon="pi pi-refresh" class="p-button-info toolbar-button"
+                    <button
+                    pButton
+                    type="button"
+                    icon="pi pi-pencil"
+                    class="p-button-info toolbar-icon-button"
+                    (click)="onEdit(selectedPeriodo)"
+                    [disabled]="!selectedPeriodo"
+                    pTooltip="Modificar periodo"
+                    tooltipPosition="bottom">
+                </button>
+                
+                
+                <button
+                pButton
+                type="button"
+                icon="pi pi-trash"
+                class="p-button-danger toolbar-icon-button"
+                (click)="onDelete(selectedPeriodo)"
+                [disabled]="!selectedPeriodo"
+                pTooltip="Eliminar periodo"
+                tooltipPosition="bottom">
+                </button>
+                
+                <button
+                pButton
+                type="button"
+                icon="pi pi-search"
+                class="p-button-info toolbar-icon-button"
+                (click)="onView(selectedPeriodo)"
+                [disabled]="!selectedPeriodo"
+                pTooltip="Ver detalles"
+                tooltipPosition="bottom">
+                </button>
+
+                <button pButton type="button" icon="pi pi-refresh" class="p-button-info toolbar-button"
                         (click)="refrescar()" pTooltip="Refrescar lista" tooltipPosition="bottom"></button>
+
 
                     <button pButton type="button"
                         [icon]="selectedPeriodo?.pla01flagperiodocerrado === true ? 'pi pi-lock-open' : 'pi pi-lock'"
@@ -80,8 +120,10 @@
                         <th style="width: auto; text-align: center;">
                             Tipo Cambio
                         </th>
+                        <!--
                         <th style="width: auto; text-align: center;">
                             Acciones </th>
+                            -->
                     </tr>
                 </ng-template>
 
@@ -113,9 +155,10 @@
                         <td class="text-center">{{ periodo.Pla55Descripcion }}</td>
                         <td class="text-center">{{ periodo.pla01tipocambio | number:'1.2-2' }}</td>
 
+                        <!--
                         <td class="text-center action-buttons">
                             <button pButton type="button" icon="pi pi-pencil"
-                                class="p-button-rounded p-button-info p-button-text p-button-sm mr-1"
+                                class="p-button-rounded p-button-info p-button-text p-button-sm mr-1 icon-blue"
                                 (click)="onEdit(periodo)" pTooltip="Modificar periodo"
                                 tooltipPosition="bottom"></button>
 
@@ -125,15 +168,16 @@
                                 tooltipPosition="bottom"></button>
 
                             <button pButton type="button" icon="pi pi-search"
-                                class="p-button-rounded p-button-info p-button-text p-button-sm"
+                                class="p-button-rounded p-button-info p-button-text p-button-sm icon-blue"
                                 (click)="onView(periodo)" pTooltip="Ver detalles" tooltipPosition="bottom"></button>
                         </td>
+                        -->
                     </tr>
                 </ng-template>
 
                 <ng-template pTemplate="emptymessage">
                     <tr>
-                        <td colspan="12" class="text-center empty-message">
+                        <td colspan="11" class="text-center empty-message">
                             <i class="pi pi-info-circle"></i>
                             <p>No se encontraron periodos</p>
                         </td>
@@ -199,17 +243,17 @@
                     placeholder="Ej: Empleados" [disabled]="isViewing" />
             </div>
 
-            <div class="field col-12 flex align-items-center justify-content-start gap-5">
-                <div class="flex align-items-center">
+            <div class="field col-12 checkbox-row">
+                <div class="checkbox-item">
                     <p-checkbox id="calculado" [(ngModel)]="periodoForm.pla01flagperiodocalculado" [binary]="true"
                         [disabled]="isViewing" inputId="calculado"></p-checkbox>
-                    <label for="calculado" class="ml-2">Calculado</label>
+                    <label for="calculado">Calculado</label>
                 </div>
 
-                <div class="flex align-items-center">
+                <div class="checkbox-item">
                     <p-checkbox id="flagFin" [(ngModel)]="periodoForm.pla01flagfindemes" [binary]="true"
                         inputId="flagFin" [disabled]="isViewing"></p-checkbox>
-                    <label for="flagFin" class="ml-2">Fin de Mes</label>
+                    <label for="flagFin">Fin de Mes</label>
                 </div>
             </div>
 

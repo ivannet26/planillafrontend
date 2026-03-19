@@ -51,6 +51,8 @@ export class ParametrosEmpresaComponent implements OnInit {
     isEditingAnyRow: boolean = false;
     rowsPerPage: number = 10; // Numero de filas por página
 
+    selectedParametroxEmpresa: ParametroxEmpresa | null = null;
+
     constructor(
         private parametroEmpresaService: ParametroEmpresaService,
         private fb: FormBuilder,
@@ -142,29 +144,33 @@ export class ParametrosEmpresaComponent implements OnInit {
     }
 
     onRowEditSave(parametro: ParametroxEmpresa): void {
-      if (this.editingParametroxEmpresa) {
-                        this.parametroEmpresaService.ActualizarParametroxEmpresa(parametro).subscribe({
-                            next: () => {
-                                this.editingParametroxEmpresa = null;
-                                this.isEditingAnyRow = false;
-                                verMensajeInformativo(this.messageService, 'success', 'Éxito', 'Registro actualizado');
-                            },
-                            error: () => {
-                                verMensajeInformativo(this.messageService, 'error', 'Error', 'Error al actualizar');
-                            }
-                        })
-                    }
+  if (!this.editingParametroxEmpresa) return;
+
+  this.parametroEmpresaService.ActualizarParametroxEmpresa(parametro).subscribe({
+    next: () => {
+      this.editingParametroxEmpresa = null;
+      this.isEditingAnyRow = false;
+      this.selectedParametroxEmpresa = null;
+      verMensajeInformativo(this.messageService, 'success', 'Éxito', 'Registro actualizado');
+      this.cargarParametrosxEmpresa();
+    },
+    error: () => {
+      verMensajeInformativo(this.messageService, 'error', 'Error', 'Error al actualizar');
     }
+  });
+}
 
 
     onRowEditCancel(parametro: ParametroxEmpresa, index: number): void {
-        if (this.editingParametroxEmpresa) {
-            this.parametroxEmpresaList[index] = { ...this.editingParametroxEmpresa };
-            this.editingParametroxEmpresa = null;
-            this.isEditingAnyRow = false;
-            this.cargarParametrosxEmpresa();
-        }
-    }
+  if (this.editingParametroxEmpresa) {
+    this.parametroxEmpresaList[index] = { ...this.editingParametroxEmpresa };
+  }
+
+  this.editingParametroxEmpresa = null;
+  this.isEditingAnyRow = false;
+  this.selectedParametroxEmpresa = null;
+  this.cargarParametrosxEmpresa();
+}
 
 
     //crear parametroxEmpresa
@@ -271,4 +277,47 @@ export class ParametrosEmpresaComponent implements OnInit {
             }
         })
     }
+
+    editarParametroSeleccionado(): void {
+  const seleccionado = this.selectedParametroxEmpresa;
+  if (!seleccionado || this.isNew || this.isEditingAnyRow) return;
+
+  const index = this.parametroxEmpresaList.findIndex(
+    p =>
+      p.pla41empresacod === seleccionado.pla41empresacod &&
+      p.pla41anio === seleccionado.pla41anio &&
+      p.pla41codigo === seleccionado.pla41codigo
+  );
+
+  if (index === -1) return;
+
+  this.editingRowIndex = index;
+  this.editingParametroxEmpresa = { ...seleccionado };
+  this.isEditingAnyRow = true;
+}
+
+eliminarParametroSeleccionado(): void {
+  if (!this.selectedParametroxEmpresa || this.isEditingAnyRow) return;
+  this.onDelete(this.selectedParametroxEmpresa);
+}
+
+guardarEdicionSeleccionada(): void {
+  if (this.editingRowIndex === null) return;
+
+  const parametro = this.parametroxEmpresaList[this.editingRowIndex];
+  if (!parametro) return;
+
+  this.onRowEditSave(parametro);
+  this.editingRowIndex = null;
+}
+
+cancelarEdicionSeleccionada(): void {
+  if (this.editingRowIndex === null) return;
+
+  const parametro = this.parametroxEmpresaList[this.editingRowIndex];
+  if (!parametro) return;
+
+  this.onRowEditCancel(parametro, this.editingRowIndex);
+  this.editingRowIndex = null;
+}
 }

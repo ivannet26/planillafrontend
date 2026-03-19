@@ -1,0 +1,567 @@
+
+.right-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  align-items: start;
+  justify-items: start;
+}
+
+.right-grid > div{
+  width: 100%;
+}
+
+.slot-row{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.slot-code-dd{
+  width: 110px;
+  min-width: 110px;
+}
+
+.slot-desc{
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+:host ::ng-deep .slot-code-dd .p-dropdown{
+  width: 100% !important;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+:host ::ng-deep .slot-code-dd .p-dropdown-label {
+  line-height: 34px !important;
+  font-size: 12px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.slot-desc {
+  height: 34px !important;
+  font-size: 12px !important;
+}
+
+.conceptos-wrapper{
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.conceptos-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.button-save{
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+
+.right-panel {
+  width: 100%;
+  min-width: 0;
+  overflow: hidden; 
+}
+
+.right-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+
+@media (max-width: 992px) { 
+  .right-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+.slot-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+
+.slot-dd {
+  flex: 1 1 auto;
+  min-width: 0; 
+}
+
+
+:host ::ng-deep .slot-dd .p-dropdown {
+  width: 100%;
+}
+
+:host ::ng-deep .slot-dd .p-dropdown-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.boleta-card {
+  padding: 1rem;
+}
+
+:host ::ng-deep .p-panel .p-panel-header {
+  font-size: 15px !important;
+  padding: 0.8rem 1rem !important;
+}
+
+:host ::ng-deep .p-panel .p-panel-content {
+  padding: 0.8rem 0.9rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb {
+  font-size: 12px !important;
+  padding: 0.5rem 0.75rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb .p-menuitem-link {
+  padding: 0 !important;
+  gap: 0.35rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb .pi {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .p-breadcrumb .p-breadcrumb-chevron {
+  font-size: 11px !important;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  padding: 0.55rem 0.65rem !important;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr > td {
+  font-size: 12px !important;
+  padding: 0.5rem 0.65rem !important;
+  vertical-align: middle !important;
+}
+
+:host ::ng-deep .p-datatable .p-button.p-button-sm {
+  width: 30px !important;
+  height: 30px !important;
+  min-width: 30px !important;
+  padding: 0 !important;
+}
+
+:host ::ng-deep .p-datatable .p-button.p-button-sm .p-button-icon {
+  font-size: 12px !important;
+}
+
+.right-panel {
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  padding: 0.75rem !important;
+}
+
+.button-save {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-bottom: 0.75rem;
+}
+
+:host ::ng-deep .button-save .p-button {
+  height: 34px !important;
+  font-size: 12px !important;
+  padding: 0 0.85rem !important;
+}
+
+:host ::ng-deep .button-save .p-button .p-button-icon,
+:host ::ng-deep .button-save .p-button .p-button-label {
+  font-size: 12px !important;
+}
+
+.conceptos-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.right-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  align-items: start;
+  justify-items: start;
+}
+
+.right-grid > div {
+  width: 100%;
+}
+
+@media (max-width: 992px) {
+  .right-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.slot-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.slot-code {
+  width: 4.5rem;
+  min-width: 4rem;
+  text-align: center;
+}
+
+.slot-dd {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+:host ::ng-deep .slot-code,
+:host ::ng-deep .slot-dd .p-dropdown,
+:host ::ng-deep .slot-dd .p-dropdown-label,
+:host ::ng-deep .slot-row .p-inputtext {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .slot-code,
+:host ::ng-deep .slot-dd .p-dropdown,
+:host ::ng-deep .slot-row .p-inputtext {
+  height: 34px !important;
+}
+
+:host ::ng-deep .slot-dd .p-dropdown {
+  width: 100% !important;
+}
+
+:host ::ng-deep .slot-dd .p-dropdown-label {
+  line-height: 34px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+:host ::ng-deep .slot-dd .p-dropdown-trigger {
+  width: 34px !important;
+}
+
+:host ::ng-deep .slot-row .p-button.p-button-sm {
+  width: 30px !important;
+  height: 30px !important;
+  min-width: 30px !important;
+  padding: 0 !important;
+}
+
+:host ::ng-deep .slot-row .p-button.p-button-sm .p-button-icon {
+  font-size: 12px !important;
+}
+
+.boleta-card {
+  padding: 1rem;
+}
+
+:host ::ng-deep .p-panel .p-panel-header {
+  font-size: 15px !important;
+  padding: 0.8rem 1rem !important;
+}
+
+:host ::ng-deep .p-panel .p-panel-content {
+  padding: 0.8rem 0.9rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb {
+  font-size: 12px !important;
+  padding: 0.5rem 0.75rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb .p-menuitem-link {
+  padding: 0 !important;
+  gap: 0.35rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb .pi {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .p-breadcrumb .p-breadcrumb-chevron {
+  font-size: 11px !important;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  padding: 0.55rem 0.65rem !important;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr > td {
+  font-size: 12px !important;
+  padding: 0.5rem 0.65rem !important;
+  vertical-align: middle !important;
+}
+
+:host ::ng-deep .p-datatable .p-button.p-button-sm {
+  width: 30px !important;
+  height: 30px !important;
+  min-width: 30px !important;
+  padding: 0 !important;
+}
+
+:host ::ng-deep .p-datatable .p-button.p-button-sm .p-button-icon {
+  font-size: 12px !important;
+}
+
+.button-save {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-bottom: 0.75rem;
+}
+
+:host ::ng-deep .button-save .p-button {
+  height: 34px !important;
+  font-size: 12px !important;
+  padding: 0 0.85rem !important;
+}
+
+:host ::ng-deep .button-save .p-button .p-button-icon,
+:host ::ng-deep .button-save .p-button .p-button-label {
+  font-size: 12px !important;
+}
+
+.conceptos-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.right-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  align-items: start;
+  justify-items: start;
+}
+
+.right-grid > div {
+  width: 100%;
+}
+
+@media (max-width: 992px) {
+  .right-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.slot-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.slot-code {
+  width: 4.5rem;
+  min-width: 4rem;
+  text-align: center;
+}
+
+.slot-dd {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+:host ::ng-deep .slot-code,
+:host ::ng-deep .slot-dd .p-dropdown,
+:host ::ng-deep .slot-dd .p-dropdown-label,
+:host ::ng-deep .slot-row .p-inputtext {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .slot-code,
+:host ::ng-deep .slot-dd .p-dropdown,
+:host ::ng-deep .slot-row .p-inputtext {
+  height: 34px !important;
+}
+
+:host ::ng-deep .slot-dd .p-dropdown {
+  width: 100% !important;
+}
+
+:host ::ng-deep .slot-dd .p-dropdown-label {
+  line-height: 34px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+:host ::ng-deep .slot-dd .p-dropdown-trigger {
+  width: 34px !important;
+}
+
+:host ::ng-deep .slot-row .p-button.p-button-sm {
+  width: 30px !important;
+  height: 30px !important;
+  min-width: 30px !important;
+  padding: 0 !important;
+}
+
+:host ::ng-deep .slot-row .p-button.p-button-sm .p-button-icon {
+  font-size: 12px !important;
+}
+
+.layout-shell {
+  display: grid;
+  grid-template-columns: 34% 66%;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.left-column,
+.right-column {
+  min-width: 0;
+}
+
+.table-actions-bar {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 0.9rem;
+  align-items: center;
+}
+
+:host ::ng-deep .table-actions-bar .table-action-btn {
+  width: 34px !important;
+  height: 34px !important;
+  min-width: 34px !important;
+  border-radius: 8px !important;
+  padding: 0 !important;
+}
+
+:host ::ng-deep .table-actions-bar .table-action-btn .p-button-icon {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .table-actions-bar {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  align-items: center;
+}
+
+:host ::ng-deep .table-actions-bar .p-button-sm {
+  font-size: 12px !important;
+}
+
+.planilla-table {
+  width: 100%;
+}
+
+.right-panel {
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  padding: 0.9rem !important;
+  margin-top: 66px;
+}
+
+.button-save {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-bottom: 0.75rem;
+}
+
+:host ::ng-deep .button-save .p-button {
+  height: 34px !important;
+  font-size: 12px !important;
+  padding: 0 0.85rem !important;
+}
+
+.conceptos-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.right-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem 1rem;
+  width: 100%;
+}
+
+.right-grid > div {
+  width: 100%;
+}
+
+.slot-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.slot-code-dd {
+  width: 110px;
+  min-width: 110px;
+}
+
+.slot-desc {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 34px !important;
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .slot-code-dd .p-dropdown {
+  width: 100% !important;
+  height: 34px !important;
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .slot-code-dd .p-dropdown-label {
+  line-height: 34px !important;
+  font-size: 12px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+:host ::ng-deep .slot-code-dd .p-dropdown-trigger {
+  width: 34px !important;
+}
+
+@media (max-width: 992px) {
+  .layout-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .right-panel {
+    margin-top: 0;
+  }
+
+  .right-grid {
+    grid-template-columns: 1fr;
+  }
+}

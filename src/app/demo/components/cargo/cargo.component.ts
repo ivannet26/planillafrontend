@@ -67,6 +67,8 @@ export class CargoComponent implements OnInit {
 
   editingCargo: Cargo | null = null;
 
+  editingRowIndex: number | null = null;
+
 
   currentCargos: Cargo[] = [
     {
@@ -129,12 +131,14 @@ export class CargoComponent implements OnInit {
     this.cargos.push(newCargo); 
 
     this.editingCargo = JSON.parse(JSON.stringify(newCargo));
+    this.selectedCargo = newCargo;
+
+    this.editingRowIndex = this.cargos.findIndex(c => c.pla51codigo === tempId);
 
     this.isAddMode = true;
     this.isEditMode = false;
 
     this.cargo = this.initializeCargo();
-    this.selectedCargo = null;
   }
 
   cancelar(): void {
@@ -147,24 +151,66 @@ export class CargoComponent implements OnInit {
   }
 
 
+  /*
   onRowEditarCargo(cargo: Cargo): void {
+    this.editingCargo = JSON.parse(JSON.stringify(cargo));
+    this.selectedCargo = cargo;
+
+    const rowIndex = this.cargos.findIndex(
+      c => c.pla51codigo === cargo.pla51codigo
+    );
+    
+    if (rowIndex === -1) return;
+
     // Clonamos profundamente el objeto para evitar modificar la tabla directamente
     this.editingCargo = JSON.parse(JSON.stringify(cargo));
+    this.editingRowIndex = rowIndex;
+    this.isEditMode = true;
+    this.isAddMode = false;
+  }
+    */
+
+  onRowEditarCargo(cargo: Cargo): void {
+    this.editingCargo = JSON.parse(JSON.stringify(cargo));
+    this.selectedCargo = cargo;
+
+    this.editingRowIndex = this.cargos.findIndex(
+      c => c.pla51codigo === cargo.pla51codigo
+    );
 
     this.isEditMode = true;
     this.isAddMode = false;
   }
 
+  /*
   onRowCancelarEdicion(cargo: Cargo): void {
     if (this.isAddMode) {
       this.cargos = this.cargos.filter(e => e.pla51codigo !== cargo.pla51codigo);
+    } else {
+      this.cargos = JSON.parse(JSON.stringify(this.currentCargos));
     }
 
     this.editingCargo = null;
+    this.editingRowIndex = null;
     this.isEditMode = false;
     this.isAddMode = false;
 
     this.cargos = JSON.parse(JSON.stringify(this.currentCargos));
+  }
+    */
+
+  onRowCancelarEdicion(cargo: Cargo): void {
+    if (this.isAddMode) {
+      this.cargos = this.cargos.filter(e => e.pla51codigo !== cargo.pla51codigo);
+    }
+    
+    this.editingCargo = null;
+    this.editingRowIndex = null;
+    this.isEditMode = false;
+    this.isAddMode = false;
+
+    this.cargos = JSON.parse(JSON.stringify(this.currentCargos));
+    this.selectedCargo = null;
   }
 
   onRowValidarCampos(cargo: Cargo): boolean {
@@ -231,6 +277,7 @@ export class CargoComponent implements OnInit {
     verMensajeInformativo(this.messageService, 'success', 'Éxito', mensajeExito);
 
     this.editingCargo = null;
+    this.editingRowIndex = null;
     this.isEditMode = false;
     this.isAddMode = false;
   }
@@ -254,11 +301,49 @@ export class CargoComponent implements OnInit {
 
         if (this.currentCargos.length < initialLength) {
           this.cargos = JSON.parse(JSON.stringify(this.currentCargos));
-          verMensajeInformativo(this.messageService, 'success', 'Éxito', `Cargo ${codigoAeliminar} eliminado.`);
+          this.selectedCargo = null;
+          verMensajeInformativo(
+            this.messageService, 
+            'success', 
+            'Éxito', 
+            `Cargo ${codigoAeliminar} eliminado.`
+          );
         } else {
-          verMensajeInformativo(this.messageService, 'error', 'Error', `No se encontró el cargo ${codigoAeliminar} para eliminar.`);
-        }
-      }
+          verMensajeInformativo(
+            this.messageService, 
+            'error', 
+            'Error',
+            `No se encontró el cargo ${codigoAeliminar} para eliminar.`);
+        } 
+      } 
     });
   }
+
+  editarCargoSeleccionado(): void {
+  if (!this.selectedCargo) return;
+  this.onRowEditarCargo(this.selectedCargo);
+}
+
+eliminarCargoSeleccionado(): void {
+  if (!this.selectedCargo) return;
+  this.eliminarCargo(this.selectedCargo);
+}
+
+guardarEdicionSeleccionada(): void {
+  if (this.editingRowIndex === null) return;
+
+  const cargoOriginal = this.cargos[this.editingRowIndex];
+  if (!cargoOriginal) return;
+
+  this.onRowGuardarEdicion(cargoOriginal);
+}
+
+cancelarEdicionSeleccionada(): void {
+  if (this.editingRowIndex === null) return;
+
+  const cargoOriginal = this.cargos[this.editingRowIndex];
+  if (!cargoOriginal) return;
+
+  this.onRowCancelarEdicion(cargoOriginal);
+}
 }

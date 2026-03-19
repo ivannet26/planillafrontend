@@ -1,10 +1,214 @@
-::ng-deep .table-parametros-empresa {
-  width: fit-content;
+/* panel */
+:host ::ng-deep .p-panel .p-panel-header {
+  font-size: 15px !important;
+  padding: 0.8rem 1rem !important;
+}
+
+:host ::ng-deep .p-panel .p-panel-content {
+  padding: 0.8rem 0.9rem !important;
+}
+
+/* breadcrumb */
+:host ::ng-deep .p-breadcrumb {
+  font-size: 12px !important;
+  padding: 0.5rem 0.75rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb .p-menuitem-link {
+  padding: 0 !important;
+  gap: 0.35rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb .pi {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .p-breadcrumb .p-breadcrumb-chevron {
+  font-size: 11px !important;
+}
+
+/* card */
+:host ::ng-deep .surface-card {
+  padding: 0.9rem 1rem !important;
+  border-radius: 16px !important;
+}
+
+
+:host ::ng-deep .table-parametros-empresa .p-button,
+:host ::ng-deep .table-parametros-empresa .p-button.p-button-sm {
+  height: 34px !important;
+  font-size: 12px !important;
+  padding: 0 0.85rem !important;
+  border-radius: 8px !important;
+}
+
+:host ::ng-deep .table-parametros-empresa .p-button .p-button-icon,
+:host ::ng-deep .table-parametros-empresa .p-button .p-button-label {
+  font-size: 12px !important;
+}
+
+
+:host ::ng-deep .table-parametros-empresa {
+  width: 100%;
   max-width: 100%;
 }
 
-::ng-deep .table-parametros-empresa {
+:host ::ng-deep .table-parametros-empresa table {
+  width: 100% !important;
   border-collapse: collapse;
-  width: auto !important;
   table-layout: auto;
+}
+
+
+:host ::ng-deep .table-parametros-empresa .p-datatable-thead > tr > th {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  padding: 0.5rem 0.55rem !important;
+  line-height: 1.2 !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+}
+
+
+:host ::ng-deep .table-parametros-empresa .p-datatable-tbody > tr > td,
+:host ::ng-deep .table-parametros-empresa .p-datatable-tfoot > tr > td {
+  font-size: 12px !important;
+  padding: 0.45rem 0.55rem !important;
+  line-height: 1.2 !important;
+  vertical-align: middle !important;
+}
+
+
+:host ::ng-deep .table-parametros-empresa .p-inputtext {
+  height: 30px !important;
+  font-size: 12px !important;
+  padding: 0.3rem 0.45rem !important;
+}
+
+/* dropdown  */
+:host ::ng-deep .table-parametros-empresa .p-dropdown {
+  height: 30px !important;
+  font-size: 12px !important;
+  min-width: unset !important;
+}
+
+:host ::ng-deep .table-parametros-empresa .p-dropdown .p-dropdown-label {
+  display: flex !important;
+  align-items: center !important;
+  height: 30px !important;
+  font-size: 12px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+:host ::ng-deep .table-parametros-empresa .p-dropdown .p-dropdown-trigger {
+  width: 30px !important;
+}
+
+/* botones */
+:host ::ng-deep .table-parametros-empresa .p-button-rounded,
+:host ::ng-deep .table-parametros-empresa .p-button.p-button-sm {
+  width: 28px !important;
+  height: 28px !important;
+  min-width: 28px !important;
+  padding: 0 !important;
+}
+
+:host ::ng-deep .table-parametros-empresa .p-button-rounded .p-button-icon,
+:host ::ng-deep .table-parametros-empresa .p-button.p-button-sm .p-button-icon {
+  font-size: 11px !important;
+}
+
+:host ::ng-deep .table-parametros-empresa .grid {
+  gap: 0.2rem 0.3rem !important;
+}
+
+:host ::ng-deep .table-parametros-empresa .col-2,
+:host ::ng-deep .table-parametros-empresa .col-4 {
+  padding: 0.2rem !important;
+}
+
+:host ::ng-deep .table-parametros-empresa .p-paginator {
+  font-size: 12px !important;
+  padding: 0.45rem 0.6rem !important;
+}
+
+:host ::ng-deep .table-parametros-empresa .p-paginator .p-paginator-pages .p-paginator-page,
+:host ::ng-deep .table-parametros-empresa .p-paginator .p-dropdown,
+:host ::ng-deep .table-parametros-empresa .p-paginator .p-dropdown-label,
+:host ::ng-deep .table-parametros-empresa .p-paginator .p-paginator-current,
+:host ::ng-deep .table-parametros-empresa .p-paginator .p-paginator-first,
+:host ::ng-deep .table-parametros-empresa .p-paginator .p-paginator-prev,
+:host ::ng-deep .table-parametros-empresa .p-paginator .p-paginator-next,
+:host ::ng-deep .table-parametros-empresa .p-paginator .p-paginator-last {
+  font-size: 12px !important;
+}
+
+/* tooltip */
+::ng-deep .p-tooltip .p-tooltip-text {
+  font-size: 11px !important;
+  padding: 0.3rem 0.45rem !important;
+  line-height: 1.15 !important;
+}
+
+::ng-deep .p-tooltip {
+  max-width: 160px !important;
+}
+
+::ng-deep .p-tooltip .p-tooltip-arrow {
+  transform: scale(0.8);
+}
+
+:host ::ng-deep .parametros-empresa-btn {
+  height: 34px !important;
+  font-size: 12px !important;
+  padding: 0 0.85rem !important;
+  border-radius: 8px !important;
+}
+
+:host ::ng-deep .parametros-empresa-btn .p-button-icon,
+:host ::ng-deep .parametros-empresa-btn .p-button-label {
+  font-size: 12px !important;
+}
+
+.parametros-empresa-toolbar-row {
+  margin-bottom: 0.75rem !important;
+}
+
+.parametros-empresa-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.parametros-empresa-toolbar-left,
+.parametros-empresa-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+:host ::ng-deep .parametros-empresa-btn {
+  height: 34px !important;
+  font-size: 12px !important;
+  padding: 0 0.85rem !important;
+  border-radius: 8px !important;
+}
+
+:host ::ng-deep .parametros-empresa-btn .p-button-icon,
+:host ::ng-deep .parametros-empresa-btn .p-button-label {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .parametros-empresa-icon-btn {
+  width: 30px !important;
+  height: 30px !important;
+  min-width: 30px !important;
+  padding: 0 !important;
+  border-radius: 8px !important;
+}
+
+:host ::ng-deep .parametros-empresa-icon-btn .p-button-icon {
+  font-size: 11px !important;
 }

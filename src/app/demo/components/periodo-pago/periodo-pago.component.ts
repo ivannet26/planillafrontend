@@ -23,6 +23,8 @@ import { PanelModule } from 'primeng/panel';
 import { PeriodoPago } from 'src/app/demo/model/PeriodoPago';
 
 import { verMensajeInformativo, aMayusculas, esVacio, esFechaValida } from '../utilities/funciones_utilitarias';
+import { BreadcrumbService } from '../../service/breadcrumb.service';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 
 @Component({
   selector: 'app-periodo-pago',
@@ -43,7 +45,8 @@ import { verMensajeInformativo, aMayusculas, esVacio, esFechaValida } from '../u
     ToastModule,
     TagModule,
     PanelModule,
-    InputNumberModule
+    InputNumberModule,
+    BreadcrumbModule,
   ],
   providers: [ConfirmationService, MessageService],
   templateUrl: './periodo-pago.component.html',
@@ -58,6 +61,8 @@ export class PeriodoPagoComponent implements OnInit {
   isViewing: boolean = false;
   globalFilterValue: string = '';
 
+items: any[] = [];
+
   // Formulario usa la interfaz del modelo
   periodoForm: PeriodoPago = this.createEmptyPeriodo();
 
@@ -68,10 +73,23 @@ export class PeriodoPagoComponent implements OnInit {
 
   constructor(
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+private bS: BreadcrumbService
   ) { }
 
   ngOnInit() {
+    this.bS.setBreadcrumbs([
+      { icon: 'pi pi-home', routerLink: '/home' },
+      { label: 'Sistema' },
+      { label: 'Procesos' },
+      { label: 'Periodo Pago' },
+
+    ]);
+
+    this.bS.currentBreadcrumbs$.subscribe((bc) => {
+      this.items = bc;
+    });
+
     this.loadPeriodos();
   }
 
@@ -152,7 +170,14 @@ export class PeriodoPagoComponent implements OnInit {
   }
 
   // Nuevos métodos para las acciones de la tabla
-  onEdit(periodo: PeriodoPago) {
+  onEdit(periodo: PeriodoPago | null) {
+  if (!periodo) {
+    verMensajeInformativo(this.messageService, 
+      'warn', 
+      'Advertencia', 
+      'Debe seleccionar un periodo');
+    return;
+  }
     this.selectedPeriodo = periodo;
     this.periodoForm = { ...periodo };
     this.isEditing = true;
@@ -160,7 +185,14 @@ export class PeriodoPagoComponent implements OnInit {
     this.displayDialog = true;
   }
 
-  onDelete(periodo: PeriodoPago) {
+  onDelete(periodo: PeriodoPago | null) {
+  if (!periodo) {
+    verMensajeInformativo(this.messageService, 
+      'warn', 
+      'Advertencia', 
+      'Debe seleccionar un periodo');
+    return;
+  }
     this.selectedPeriodo = periodo;
     this.confirmationService.confirm({
       message: `¿Está seguro que desea eliminar el periodo ${periodo.pla01periodocod}?`,
@@ -178,7 +210,14 @@ export class PeriodoPagoComponent implements OnInit {
     });
   }
 
-  onView(periodo: PeriodoPago) {
+  onView(periodo: PeriodoPago | null) {
+  if (!periodo) {
+    verMensajeInformativo(this.messageService, 
+      'warn', 
+      'Advertencia', 
+      'Debe seleccionar un periodo');
+    return;
+  }
     this.selectedPeriodo = periodo;
     this.periodoForm = { ...periodo };
     this.isEditing = false;

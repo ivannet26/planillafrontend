@@ -3,115 +3,148 @@
 
 <p-panel header="Periodos Laborales" styleClass="shadow-xl rounded-xl mb-3">
 
-  <button type="button" pButton icon="pi pi-plus" label="Nuevo Periodo"
-                      (click)="showAddRow()" [disabled]="isEditingAnyRow || esModoVisualizacion"
-                      class="p-button-sm"></button>
+  <div class="periodo-toolbar">
+  <div class="periodo-toolbar-left">
+    <button
+      type="button"
+      pButton
+      icon="pi pi-plus"
+      label="Nuevo Periodo"
+      (click)="showAddRow()"
+      [disabled]="isEditingAnyRow || esModoVisualizacion"
+      class="p-button-sm periodo-btn">
+    </button>
+  </div>
 
-  <p-table [value]="periodosLaboralesLista" dataKey="pla30codigo" editMode="row" styleClass="p-datatable-sm">
+  <div class="periodo-toolbar-right">
+    <button
+      *ngIf="editingRowIndex === null"
+      pButton
+      type="button"
+      icon="pi pi-pencil"
+      class="p-button-sm periodo-icon-btn"
+      pTooltip="Editar"
+      tooltipPosition="bottom"
+      [disabled]="!periodoSeleccionado || isEditingAnyRow || esModoVisualizacion || isNew"
+      (click)="editarPeriodoSeleccionado()">
+    </button>
+
+    <button
+      *ngIf="editingRowIndex === null"
+      pButton
+      type="button"
+      icon="pi pi-trash"
+      class="p-button-sm periodo-icon-btn p-button-danger"
+      pTooltip="Eliminar"
+      tooltipPosition="bottom"
+      [disabled]="!periodoSeleccionado || isEditingAnyRow || esModoVisualizacion || isNew"
+      (click)="eliminarPeriodoSeleccionado()">
+    </button>
+
+    <button
+      *ngIf="editingRowIndex !== null"
+      pButton
+      type="button"
+      icon="pi pi-check"
+      class="p-button-sm periodo-icon-btn p-button-success"
+      pTooltip="Guardar"
+      tooltipPosition="bottom"
+      (click)="guardarEdicionSeleccionada()">
+    </button>
+
+    <button
+      *ngIf="editingRowIndex !== null"
+      pButton
+      type="button"
+      icon="pi pi-times"
+      class="p-button-sm periodo-icon-btn p-button-danger"
+      pTooltip="Cancelar"
+      tooltipPosition="bottom"
+      (click)="cancelarEdicionSeleccionada()">
+    </button>
+  </div>
+</div>
+
+  <p-table 
+  [value]="periodosLaboralesLista" 
+  dataKey="pla30codigo" 
+  selectionMode="single"
+  [(selection)]="periodoSeleccionado"
+  styleClass="p-datatable-sm">
     <ng-template pTemplate="header">
       <tr>
         <th style="width: 25%;">Fec. Ini</th>
         <th style="width: 25%;">Fec. Fin</th>
         <th style="width: 25%;">Motivo Des.</th>
-        <th style="width: 25%; text-align: center;">Acciones</th>
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-periodo let-ri="rowIndex" let-editing="editing">
-      <tr [pEditableRow]="periodo">
-        <!-- Fecha Inicio -->
-        <td>
-          <p-cellEditor>
-            <ng-template pTemplate="input">
-              <p-calendar [(ngModel)]="periodo.pla30fechaini" dateFormat="dd/mm/yy" class="w-full" [appendTo]="'body'"></p-calendar>
-            </ng-template>
-            <ng-template pTemplate="output">
-              {{ periodo.pla30fechaini | date: 'dd/MM/yyyy' }}
-            </ng-template>
-          </p-cellEditor>
-        </td>
+    <ng-template pTemplate="body" let-periodo let-ri="rowIndex">
+  <tr [pSelectableRow]="periodo">
 
-        <!-- Fecha Fin -->
-        <td>
-          <p-cellEditor>
-            <ng-template pTemplate="input">
-              <p-calendar [(ngModel)]="periodo.pla30fechafin" dateFormat="dd/mm/yy" class="w-full" [appendTo]="'body'"></p-calendar>
-            </ng-template>
-            <ng-template pTemplate="output">
-              {{ periodo.pla30fechafin | date: 'dd/MM/yyyy' }}
-            </ng-template>
-          </p-cellEditor>
-        </td>
+    <td>
+      <ng-container *ngIf="editingRowIndex === ri; else fechaIniVista">
+        <p-calendar
+          [(ngModel)]="periodosLaboralesLista[ri].pla30fechaini"
+          dateFormat="dd/mm/yy"
+          class="w-full"
+          [appendTo]="'body'">
+        </p-calendar>
+      </ng-container>
 
-        <!-- Motivo Desvinculación -->
-        <td>
-          <p-cellEditor>
-            <ng-template pTemplate="input">
-              <div class="flex align-items-center gap-2">
-                <input
-                  type="text"
-                  pInputText
-                  [(ngModel)]="periodo.desmotivocese"
-                  placeholder="Seleccionar Motivo"
-                  readonly
-                  class="w-full"
-                />
-                <button
-                  pButton
-                  icon="pi pi-search"
-                  class="p-button-sm p-button-secondary"
-                  (click)="abrirModalMotivoCese()"
-                  pTooltip="Seleccionar Motivo"
-                ></button>
-              </div>
-            </ng-template>
-            <ng-template pTemplate="output">
-              {{ periodo.desmotivocese }}
-            </ng-template>
-          </p-cellEditor>
-        </td>
+      <ng-template #fechaIniVista>
+        {{ periodo.pla30fechaini | date:'dd/MM/yyyy' }}
+      </ng-template>
+    </td>
 
-        <!-- Botones de acción -->
-        <td style="text-align: center;">
-          <div class="flex justify-content-center gap-2">
-            <button *ngIf="!editing" pButton
-                    pInitEditableRow
-                    (click)="onRowEditInit(periodo)"
-                    icon="pi pi-pencil"
-                    pTooltip="Editar"
-                    [disabled]="isEditingAnyRow || esModoVisualizacion || isNew "
-                    class="p-button-rounded p-button-text p-button-sm"></button>
+    <td>
+      <ng-container *ngIf="editingRowIndex === ri; else fechaFinVista">
+        <p-calendar
+          [(ngModel)]="periodosLaboralesLista[ri].pla30fechafin"
+          dateFormat="dd/mm/yy"
+          class="w-full"
+          [appendTo]="'body'">
+        </p-calendar>
+      </ng-container>
 
-            <button *ngIf="editing" pButton
-                    pSaveEditableRow
-                    (click)="onRowEditSave(ri)"
-                    icon="pi pi-check"
-                    pTooltip="Guardar"
-                    class="p-button-rounded p-button-text p-button-sm p-button-success"></button>
+      <ng-template #fechaFinVista>
+        {{ periodo.pla30fechafin | date:'dd/MM/yyyy' }}
+      </ng-template>
+    </td>
 
-            <button *ngIf="editing" pButton
-                    pCancelEditableRow
-                    (click)="onRowEditCancel( ri)"
-                    icon="pi pi-times"
-                    pTooltip="Cancelar"
-                    class="p-button-rounded p-button-text p-button-sm p-button-danger"></button>
+    <td>
+      <ng-container *ngIf="editingRowIndex === ri; else motivoVista">
+        <div class="flex align-items-center gap-2">
+          <input
+            type="text"
+            pInputText
+            [(ngModel)]="periodosLaboralesLista[ri].desmotivocese"
+            placeholder="Seleccionar Motivo"
+            readonly
+            class="w-full" />
 
-            <button *ngIf="!editing" pButton
-                    type="button"
-                    (click)="onDelete(periodo, ri)"
-                    icon="pi pi-trash"
-                    pTooltip="Eliminar"
-                    [disabled]="isEditingAnyRow || esModoVisualizacion || isNew "
-                    class="p-button-rounded p-button-text p-button-sm p-button-danger"></button>
+          <button
+            pButton
+            type="button"
+            icon="pi pi-search"
+            class="p-button-sm p-button-secondary"
+            (click)="abrirModalMotivoCese()"
+            pTooltip="Seleccionar Motivo">
+          </button>
+        </div>
+      </ng-container>
 
-          </div>
-        </td>
-      </tr>
-    </ng-template>
+      <ng-template #motivoVista>
+        {{ periodo.desmotivocese }}
+      </ng-template>
+    </td>
+
+  </tr>
+</ng-template>
 
     <!-- Footer para Nuevo Registro -->
     <ng-template pTemplate="footer">
       <tr *ngIf="isEditing">
-        <td colspan="4">
+        <td colspan="3">
           <form [formGroup]="nuevoPeriodoForm" class="grid p-fluid">
 
             <div class="col-2" style="width: 25%;">

@@ -1,1 +1,313 @@
-<p>asistente-empresa works!</p>
+<p-toast></p-toast>
+
+<p-panel header="Asistente de Empresa" styleClass="shadow-xl rounded-xl mb-3">
+  <p-breadcrumb [model]="items" class="max-w-full"></p-breadcrumb>
+</p-panel>
+
+<div class="empresa-asistente-container">
+  <div class="steps-container">
+    <p-steps
+      [model]="wizardItems"
+      [(activeIndex)]="activeIndex"
+      [readonly]="true"
+      styleClass="custom-steps">
+    </p-steps>
+  </div>
+
+  <div class="empresa-asistente-content">
+    <p-card>
+
+      <!-- PASO 1 -->
+      <div *ngIf="activeIndex === 0" class="form-step">
+        <h3 class="step-title">Información de la Empresa</h3>
+
+        <p-panel header="Datos de la Empresa" [toggleable]="false" styleClass="border-round mb-3">
+          <div class="empresa-form-grid">
+
+            <div class="form-row top-row">
+              <div class="field-inline field-codigo">
+                <label for="codigo">Código :</label>
+                <input pInputText id="codigo" [(ngModel)]="empresa.empresacod" />
+              </div>
+
+              <div class="field-inline field-ruc">
+                <label for="ruc">Ruc :</label>
+                <input pInputText id="ruc" [(ngModel)]="empresa.ruc" />
+              </div>
+
+              <div class="field-inline field-razon">
+                <label for="razonSocial">Razón Social :</label>
+                <input pInputText id="razonSocial" [(ngModel)]="empresa.razonsocial" />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="field-inline field-direccion full-width">
+                <label for="direccion">Dirección :</label>
+                <input pInputText id="direccion" [(ngModel)]="empresa.direccion" />
+              </div>
+            </div>
+
+          </div>
+        </p-panel>
+
+        <div class="grid">
+          <div class="col-12 md:col-6">
+            <p-panel header="Representante Legal" [toggleable]="false" styleClass="border-round h-full">
+              <div class="subform-grid">
+                <div class="form-row">
+                  <div class="field-inline field-doc-tipo">
+                    <label for="docTipoRL">Doc.Tipo :</label>
+                    <p-dropdown
+                      [options]="docTipos"
+                      optionLabel="label"
+                      optionValue="value"
+                      [(ngModel)]="empresa.representanteLegal.replegaldoctip"
+                      [filter]="true"
+                      appendTo="body"
+                      id="docTipoRL">
+                    </p-dropdown>
+                  </div>
+
+                  <div class="field-inline field-apellido">
+                    <label for="apPaternoRL">Ap.Paterno :</label>
+                    <input pInputText id="apPaternoRL"
+                      [(ngModel)]="empresa.representanteLegal.replegalapepaterno" />
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="field-inline field-doc-num">
+                    <label for="docNroRL">Doc.Nro :</label>
+                    <input pInputText id="docNroRL"
+                      [(ngModel)]="empresa.representanteLegal.replegaldocnro" />
+                  </div>
+
+                  <div class="field-inline field-apellido">
+                    <label for="apMaternoRL">Ap.Materno :</label>
+                    <input pInputText id="apMaternoRL"
+                      [(ngModel)]="empresa.representanteLegal.replegalapematerno" />
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="field-inline field-nombres full-width">
+                    <label for="nombresRL">Nombres :</label>
+                    <input pInputText id="nombresRL"
+                      [(ngModel)]="empresa.representanteLegal.replegalnombres" />
+                  </div>
+                </div>
+              </div>
+            </p-panel>
+          </div>
+
+          <div class="col-12 md:col-6">
+            <p-panel header="Responsable Planilla" [toggleable]="false" styleClass="border-round h-full">
+              <div class="subform-grid">
+                <div class="form-row">
+                  <div class="field-inline field-doc-tipo">
+                    <label for="docTipoRP">Doc.Tipo :</label>
+                    <p-dropdown
+                      [options]="docTipos"
+                      optionLabel="label"
+                      optionValue="value"
+                      [(ngModel)]="empresa.responsablePlanilla.encargadoplanilladoctip"
+                      [filter]="true"
+                      appendTo="body"
+                      id="docTipoRP">
+                    </p-dropdown>
+                  </div>
+
+                  <div class="field-inline field-apellido">
+                    <label for="apPaternoRP">Ap.Paterno :</label>
+                    <input pInputText id="apPaternoRP"
+                      [(ngModel)]="empresa.responsablePlanilla.encargadoplanillaapepaterno" />
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="field-inline field-doc-num">
+                    <label for="docNroRP">Doc.Nro :</label>
+                    <input pInputText id="docNroRP"
+                      [(ngModel)]="empresa.responsablePlanilla.encargadoplanilladocnro" />
+                  </div>
+
+                  <div class="field-inline field-apellido">
+                    <label for="apMaternoRP">Ap.Materno :</label>
+                    <input pInputText id="apMaternoRP"
+                      [(ngModel)]="empresa.responsablePlanilla.encargadoplanillaapematerno" />
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="field-inline field-nombres full-width">
+                    <label for="nombresRP">Nombres :</label>
+                    <input pInputText id="nombresRP"
+                      [(ngModel)]="empresa.responsablePlanilla.encargadoplanillanombres" />
+                  </div>
+                </div>
+              </div>
+            </p-panel>
+          </div>
+        </div>
+
+        <p-panel header="Bancos" [toggleable]="false" styleClass="border-round mt-3">
+          <div class="bancos-grid">
+
+            <div class="form-row">
+              <div class="field-inline banco-field">
+                <label for="bancoSoles">Banco Soles :</label>
+                <p-dropdown
+                  [options]="bancosOptions"
+                  optionLabel="label"
+                  optionValue="value"
+                  [(ngModel)]="empresa.bancos.ctasolespagobancocod"
+                  [filter]="true"
+                  appendTo="body"
+                  id="bancoSoles">
+                </p-dropdown>
+              </div>
+
+              <div class="field-inline banco-field">
+                <label for="bancoDolares">Cta Dólares :</label>
+                <p-dropdown
+                  [options]="bancosOptions"
+                  optionLabel="label"
+                  optionValue="value"
+                  [(ngModel)]="empresa.bancos.ctadolarespagobancocod"
+                  [filter]="true"
+                  appendTo="body"
+                  id="bancoDolares">
+                </p-dropdown>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="field-inline banco-field">
+                <label for="ctaSoles">Cta Nro :</label>
+                <input pInputText id="ctaSoles"
+                  [(ngModel)]="empresa.bancos.ctasolespagonumero" />
+              </div>
+
+              <div class="field-inline banco-field">
+                <label for="ctaDolares">Cta Nro :</label>
+                <input pInputText id="ctaDolares"
+                  [(ngModel)]="empresa.bancos.ctadolarespagonumero" />
+              </div>
+            </div>
+
+          </div>
+        </p-panel>
+      </div>
+
+      <!-- PASO 2 -->
+      <div *ngIf="activeIndex === 1" class="form-step confirmation-step">
+        <h3 class="step-title">Confirmar Datos</h3>
+
+        <div class="confirmation-panel">
+          <p-panel header="Resumen de la Empresa" styleClass="confirmation-card">
+            <div class="confirmation-grid">
+              <div class="confirmation-item">
+                <span class="confirmation-label">Código:</span>
+                <span class="confirmation-value">{{ empresa.empresacod || 'No especificado' }}</span>
+              </div>
+
+              <div class="confirmation-item">
+                <span class="confirmation-label">RUC:</span>
+                <span class="confirmation-value">{{ empresa.ruc || 'No especificado' }}</span>
+              </div>
+
+              <div class="confirmation-item">
+                <span class="confirmation-label">Razón Social:</span>
+                <span class="confirmation-value">{{ empresa.razonsocial || 'No especificado' }}</span>
+              </div>
+
+              <div class="confirmation-item">
+                <span class="confirmation-label">Dirección:</span>
+                <span class="confirmation-value">{{ empresa.direccion || 'No especificado' }}</span>
+              </div>
+
+              <div class="confirmation-item">
+                <span class="confirmation-label">Rep. Legal:</span>
+                <span class="confirmation-value">
+                  {{ empresa.representanteLegal.replegalapepaterno || '' }}
+                  {{ empresa.representanteLegal.replegalapematerno || '' }}
+                  {{ empresa.representanteLegal.replegalnombres || 'No especificado' }}
+                </span>
+              </div>
+
+              <div class="confirmation-item">
+                <span class="confirmation-label">Resp. Planilla:</span>
+                <span class="confirmation-value">
+                  {{ empresa.responsablePlanilla.encargadoplanillaapepaterno || '' }}
+                  {{ empresa.responsablePlanilla.encargadoplanillaapematerno || '' }}
+                  {{ empresa.responsablePlanilla.encargadoplanillanombres || 'No especificado' }}
+                </span>
+              </div>
+
+              <div class="confirmation-item">
+                <span class="confirmation-label">Banco Soles:</span>
+                <span class="confirmation-value">{{ empresa.bancos.ctasolespagobancocod || 'No especificado' }}</span>
+              </div>
+
+              <div class="confirmation-item">
+                <span class="confirmation-label">Cta Soles:</span>
+                <span class="confirmation-value">{{ empresa.bancos.ctasolespagonumero || 'No especificado' }}</span>
+              </div>
+
+              <div class="confirmation-item">
+                <span class="confirmation-label">Banco Dólares:</span>
+                <span class="confirmation-value">{{ empresa.bancos.ctadolarespagobancocod || 'No especificado' }}</span>
+              </div>
+
+              <div class="confirmation-item">
+                <span class="confirmation-label">Cta Dólares:</span>
+                <span class="confirmation-value">{{ empresa.bancos.ctadolarespagonumero || 'No especificado' }}</span>
+              </div>
+            </div>
+          </p-panel>
+
+          <div class="confirmation-message">
+            <i class="pi pi-info-circle"></i>
+            <p>Revise cuidadosamente los datos antes de continuar. Al hacer clic en "Finalizar" se guardará la información de la empresa.</p>
+          </div>
+        </div>
+      </div>
+
+    </p-card>
+  </div>
+
+  <div class="asistente-footer">
+    <div class="footer-buttons">
+      <button
+        pButton
+        type="button"
+        label="Cancelar"
+        icon="pi pi-times"
+        class="p-button-secondary p-button-outlined"
+        (click)="cancelar()">
+      </button>
+
+      <div class="navigation-buttons">
+        <button
+          pButton
+          type="button"
+          label="Anterior"
+          icon="pi pi-chevron-left"
+          class="p-button-outlined"
+          (click)="anterior()"
+          *ngIf="mostrarBotonAnterior">
+        </button>
+
+        <button
+          pButton
+          type="button"
+          [label]="botonSiguienteTexto"
+          [icon]="activeIndex === wizardItems.length - 1 ? 'pi pi-check' : 'pi pi-chevron-right'"
+          iconPos="right"
+          (click)="siguiente()">
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

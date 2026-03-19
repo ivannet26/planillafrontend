@@ -1,0 +1,13 @@
+.actions-cell{
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
+.filter-label{
+  min-width: 85px;
+  white-space: nowrap;
+}
+
+:host ::ng-deep .p-dropdown {
+  max-width: 240px;
+}

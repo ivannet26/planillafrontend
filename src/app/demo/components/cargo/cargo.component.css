@@ -1,33 +1,396 @@
-
-:host ::ng-deep .cargo-table {
-    width: fit-content;
-    max-width: 100%;
+/* panel */
+:host ::ng-deep .p-panel .p-panel-header {
+  font-size: 15px !important;
+  padding: 0.8rem 1rem !important;
 }
 
-::ng-deep .cargo-table table {
-    border-collapse: collapse;
-    width: auto !important;
-    table-layout: auto;
+:host ::ng-deep .p-panel .p-panel-content {
+  padding: 0.8rem 0.9rem !important;
 }
 
-:host ::ng-deep .content-wrapper {
-    overflow-x: auto;
-    width: fit-content;
-    max-width: 100%;
+/* breadcrumb */
+:host ::ng-deep .p-breadcrumb {
+  font-size: 12px !important;
+  padding: 0.5rem 0.75rem !important;
 }
 
-:host ::ng-deep .align-to-table {
-    width: auto;
-    padding-left: 1.25rem;
-    padding-right: 0rem; 
+:host ::ng-deep .p-breadcrumb .p-menuitem-link {
+  padding: 0 !important;
+  gap: 0.35rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb .pi {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .p-breadcrumb .p-breadcrumb-chevron {
+  font-size: 11px !important;
+}
+
+/* card */
+:host ::ng-deep .surface-card {
+  padding: 0.9rem 1rem !important;
+  border-radius: 16px !important;
+}
+
+/* toolbar */
+:host ::ng-deep .p-toolbar {
+  padding: 0.45rem 0.6rem !important;
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .p-toolbar .p-toolbar-group-start,
+:host ::ng-deep .p-toolbar .p-toolbar-group-end {
+  gap: 0.5rem !important;
+}
+
+/* botón  */
+:host ::ng-deep .toolbar-button {
+  height: 34px !important;
+  font-size: 12px !important;
+  padding: 0 0.85rem !important;
+  border-radius: 8px !important;
+}
+
+:host ::ng-deep .toolbar-button .p-button-icon,
+:host ::ng-deep .toolbar-button .p-button-label {
+  font-size: 12px !important;
+}
+
+/* table */
+:host ::ng-deep .cargo-table .p-datatable-thead > tr > th {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  padding: 0.55rem 0.65rem !important;
+  text-align: center !important;
+  line-height: 1.25 !important;
+}
+
+:host ::ng-deep .cargo-table .p-datatable-tbody > tr > td {
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  padding: 0.5rem 0.65rem !important;
+  vertical-align: middle !important;
+  line-height: 1.3 !important;
+}
+
+:host ::ng-deep .cargo-table .p-datatable-emptymessage td {
+  font-size: 12px !important;
+  padding: 0.75rem !important;
+}
+
+:host ::ng-deep .cargo-table .p-inputtext {
+  height: 32px !important;
+  font-size: 12px !important;
+  padding: 0.4rem 0.55rem !important;
+}
+
+:host ::ng-deep .cargo-table .p-dropdown {
+  height: 32px !important;
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .cargo-table .p-dropdown .p-dropdown-label {
+  display: flex !important;
+  align-items: center !important;
+  height: 32px !important;
+  font-size: 12px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+:host ::ng-deep .cargo-table .p-dropdown .p-dropdown-trigger {
+  width: 32px !important;
+}
+
+:host ::ng-deep .cargo-table .p-checkbox {
+  transform: scale(0.9);
+}
+
+/* botones  */
+:host ::ng-deep .cargo-table .p-button.p-button-sm,
+:host ::ng-deep .cargo-table .p-button-rounded {
+  width: 30px !important;
+  height: 30px !important;
+  min-width: 30px !important;
+  padding: 0 !important;
+}
+
+:host ::ng-deep .cargo-table .p-button .p-button-icon {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .cargo-table .p-paginator {
+  font-size: 12px !important;
+  padding: 0.45rem 0.6rem !important;
+}
+
+:host ::ng-deep .cargo-table .p-paginator .p-paginator-pages .p-paginator-page,
+:host ::ng-deep .cargo-table .p-paginator .p-dropdown,
+:host ::ng-deep .cargo-table .p-paginator .p-dropdown-label,
+:host ::ng-deep .cargo-table .p-paginator .p-paginator-current {
+  font-size: 12px !important;
+}
+
+/* tooltip */
+::ng-deep .p-tooltip .p-tooltip-text {
+  font-size: 11px !important;
+  padding: 0.3rem 0.45rem !important;
+  line-height: 1.15 !important;
+}
+
+::ng-deep .p-tooltip {
+  max-width: 160px !important;
+}
+
+::ng-deep .p-tooltip .p-tooltip-arrow {
+  transform: scale(0.8);
 }
 
 :host ::ng-deep .aligned-content-container {
-    width: fit-content; 
-    max-width: 100%; 
-    margin-right: auto; 
+  width: 100%;
+  max-width: 100%;
+}
+
+:host ::ng-deep .cargo-table {
+  width: 100%;
+  max-width: 100%;
+}
+
+:host ::ng-deep .cargo-table table {
+  border-collapse: collapse;
+  width: 100% !important;
+  table-layout: auto;
 }
 
 
+/* panel */
+:host ::ng-deep .p-panel .p-panel-header {
+  font-size: 15px !important;
+  padding: 0.8rem 1rem !important;
+}
+
+:host ::ng-deep .p-panel .p-panel-content {
+  padding: 0.8rem 0.9rem !important;
+}
+
+/* breadcrumb */
+:host ::ng-deep .p-breadcrumb {
+  font-size: 12px !important;
+  padding: 0.5rem 0.75rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb .p-menuitem-link {
+  padding: 0 !important;
+  gap: 0.35rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb .pi {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .p-breadcrumb .p-breadcrumb-chevron {
+  font-size: 11px !important;
+}
+
+/* card */
+:host ::ng-deep .surface-card {
+  padding: 0.9rem 1rem !important;
+  border-radius: 16px !important;
+}
+
+/* toolbar */
+:host ::ng-deep .p-toolbar {
+  padding: 0.45rem 0.6rem !important;
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .p-toolbar .p-toolbar-group-start,
+:host ::ng-deep .p-toolbar .p-toolbar-group-end {
+  gap: 0.5rem !important;
+}
+
+/* botón nuevo */
+:host ::ng-deep .toolbar-button {
+  height: 34px !important;
+  font-size: 12px !important;
+  padding: 0 0.85rem !important;
+  border-radius: 8px !important;
+}
+
+:host ::ng-deep .toolbar-button .p-button-icon,
+:host ::ng-deep .toolbar-button .p-button-label {
+  font-size: 12px !important;
+}
+
+/* tabla */
+:host ::ng-deep .cargo-table .p-datatable-thead > tr > th {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  padding: 0.55rem 0.65rem !important;
+  text-align: center !important;
+  line-height: 1.25 !important;
+}
+
+:host ::ng-deep .cargo-table .p-datatable-tbody > tr > td {
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  padding: 0.5rem 0.65rem !important;
+  vertical-align: middle !important;
+  line-height: 1.3 !important;
+}
+
+:host ::ng-deep .cargo-table .p-datatable-emptymessage td {
+  font-size: 12px !important;
+  padding: 0.75rem !important;
+}
+
+/* inputs dentro de fila en edición */
+:host ::ng-deep .cargo-table .p-inputtext {
+  height: 32px !important;
+  font-size: 12px !important;
+  padding: 0.4rem 0.55rem !important;
+}
+
+:host ::ng-deep .cargo-table .p-dropdown {
+  height: 32px !important;
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .cargo-table .p-dropdown .p-dropdown-label {
+  display: flex !important;
+  align-items: center !important;
+  height: 32px !important;
+  font-size: 12px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+:host ::ng-deep .cargo-table .p-dropdown .p-dropdown-trigger {
+  width: 32px !important;
+}
+
+:host ::ng-deep .cargo-table .p-checkbox {
+  transform: scale(0.9);
+}
+
+/* botones de acciones */
+:host ::ng-deep .cargo-table .p-button.p-button-sm,
+:host ::ng-deep .cargo-table .p-button-rounded {
+  width: 30px !important;
+  height: 30px !important;
+  min-width: 30px !important;
+  padding: 0 !important;
+}
+
+:host ::ng-deep .cargo-table .p-button .p-button-icon {
+  font-size: 12px !important;
+}
+
+/* paginador */
+:host ::ng-deep .cargo-table .p-paginator {
+  font-size: 12px !important;
+  padding: 0.45rem 0.6rem !important;
+}
+
+:host ::ng-deep .cargo-table .p-paginator .p-paginator-pages .p-paginator-page,
+:host ::ng-deep .cargo-table .p-paginator .p-dropdown,
+:host ::ng-deep .cargo-table .p-paginator .p-dropdown-label,
+:host ::ng-deep .cargo-table .p-paginator .p-paginator-current {
+  font-size: 12px !important;
+}
+
+/* tooltip */
+::ng-deep .p-tooltip .p-tooltip-text {
+  font-size: 11px !important;
+  padding: 0.3rem 0.45rem !important;
+  line-height: 1.15 !important;
+}
+
+::ng-deep .p-tooltip {
+  max-width: 160px !important;
+}
+
+::ng-deep .p-tooltip .p-tooltip-arrow {
+  transform: scale(0.8);
+}
+
+/* estructura */
+:host ::ng-deep .cargo-table {
+  width: fit-content;
+  max-width: 100%;
+}
+
+::ng-deep .cargo-table table {
+  border-collapse: collapse;
+  width: auto !important;
+  table-layout: auto;
+}
 
 
+:host ::ng-deep .aligned-content-container {
+  width: 100%;
+  max-width: 100%;
+}
+
+.cargo-toolbar-row {
+  margin-bottom: 0.6rem !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.cargo-table-wrapper {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.cargo-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 0.75rem;
+}
+
+.cargo-toolbar-left,
+.cargo-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.cargo-btn {
+  height: 34px !important;
+  font-size: 12px !important;
+  padding: 0 0.85rem !important;
+}
+
+.cargo-icon-btn {
+  width: 34px !important;
+  height: 34px !important;
+  min-width: 34px !important;
+  padding: 0 !important;
+}
+
+:host ::ng-deep .cargo-btn .p-button-icon,
+:host ::ng-deep .cargo-btn .p-button-label,
+:host ::ng-deep .cargo-icon-btn .p-button-icon {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .cargo-table {
+  width: 100%;
+  max-width: 100%;
+}
+
+:host ::ng-deep .cargo-table table {
+  width: 100% !important;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+:host ::ng-deep .aligned-content-container {
+  width: fit-content;
+  max-width: 100%;
+  margin-right: auto;
+}

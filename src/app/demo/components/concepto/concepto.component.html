@@ -1,19 +1,60 @@
 <p-toast></p-toast>
 <p-confirmDialog></p-confirmDialog>
 
-<div class="p-1 py-5 max-h-screen">
+<div class="p-1 py-3 max-h-screen">
     <p-panel header="Concepto" styleClass="shadow-xl rounded-xl mb-3">
       <p-breadcrumb [model]="items" class="max-w-full"></p-breadcrumb>
       </p-panel>
       
       <div class="card">
-        <div class="shadow-xl rounded-xl surface-card px-4 py-4">
+        <div class="shadow-xl rounded-xl surface-card concepto-card">
           <!-- Botón Nuevo y Dropdown Filas por Página -->
-          <div class="flex justify-content-between align-items-center mb-3">
-              <button type="button" pButton icon="pi pi-plus" label="Nuevo Concepto"
-                      (click)="nuevoConcepto()"
-                      class="p-button-sm"></button>
+          <div class="concepto-toolbar">
+            <div class="concepto-toolbar-left">
+              <button
+              type="button"
+              pButton
+              icon="pi pi-plus"
+              label="Nuevo Concepto"
+              (click)="nuevoConcepto()"
+              class="p-button-sm concepto-toolbar-btn">
+            </button>
           </div>
+          
+          <div class="concepto-toolbar-right">
+            <button
+            pButton
+            type="button"
+            icon="pi pi-eye"
+            class="p-button-sm concepto-icon-btn"
+            pTooltip="Ver detalle"
+            tooltipPosition="bottom"
+            [disabled]="!conceptoSeleccionado"
+            (click)="verConceptoSeleccionado()"></button>
+            
+            
+            <button
+            pButton
+            type="button"
+            icon="pi pi-pencil"
+            class="p-button-sm concepto-icon-btn"
+            pTooltip="Editar"
+            tooltipPosition="bottom"
+            [disabled]="!conceptoSeleccionado"
+            (click)="editarConceptoSeleccionado()"></button>
+            
+            <button
+            pButton
+            type="button"
+            icon="pi pi-trash"
+            class="p-button-sm concepto-icon-btn p-button-danger"
+            pTooltip="Eliminar"
+            tooltipPosition="bottom"
+            [disabled]="!conceptoSeleccionado"
+            (click)="eliminarConceptoSeleccionado()">
+          </button>
+        </div>
+      </div>
 
           <!-- Tabla Principal -->
           <p-table [value]="conceptoList"
@@ -27,6 +68,8 @@
                   [tableStyle]="{ 'width': '1280px' }"
                   styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines"
                   class="table-concepto"
+                  selectionMode="single"
+                  [(selection)]="conceptoSeleccionado"
                   >
 
               <!-- Cabecera de Tabla -->
@@ -38,13 +81,13 @@
                       <th style="text-align: center; width: 10%;">Activo</th>
                       <th style="text-align: center; width: 15%;">ConceptoTipoDesc</th>
                       <th style="text-align: center; width: 10%;">Concept.Padre</th>
-                      <th style="text-align: center; width: 10%;">Acciones</th>
+                      <th style="text-align: center; width: 10%;">Ayuda Local</th>
                   </tr>
               </ng-template>
 
               <!-- Cuerpo de Tabla -->
               <ng-template pTemplate="body" let-concepto>
-                  <tr>
+                  <tr [pSelectableRow]="concepto">
                     <td>{{concepto.pla10conceptocod}}</td>
                     <td>{{concepto.pla10conceptodesc}}</td>
                     <td>{{concepto.pla10flagestandardesc}}</td>
@@ -56,15 +99,6 @@
                       <td>
                           <div class="flex justify-content-center gap-2">
 
-                            <!-- Botón Ver Detalle -->
-
-                            <button pButton
-                                    type="button"
-                                    icon="pi pi-eye"
-                                    pTooltip="Ver Detalle"
-                                    (click)="verConcepto(concepto)"
-                                    class="p-button-rounded p-button-text p-button-sm"></button>
-
                               <!-- Botón de Ayuda-->
 
                               <button pButton
@@ -74,21 +108,6 @@
                                       class="p-button-rounded p-button-text p-button-sm"
                                       (click)="mostrarAyuda()"></button>
 
-                              <!-- Botón Editar -->
-                              <button pButton
-                                      (click)="editarConcepto(concepto)"
-                                      icon="pi pi-pencil"
-                                      pTooltip="Editar"
-                                      class="p-button-rounded p-button-text p-button-sm"
-                                      ></button>
-
-                              <!-- Botón Eliminar -->
-                              <button pButton
-                                      type="button"
-                                      (click)="eliminarConcepto(concepto)"
-                                      icon="pi pi-trash"
-                                      pTooltip="Eliminar"
-                                      class="p-button-rounded p-button-text p-button-sm p-button-danger"></button>
 
                           </div>
                       </td>
@@ -110,7 +129,8 @@
   [modal]="true"
   [draggable]="false"
   [resizable]="false"
-  [closable]="false">
+  [closable]="false"
+  styleClass="concepto-dialog">
   <form [formGroup]="conceptoForm">
     <div class="concepto-detalle">
       <!-- Ignorar advertencia de usar border -->
@@ -427,7 +447,7 @@
 </p-dialog>
 
 <p-dialog [(visible)]="displayTipoCalculoDialog" header="Tipo de calculo" [modal]="true"
-    [style]="{width: '600px'}" [draggable]="false" [closable]="false">
+    [style]="{width: '600px'}" styleClass="concepto-search-dialog" [draggable]="false" [closable]="false">
     <p-table [value]="tiposCalculo" [scrollable]="true" scrollHeight="300px" selectionMode="single">
       <ng-template pTemplate="header">
         <tr>
@@ -449,7 +469,7 @@
 </p-dialog>
 
 <p-dialog [(visible)]="displayConceptoTipoDialog" header="Concepto Tipo" [modal]="true"
-    [style]="{width: '500px'}" [draggable]="false" [closable]="false">
+    [style]="{width: '500px'}" styleClass="concepto-search-dialog" [draggable]="false" [closable]="false">
     <p-table [value]="conceptosTipo" [scrollable]="true" scrollHeight="250px" selectionMode="single">
       <ng-template pTemplate="header">
         <tr>
@@ -471,7 +491,7 @@
 </p-dialog>
 
 <p-dialog [(visible)]="displaySubTipoDialog" header="Subtipo de Concepto Tipo" [modal]="true"
-    [style]="{width: '700px'}" [draggable]="false" [closable]="false">
+    [style]="{width: '700px'}" styleClass="concepto-search-dialog" [draggable]="false" [closable]="false">
     <p-table [value]="subTiposConcepto" [scrollable]="true" scrollHeight="300px" selectionMode="single">
       <ng-template pTemplate="header">
         <tr>
@@ -495,7 +515,7 @@
 </p-dialog>
 
 <p-dialog [(visible)]="displayConceptoSunatDialog" header="Concepto Sunat" [modal]="true"
-    [style]="{width: '800px'}" [draggable]="false" [closable]="false">
+    [style]="{width: '800px'}" styleClass="concepto-search-dialog" [draggable]="false" [closable]="false">
     <p-table [value]="conceptosSunat" [scrollable]="true" scrollHeight="350px" selectionMode="single">
       <ng-template pTemplate="header">
         <tr>
@@ -519,7 +539,7 @@
 <!-- Modal Conceptos estandar -->
 
 <p-dialog [(visible)]="displayConceptosEstandarDialog" [header]="'Búsqueda de Conceptos Estándar'" [modal]="true"
-    [style]="{width: '800px'}" [draggable]="false" [closable]="false" [resizable]="false">
+    [style]="{width: '800px'}" styleClass="concepto-search-dialog" [draggable]="false" [closable]="false" [resizable]="false">
   <p-table [value]="conceptosEstandar" [scrollable]="true" scrollHeight="350px" selectionMode="single">
     <ng-template pTemplate="header">
       <tr>

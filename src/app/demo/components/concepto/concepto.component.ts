@@ -79,6 +79,8 @@ export class ConceptoComponent implements OnInit {
 
   rowsPerPage: number = 10; // Numero de filas por página
 
+  conceptoSeleccionado: Concepto | null = null;
+
   // Ver detalle
   displayDialog: boolean = false;
   conceptoActual = {} as Concepto;
@@ -499,6 +501,12 @@ export class ConceptoComponent implements OnInit {
           .EliminarConcepto(concepto.pla10empresacod, concepto.pla10conceptocod)
           .subscribe({
             next: () => {
+              if (
+                this.conceptoSeleccionado &&
+                this.conceptoSeleccionado.pla10empresacod === concepto.pla10empresacod &&
+                this.conceptoSeleccionado.pla10conceptocod === concepto.pla10conceptocod) {
+                  this.conceptoSeleccionado = null;
+                }
               this.cargarConceptos();
               this.messageService.add({
                 severity: 'success',
@@ -710,4 +718,21 @@ export class ConceptoComponent implements OnInit {
     this.displayConceptosEstandarDialog = false; // Cierra el modal
     this.displayDialog = true; // Abre el detalle del concepto
   }
+
+
+  verConceptoSeleccionado(): void {
+  if (!this.conceptoSeleccionado) return;
+  this.verConcepto(this.conceptoSeleccionado);
+}
+
+editarConceptoSeleccionado(): void {
+  if (!this.conceptoSeleccionado) return;
+  this.editarConcepto(this.conceptoSeleccionado);
+}
+
+eliminarConceptoSeleccionado(): void {
+  if (!this.conceptoSeleccionado) return;
+  this.eliminarConcepto(this.conceptoSeleccionado);
+}
+
 }

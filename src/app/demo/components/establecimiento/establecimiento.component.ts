@@ -66,6 +66,9 @@ export class EstablecimientoComponent implements OnInit {
 
     editingEstablecimiento: Establecimiento | null = null;
 
+    editingRowIndex: number | null = null;
+    clonedEstablecimientos: { [key: number]: Establecimiento } = {};
+
     items: any[] = [];
 
     // Opciones para combobox - tipo establecimiento
@@ -137,17 +140,17 @@ export class EstablecimientoComponent implements OnInit {
             pla20codigo: `${Date.now()}`
         };
 
-        // push permite agregar el nuevo establecimiento al final de la lista
-        this.establecimientos.push(newEstablecimiento);
-
+        this.establecimientos = [...this.establecimientos, newEstablecimiento];
+        
+        const rowIndex = this.establecimientos.length - 1;
+        
+        this.clonedEstablecimientos[rowIndex] = JSON.parse(JSON.stringify(newEstablecimiento));
         this.editingEstablecimiento = JSON.parse(JSON.stringify(newEstablecimiento));
-
-        // 4. Establecer el modo adición
+        this.editingRowIndex = rowIndex;
+        
         this.isAddMode = true;
         this.isEditMode = false;
-
-        this.establecimiento = this.initializeEstablecimiento();
-        this.selectedEstablecimiento = null;
+        this.selectedEstablecimiento = newEstablecimiento;
     }
 
     cancelar(): void {
@@ -165,18 +168,6 @@ export class EstablecimientoComponent implements OnInit {
         this.editingEstablecimiento = JSON.parse(JSON.stringify(establecimiento));
         this.isEditMode = true;
         this.isAddMode = false;
-    }
-
-    onRowCancelarEdicion(establecimiento: Establecimiento): void {
-        if (this.isAddMode) {
-            this.establecimientos = this.establecimientos.filter(e => e.pla20codigo !== establecimiento.pla20codigo);
-        }
-
-        this.editingEstablecimiento = null;
-        this.isEditMode = false;
-        this.isAddMode = false;
-
-        this.establecimientos = JSON.parse(JSON.stringify(this.currentEstablecimientos));
     }
 
     onRowValidarCampos(establecimiento: Establecimiento): boolean {
@@ -214,55 +205,90 @@ export class EstablecimientoComponent implements OnInit {
         return true;
     }
 
-    onRowGuardarEdicion(original: Establecimiento): void {
-        const edited = this.editingEstablecimiento;
-        if (!edited) return;
-
-        if (!this.onRowValidarCampos(edited)) {
-            return;
+    onRowCancelarEdicion(establecimiento: Establecimiento): void {
+        if (this.editingRowIndex !== null && this.clonedEstablecimientos[this.editingRowIndex]) {
+            this.establecimientos[this.editingRowIndex] = JSON.parse(
+                JSON.stringify(this.clonedEstablecimientos[this.editingRowIndex])
+            );
+            
+            delete this.clonedEstablecimientos[this.editingRowIndex];
         }
-
-        // Estandarización y consistencia
-        edited.pla20denominacion = aMayusculas(edited.pla20denominacion);
-        edited.pla20codigo = edited.pla20codigo.toUpperCase();
-
-        // Si SCRT no está marcado, la tasa debe ser null
-        if (!edited.pla20sctrflag) {
-            edited.pla20sctrtasa = null as any;
-        }
-
-        let mensajeExito = '';
-
+        
         if (this.isAddMode) {
-            this.establecimientos = this.establecimientos.filter(e => e.pla20codigo !== original.pla20codigo);
-
-            // 2. Agregar el nuevo establecimiento guardado al array principal de datos
-            this.currentEstablecimientos.push(JSON.parse(JSON.stringify(edited)));
-            mensajeExito = 'Establecimiento agregado exitosamente';
-
-        } else {
-
-            const index = this.currentEstablecimientos.findIndex(e => e.pla20codigo === original.pla20codigo);
-
-            if (index > -1) {
-                this.currentEstablecimientos[index] = JSON.parse(JSON.stringify(edited));
-                mensajeExito = 'Cambios guardados exitosamente';
-            } else {
-                //verMensajeInformativo(this.messageService, 'error', 'Error', 'No se encontró el registro original para actualizar.');
-
-                this.establecimientos = JSON.parse(JSON.stringify(this.currentEstablecimientos));
-                this.onRowCancelarEdicion(original);
-                return;
-            }
+            this.establecimientos = this.establecimientos.filter(
+                e => e.pla20codigo !== establecimiento.pla20codigo
+            );
         }
-
-        this.establecimientos = JSON.parse(JSON.stringify(this.currentEstablecimientos));
-
-        verMensajeInformativo(this.messageService, 'success', 'Éxito', mensajeExito);
-
+        
         this.editingEstablecimiento = null;
         this.isEditMode = false;
         this.isAddMode = false;
+        this.editingRowIndex = null;
+        this.selectedEstablecimiento = null;
+        
+        this.establecimientos = JSON.parse(JSON.stringify(this.currentEstablecimientos));
+    }
+
+    onRowGuardarEdicion(establecimiento: Establecimiento): void {
+        if (this.editingRowIndex === null) return;
+        
+        const editado = this.establecimientos[this.editingRowIndex];
+        if (!editado) return;
+        
+        // Validar datos
+
+        if (!this.onRowValidarCampos(editado)) {
+            return;
+        }
+        
+        editado.pla20codigo = editado.pla20codigo?.toUpperCase() || '';
+        editado.pla20denominacion = aMayusculas(editado.pla20denominacion || '');
+        
+        if (!editado.pla20sctrflag) {
+            editado.pla20sctrtasa = null as any;
+        }
+        
+        if (this.isAddMode) {
+            this.currentEstablecimientos.push(JSON.parse(JSON.stringify(editado)));
+            
+            verMensajeInformativo(
+                this.messageService,
+                'success',
+                'Éxito',
+                'Establecimiento agregado exitosamente'
+            );
+        } else {
+            const index = this.currentEstablecimientos.findIndex(
+                e => e.pla20codigo === establecimiento.pla20codigo
+            );
+            
+            if (index === -1) {
+                verMensajeInformativo(
+                    this.messageService,
+                    'error',
+                    'Error',
+                    'No se encontró el establecimiento para actualizar'
+                );
+                return;
+            }
+            
+            this.currentEstablecimientos[index] = JSON.parse(JSON.stringify(editado));
+            
+            verMensajeInformativo(
+                this.messageService,
+                'success',
+                'Éxito',
+                'Cambios guardados exitosamente'
+            );
+        }
+        
+        this.establecimientos = JSON.parse(JSON.stringify(this.currentEstablecimientos));
+        
+        this.editingEstablecimiento = null;
+        this.editingRowIndex = null;
+        this.isEditMode = false;
+        this.isAddMode = false;
+        this.selectedEstablecimiento = null;
     }
 
     eliminarEstablecimiento(establecimiento: Establecimiento): void {
@@ -288,6 +314,9 @@ export class EstablecimientoComponent implements OnInit {
                 } else {
                     verMensajeInformativo(this.messageService, 'error', 'Error', `No se encontró el establecimiento ${codigoAeliminar} para eliminar.`);
                 }
+
+                this.selectedEstablecimiento = null;
+                this.editingRowIndex = null;
             }
         });
     }
@@ -295,4 +324,41 @@ export class EstablecimientoComponent implements OnInit {
     getEstablecimientoTipoLabel(value: string): string {
         return this.tipoOptions.find(option => option.value === value)?.label || '';
     }
+
+    editarEstablecimientoSeleccionado(): void {
+  if (!this.selectedEstablecimiento) return;
+
+  const rowIndex = this.establecimientos.findIndex(
+    e => e.pla20codigo === this.selectedEstablecimiento?.pla20codigo
+  );
+
+  if (rowIndex === -1) return;
+
+  this.clonedEstablecimientos[rowIndex] = JSON.parse(JSON.stringify(this.establecimientos[rowIndex]));
+  this.editingEstablecimiento = JSON.parse(JSON.stringify(this.establecimientos[rowIndex]));
+  this.editingRowIndex = rowIndex;
+  this.isEditMode = true;
+  this.isAddMode = false;
+}
+
+eliminarEstablecimientoSeleccionado(): void {
+  if (!this.selectedEstablecimiento) return;
+
+  this.eliminarEstablecimiento(this.selectedEstablecimiento);
+}
+
+guardarEdicionSeleccionada(): void {
+  if (this.editingRowIndex === null) return;
+
+  const establecimientoEditado = this.establecimientos[this.editingRowIndex];
+  this.onRowGuardarEdicion(establecimientoEditado);
+}
+
+cancelarEdicionSeleccionada(): void {
+  if (this.editingRowIndex === null) return;
+
+  this.onRowCancelarEdicion(this.establecimientos[this.editingRowIndex]);
+}
+
+
 }

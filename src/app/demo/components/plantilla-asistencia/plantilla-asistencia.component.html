@@ -51,17 +51,83 @@
     <div class="card">
 
       <div class="shadow-xl rounded-full surface-card px-4 py-4">
-      <div class="flex justify-content-between align-items-center mb-3">
-              <button type="button" pButton icon="pi pi-plus" label="Nueva Plantilla"
-                      (click)="showAddRow()" [disabled]="isEditingAnyRow"
-                      class="p-button-sm"></button>
+      <div class="plantilla-toolbar-row">
+        <div class="plantilla-toolbar">
+          <div class="plantilla-toolbar-left">
+            <button
+            type="button"
+            pButton
+            icon="pi pi-plus"
+            label="Nueva Plantilla"
+            (click)="showAddRow()"
+            [disabled]="isEditingAnyRow"
+            class="p-button-sm plantilla-btn"></button>
           </div>
+          
+          <div class="plantilla-toolbar-right">
+            <button
+            *ngIf="editingRowIndex === null"
+            pButton
+            type="button"
+            icon="pi pi-eye"
+            class="p-button-info plantilla-icon-btn"
+            pTooltip="Ver detalle"
+            tooltipPosition="bottom"
+            [disabled]="!selectedPlantillaFila || isNew || isEditingAnyRow"
+            (click)="verDetalleSeleccionado()"></button>
+            
+            
+            <button
+            *ngIf="editingRowIndex === null"
+            pButton
+            type="button"
+            icon="pi pi-pencil"
+            class="p-button-info plantilla-icon-btn"
+            pTooltip="Editar"
+            tooltipPosition="bottom"
+            [disabled]="!selectedPlantillaFila || isNew || isEditingAnyRow"
+            (click)="editarPlantillaSeleccionada()"></button>
+            
+            <button
+            *ngIf="editingRowIndex === null"
+            pButton
+            type="button"
+            icon="pi pi-trash"
+            class="p-button-danger plantilla-icon-btn"
+            pTooltip="Eliminar"
+            tooltipPosition="bottom"
+            [disabled]="!selectedPlantillaFila || isNew || isEditingAnyRow"
+            (click)="eliminarPlantillaSeleccionada()"></button>
+            
+            <button
+            *ngIf="editingRowIndex !== null"
+            pButton
+            type="button"
+            icon="pi pi-check"
+            class="p-button-success plantilla-icon-btn"
+            pTooltip="Guardar"
+            tooltipPosition="bottom"
+            (click)="guardarEdicionSeleccionada()"></button>
+            
+            <button
+            *ngIf="editingRowIndex !== null"
+            pButton
+            type="button"
+            icon="pi pi-times"
+            class="p-button-danger plantilla-icon-btn"
+            pTooltip="Cancelar"
+            tooltipPosition="bottom"
+            (click)="cancelarEdicionSeleccionada()"></button>
+          </div>
+        </div>
+      </div>
 
       <!-- Tabla Principal -->
       <p-table
         [value]="plantillaAsistenciaList"
         dataKey="pla20plantillacod"
-        editMode="row"
+        selectionMode="single"
+        [(selection)]="selectedPlantillaFila"
         [paginator]="true"
         [rows]="rowsPerPage"
         responsiveLayout="scroll"
@@ -78,114 +144,56 @@
                   <th style="text-align: center; width: 40%;">Descripción</th>
                   <th style="text-align: center; width: 20%;">Mod.Usuario</th>
                   <th style="text-align: center; width: 20%;">Reg.Inasistencia</th>
-                  <th style="text-align: center; width: 20%;">Acciones</th>
               </tr>
           </ng-template>
 
           <!-- Cuerpo de Tabla -->
-          <ng-template pTemplate="body" let-plantilla let-editing="editing" let-ri="rowIndex">
-              <tr [pEditableRow]="plantilla">
+          <ng-template pTemplate="body" let-plantilla let-ri="rowIndex">
+  <tr [pSelectableRow]="plantilla">
 
-                <td>
-                    <p-cellEditor>
-                      <ng-template pTemplate="input">
-                        <input type="text" pInputText [(ngModel)]="plantilla.pla20descripcion" class="p-inputtext-sm w-full" required />
-                      </ng-template>
-                      <ng-template pTemplate="output">
-                        {{ plantilla.pla20descripcion }}
-                      </ng-template>
-                    </p-cellEditor>
-                  </td>
+    <td>
+      <div *ngIf="editingRowIndex === ri; else displayDescripcion">
+        <input
+          type="text"
+          pInputText
+          [(ngModel)]="editingPlantillaAsistencia!.pla20descripcion"
+          class="p-inputtext-sm w-full"
+          required />
+      </div>
+      <ng-template #displayDescripcion>
+        {{ plantilla.pla20descripcion }}
+      </ng-template>
+    </td>
 
-                  <td style="text-align: center;">
-                    <!-- Mod.Usuario como checkbox (S = checked, N = unchecked) -->
-                    <p-checkbox
-                      [binary]="true"
-                      [ngModel]="plantilla.pla20flagmodifxusuario === 'S'"
-                      (onChange)="onToggleFlag(plantilla, 'pla20flagmodifxusuario', $event.checked)"
-                      [disabled]="!editing">
-                    </p-checkbox>
-                  </td>
+    <td style="text-align: center;">
+      <p-checkbox
+        [binary]="true"
+        [ngModel]="editingRowIndex === ri
+          ? editingPlantillaAsistencia!.pla20flagmodifxusuario === 'S'
+          : plantilla.pla20flagmodifxusuario === 'S'"
+        (onChange)="editingRowIndex === ri && onToggleFlag(editingPlantillaAsistencia!, 'pla20flagmodifxusuario', $event.checked)"
+        [disabled]="editingRowIndex !== ri">
+      </p-checkbox>
+    </td>
 
-                  <td style="text-align: center;">
-                    <!-- Reg.Inasistencia como checkbox (S = checked, N = unchecked) -->
-                    <p-checkbox
-                      [binary]="true"
-                      [ngModel]="plantilla.pla20flagregistrainasis === 'S'"
-                      (onChange)="onToggleFlag(plantilla, 'pla20flagregistrainasis', $event.checked)"
-                      [disabled]="!editing">
-                    </p-checkbox>
-                  </td>
+    <td style="text-align: center;">
+      <p-checkbox
+        [binary]="true"
+        [ngModel]="editingRowIndex === ri
+          ? editingPlantillaAsistencia!.pla20flagregistrainasis === 'S'
+          : plantilla.pla20flagregistrainasis === 'S'"
+        (onChange)="editingRowIndex === ri && onToggleFlag(editingPlantillaAsistencia!, 'pla20flagregistrainasis', $event.checked)"
+        [disabled]="editingRowIndex !== ri">
+      </p-checkbox>
+    </td>
 
-                  <td>
-                      <div class="flex justify-content-center gap-2">
-                              <!-- Ver Detalle
-                               Falta agregar onClick-->
-
-                              <button
-                                      pButton
-                                      type="button"
-                                      icon="pi pi-eye"
-                                      pTooltip="Ver Detalle"
-                                      class="p-button-rounded p-button-text p-button-sm"
-                                      (click)="showDetalle(plantilla)"
-                                      [disabled]="isNew || isEditingAnyRow"
-                                      ></button>
-
-                              <!-- Botón Editar -->
-                              <button
-                                      *ngIf="!editing" pButton
-                                      pInitEditableRow
-                                      (click)="onRowEditInit(plantilla)"
-                                      icon="pi pi-pencil"
-                                      pTooltip="Editar"
-                                      [disabled]="isNew || isEditingAnyRow"
-                                      class="p-button-rounded p-button-text p-button-sm"
-
-                                      ></button>
-
-                              <!-- Botón Guardar -->
-                              <button
-                                      *ngIf="editing"
-                                      pButton
-                                      pSaveEditableRow
-                                      (click)="onRowEditSave(plantilla)"
-                                      icon="pi pi-check"
-                                      pTooltip="Guardar"
-                                      class="p-button-rounded p-button-text p-button-sm p-button-success"
-                                      ></button>
-
-                              <!-- Botón Cancelar -->
-                              <button
-                                      *ngIf="editing"
-                                      pButton
-                                      pCancelEditableRow
-                                      (click)="onRowEditCancel(plantilla, ri)"
-                                      icon="pi pi-times"
-                                      pTooltip="Cancelar"
-                                      class="p-button-rounded p-button-text p-button-sm p-button-danger"
-                                      ></button>
-
-                              <!-- Botón Eliminar -->
-                              <button
-                                      *ngIf="!editing"
-                                      pButton
-                                      type="button"
-                                      (click)="onDelete(plantilla)"
-                                      icon="pi pi-trash"
-                                      pTooltip="Eliminar"
-                                      [disabled]="isNew || isEditingAnyRow"
-                                      class="p-button-rounded p-button-text p-button-sm p-button-danger"
-                                      ></button>
-                        </div>
-                  </td>
-              </tr>
-          </ng-template>
+  </tr>
+</ng-template>
 
           <!-- Footer para Nueva Plantilla-->
           <ng-template pTemplate="footer">
             <tr *ngIf="isEditing">
-                <td colspan="4">
+                <td colspan="3">
                     <form [formGroup]="plantillaAsistenciaForm" class="grid p-fluid">
                         <!-- Descripción -->
                         <div class="col-4" style="width: 40%;">

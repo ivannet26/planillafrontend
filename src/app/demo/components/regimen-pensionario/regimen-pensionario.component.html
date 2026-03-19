@@ -8,18 +8,77 @@
         
         <div class="shadow-xl rounded-full surface-card px-4 py-4">
       <!-- Botón Nuevo y Dropdown Filas por Página -->
-      <div class="flex justify-content-between align-items-center mb-3">
-          <button type="button" pButton icon="pi pi-plus" label="Nuevo Régimen"
-                  (click)="showAddRow()" [disabled]="isEditingAnyRow"
-                  class="p-button-sm"></button>
-      </div>
+      <div class="regimen-toolbar-row">
+  <div class="regimen-toolbar">
+    <div class="regimen-toolbar-left">
+      <button
+        type="button"
+        pButton
+        icon="pi pi-plus"
+        label="Nuevo Régimen"
+        (click)="showAddRow()"
+        [disabled]="isEditingAnyRow"
+        class="p-button-sm regimen-btn">
+      </button>
+    </div>
+
+    <div class="regimen-toolbar-right">
+      <button
+        *ngIf="editingRowIndex === null"
+        pButton
+        type="button"
+        icon="pi pi-pencil"
+        class="p-button-info regimen-icon-btn"
+        pTooltip="Editar"
+        tooltipPosition="bottom"
+        [disabled]="!selectedRegimenPensionario || isNew || isEditingAnyRow"
+        (click)="editarRegimenSeleccionado()">
+      </button>
+
+      <button
+        *ngIf="editingRowIndex === null"
+        pButton
+        type="button"
+        icon="pi pi-trash"
+        class="p-button-danger regimen-icon-btn"
+        pTooltip="Eliminar"
+        tooltipPosition="bottom"
+        [disabled]="!selectedRegimenPensionario || isNew || isEditingAnyRow"
+        (click)="eliminarRegimenSeleccionado()">
+      </button>
+
+      <button
+        *ngIf="editingRowIndex !== null"
+        pButton
+        type="button"
+        icon="pi pi-check"
+        class="p-button-success regimen-icon-btn"
+        pTooltip="Guardar"
+        tooltipPosition="bottom"
+        (click)="guardarEdicionSeleccionada()">
+      </button>
+
+      <button
+        *ngIf="editingRowIndex !== null"
+        pButton
+        type="button"
+        icon="pi pi-times"
+        class="p-button-danger regimen-icon-btn"
+        pTooltip="Cancelar"
+        tooltipPosition="bottom"
+        (click)="cancelarEdicionSeleccionada()">
+      </button>
+    </div>
+  </div>
+</div>
 
       <div >
 
         <!-- Tabla Principal -->
         <p-table [value]="regimenPensionarioList"
                 dataKey="pla61codigo"
-                editMode="row"
+                selectionMode="single"
+                [(selection)]="selectedRegimenPensionario"
                 [paginator]="true"
                 [rows]="rowsPerPage"
                 [rowsPerPageOptions]="[5, 10, 20, 50]"
@@ -42,172 +101,134 @@
                     <th style="text-align: center; width: 10%;">Sector Privado</th>
                     <th style="text-align: center; width: 10%;">Sector Público</th>
                     <th style="text-align: center; width: 5%;">Activo</th>
-                    <th style="text-align: center; width: 10%;">Acciones</th>
                 </tr>
             </ng-template>
 
             <!-- Cuerpo de Tabla -->
-            <ng-template pTemplate="body" let-regimen let-ri="rowIndex" let-editing="editing">
-                <tr [pEditableRow]="regimen">
+            <ng-template pTemplate="body" let-regimen let-ri="rowIndex">
+  <tr [pSelectableRow]="regimen">
 
-                    <td>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <input pInputText type="text" [(ngModel)]="regimen.pla61codigo"
-                                       class="p-inputtext-sm w-full" required>
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                {{regimen.pla61codigo}}
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
+    <td>
+      <div *ngIf="editingRowIndex === ri; else displayCodigo">
+        <input
+          pInputText
+          type="text"
+          [(ngModel)]="editingRegimenPensionario!.pla61codigo"
+          class="p-inputtext-sm w-full"
+          [disabled]="true" />
+      </div>
+      <ng-template #displayCodigo>
+        {{ regimen.pla61codigo }}
+      </ng-template>
+    </td>
 
-                    <td>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <input pInputText type="text" [(ngModel)]="regimen.pla61descripcion"
-                                       class="p-inputtext-sm w-full" required>
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                {{regimen.pla61descripcion}}
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
+    <td>
+      <div *ngIf="editingRowIndex === ri; else displayDescripcion">
+        <input
+          pInputText
+          type="text"
+          [(ngModel)]="editingRegimenPensionario!.pla61descripcion"
+          class="p-inputtext-sm w-full"
+          required />
+      </div>
+      <ng-template #displayDescripcion>
+        {{ regimen.pla61descripcion }}
+      </ng-template>
+    </td>
 
-                    <td>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-dropdown
-                                    [(ngModel)]="regimen.pla61tiporegpensionariocod"
-                                    [options]="[
-                                        { label: 'Otros Regimenes Pensionarios', value: 'ORP' },
-                                        { label: 'Sistema Nacional de Pensiones', value: 'SNP' },
-                                        { label: 'Sistema Privado de Pensiones', value: 'SPP' }
-                                    ]"
-                                    placeholder="Tipo de dato"
-                                    optionLabel="label"
-                                    optionValue="value"
-                                    class="p-inputtext-sm w-full"
-                                    appendTo="body">
-                                </p-dropdown>
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                {{getTipoDatoCodRegimenPensionario(regimen.pla61tiporegpensionariocod)}}
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
+    <td>
+      <div *ngIf="editingRowIndex === ri; else displayTipoRegimen">
+        <p-dropdown
+          [(ngModel)]="editingRegimenPensionario!.pla61tiporegpensionariocod"
+          [options]="[
+            { label: 'Otros Regimenes Pensionarios', value: 'ORP' },
+            { label: 'Sistema Nacional de Pensiones', value: 'SNP' },
+            { label: 'Sistema Privado de Pensiones', value: 'SPP' }
+          ]"
+          optionLabel="label"
+          optionValue="value"
+          class="p-inputtext-sm w-full"
+          appendTo="body">
+        </p-dropdown>
+      </div>
+      <ng-template #displayTipoRegimen>
+        {{ getTipoDatoCodRegimenPensionario(regimen.pla61tiporegpensionariocod) }}
+      </ng-template>
+    </td>
 
-                    <td>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <input pInputText type="text" [(ngModel)]="regimen.pla61afpnetcod"
-                                       class="p-inputtext-sm w-full" required>
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                {{regimen.pla61afpnetcod}}
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
+    <td>
+      <div *ngIf="editingRowIndex === ri; else displayAfpnet">
+        <input
+          pInputText
+          type="text"
+          [(ngModel)]="editingRegimenPensionario!.pla61afpnetcod"
+          class="p-inputtext-sm w-full"
+          required />
+      </div>
+      <ng-template #displayAfpnet>
+        {{ regimen.pla61afpnetcod }}
+      </ng-template>
+    </td>
 
-                    <td>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-dropdown
-                                    [(ngModel)]="regimen.pla61plamecod"
-                                    [options]="[
-                                        { label: 'DL 19990 - SIST NAC DE PENS - ONP', value: '02' },
-                                        { label: 'SPP INTEGRA', value: '21' }
-                                    ]"
-                                    placeholder="Planilla Electrónica"
-                                    optionLabel="label"
-                                    optionValue="value"
-                                    class="p-inputtext-sm w-full"
-                                    appendTo="body">
-                                </p-dropdown>
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                {{getTipoDatoPlameDes(regimen.pla61plamecod)}}
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
+    <td>
+      <div *ngIf="editingRowIndex === ri; else displayPlame">
+        <p-dropdown
+          [(ngModel)]="editingRegimenPensionario!.pla61plamecod"
+          [options]="[
+            { label: 'DL 19990 - SIST NAC DE PENS - ONP', value: '02' },
+            { label: 'SPP INTEGRA', value: '21' }
+          ]"
+          optionLabel="label"
+          optionValue="value"
+          class="p-inputtext-sm w-full"
+          appendTo="body">
+        </p-dropdown>
+      </div>
+      <ng-template #displayPlame>
+        {{ getTipoDatoPlameDes(regimen.pla61plamecod) }}
+      </ng-template>
+    </td>
 
-                    <td style="text-align: center;">
-                        <p-checkbox
-                        [binary]="true"
-                        [ngModel]="regimen.pla61flagsectorprivado === 'S'"
-                        (onChange)="onToggleFlag(regimen, 'pla61flagsectorprivado', $event.checked)"
-                        [disabled]="!editing">
-                      </p-checkbox>
-                    </td>
+    <td style="text-align: center;">
+      <p-checkbox
+        [binary]="true"
+        [ngModel]="editingRowIndex === ri
+          ? editingRegimenPensionario!.pla61flagsectorprivado === 'S'
+          : regimen.pla61flagsectorprivado === 'S'"
+        (onChange)="editingRowIndex === ri && onToggleFlag(editingRegimenPensionario!, 'pla61flagsectorprivado', $event.checked)"
+        [disabled]="editingRowIndex !== ri">
+      </p-checkbox>
+    </td>
 
-                    <td style="text-align: center;">
-                        <p-checkbox
-                          [binary]="true"
-                          [ngModel]="regimen.pla61flagsectorpublico === 'S'"
-                          (onChange)="onToggleFlag(regimen, 'pla61flagsectorpublico', $event.checked)"
-                          [disabled]="!editing">
-                        </p-checkbox>
-                    </td>
+    <td style="text-align: center;">
+      <p-checkbox
+        [binary]="true"
+        [ngModel]="editingRowIndex === ri
+          ? editingRegimenPensionario!.pla61flagsectorpublico === 'S'
+          : regimen.pla61flagsectorpublico === 'S'"
+        (onChange)="editingRowIndex === ri && onToggleFlag(editingRegimenPensionario!, 'pla61flagsectorpublico', $event.checked)"
+        [disabled]="editingRowIndex !== ri">
+      </p-checkbox>
+    </td>
 
-                    <td style="text-align: center;">
-                        <p-checkbox
-                          [binary]="true"
-                          [ngModel]="regimen.pla61flagactivo === 'S'"
-                          (onChange)="onToggleFlag(regimen, 'pla61flagactivo', $event.checked)"
-                          [disabled]="!editing">
-                        </p-checkbox>
-                    </td>
+    <td style="text-align: center;">
+      <p-checkbox
+        [binary]="true"
+        [ngModel]="editingRowIndex === ri
+          ? editingRegimenPensionario!.pla61flagactivo === 'S'
+          : regimen.pla61flagactivo === 'S'"
+        (onChange)="editingRowIndex === ri && onToggleFlag(editingRegimenPensionario!, 'pla61flagactivo', $event.checked)"
+        [disabled]="editingRowIndex !== ri">
+      </p-checkbox>
+    </td>
 
-                    <!-- Acciones -->
-                    <td>
-                        <div class="flex justify-content-center gap-2">
-                            <!-- Botón Editar -->
-                            <button *ngIf="!editing" pButton
-                                    pInitEditableRow
-                                    (click)="onRowEditInit(regimen)"
-                                    icon="pi pi-pencil"
-                                    pTooltip="Editar"
-                                    [disabled]="isNew || isEditingAnyRow"
-                                    class="p-button-rounded p-button-text p-button-sm"
-                                    ></button>
-
-                            <!-- Botón Guardar -->
-                            <button *ngIf="editing" pButton
-                                    pSaveEditableRow
-                                    (click)="onRowEditSave(regimen)"
-                                    icon="pi pi-check"
-                                    pTooltip="Guardar"
-                                    class="p-button-rounded p-button-text p-button-sm p-button-success"></button>
-
-                            <!-- Botón Cancelar -->
-                            <button *ngIf="editing" pButton
-                                    pCancelEditableRow
-                                    (click)="onRowEditCancel(regimen, ri)"
-                                    icon="pi pi-times"
-                                    pTooltip="Cancelar"
-                                    class="p-button-rounded p-button-text p-button-sm p-button-danger"></button>
-
-                            <!-- Botón Eliminar
-                            Se pasaba tambien el parametro ri en onDelete,
-                            pero no es necesario ya que se puede identificar con el objeto regimen
-                            -->
-                            <button *ngIf="!editing" pButton
-                                    type="button"
-                                    (click)="onDelete(regimen)"
-                                    icon="pi pi-trash"
-                                    pTooltip="Eliminar"
-                                    [disabled]="isNew || isEditingAnyRow"
-                                    class="p-button-rounded p-button-text p-button-sm p-button-danger"></button>
-
-                        </div>
-                    </td>
-                </tr>
-            </ng-template>
+  </tr>
+</ng-template>
 
             <!-- Footer para Nuevo Registro -->
             <ng-template pTemplate="footer">
                 <tr *ngIf="isEditing">
-                    <td colspan="9">
+                    <td colspan="8">
                         <form [formGroup]="regimenPensionarioForm" class="grid p-fluid">
                             <div class="col-1" style="width: 10%;">
                                 <span class="w-full">

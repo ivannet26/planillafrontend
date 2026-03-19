@@ -1,0 +1,180 @@
+
+:host ::ng-deep .p-panel {
+  margin-bottom: 0.85rem !important;
+  border-radius: 12px !important;
+}
+
+:host ::ng-deep .p-panel .p-panel-header {
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  padding: 0.75rem 0.9rem !important;
+}
+
+:host ::ng-deep .p-panel .p-panel-content {
+  padding: 0.8rem 0.9rem !important;
+}
+
+
+/* boton */
+:host ::ng-deep .p-panel .p-button.p-button-sm {
+  height: 32px !important;
+  font-size: 11.5px !important;
+  padding: 0 0.75rem !important;
+  border-radius: 8px !important;
+}
+
+:host ::ng-deep .p-panel .p-button.p-button-sm .p-button-icon,
+:host ::ng-deep .p-panel .p-button.p-button-sm .p-button-label {
+  font-size: 11.5px !important;
+}
+
+:host ::ng-deep .p-panel .p-button.p-button-sm .p-button-label {
+  font-weight: 600 !important;
+}
+
+
+/* table*/
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  padding: 0.5rem 0.6rem !important;
+  line-height: 1.2 !important;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr > td {
+  font-size: 12px !important;
+  padding: 0.45rem 0.6rem !important;
+  line-height: 1.25 !important;
+  vertical-align: middle !important;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-tfoot > tr > td {
+  font-size: 12px !important;
+  padding: 0.5rem 0.6rem !important;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-emptymessage td {
+  font-size: 12px !important;
+  padding: 0.7rem !important;
+}
+
+
+:host ::ng-deep input[pInputText],
+:host ::ng-deep .p-inputtext {
+  height: 32px !important;
+  font-size: 12px !important;
+  padding: 0.4rem 0.55rem !important;
+}
+
+
+:host ::ng-deep .p-button.p-button-rounded.p-button-text.p-button-sm {
+  width: 2rem !important;
+  height: 2rem !important;
+  min-width: 2rem !important;
+  padding: 0 !important;
+}
+
+:host ::ng-deep .p-button.p-button-rounded.p-button-text.p-button-sm .pi {
+  font-size: 11px !important;
+}
+
+
+
+:host ::ng-deep .grid.p-fluid {
+  gap: 0.5rem !important;
+  padding-top: 0.35rem !important;
+}
+
+:host ::ng-deep .grid.p-fluid .p-button {
+  height: 32px !important;
+  font-size: 11.5px !important;
+}
+
+:host ::ng-deep .grid.p-fluid .p-button .p-button-icon,
+:host ::ng-deep .grid.p-fluid .p-button .p-button-label {
+  font-size: 11.5px !important;
+}
+
+
+/* dialog */
+:host ::ng-deep .p-dialog {
+  max-width: 92vw !important;
+}
+
+:host ::ng-deep .p-dialog .p-dialog-header {
+  padding: 0.75rem 0.9rem !important;
+}
+
+:host ::ng-deep .p-dialog .p-dialog-title {
+  font-size: 14px !important;
+  font-weight: 600 !important;
+}
+
+:host ::ng-deep .p-dialog .p-dialog-content {
+  padding: 0.8rem 0.9rem !important;
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .p-dialog .p-dialog-footer {
+  padding: 0.7rem 0.9rem !important;
+}
+
+:host ::ng-deep .p-dialog .p-dialog-footer .p-button {
+  height: 32px !important;
+  font-size: 11.5px !important;
+  padding: 0 0.75rem !important;
+}
+
+:host ::ng-deep .p-dialog .p-dialog-footer .p-button .p-button-icon,
+:host ::ng-deep .p-dialog .p-dialog-footer .p-button .p-button-label {
+  font-size: 11.5px !important;
+}
+
+
+/* tooltip */
+::ng-deep .p-tooltip {
+  max-width: 90px !important;
+}
+
+::ng-deep .p-tooltip .p-tooltip-text {
+  font-size: 9px !important;
+  padding: 0.15rem 0.3rem !important;
+  line-height: 1.05 !important;
+  border-radius: 4px !important;
+}
+
+::ng-deep .p-tooltip .p-tooltip-arrow {
+  transform: scale(0.55) !important;
+}
+
+:host ::ng-deep .remuneracion-btn {
+  margin-bottom: 0.8rem !important;
+}
+
+.remuneracion-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.85rem;
+  flex-wrap: wrap;
+}
+
+.remuneracion-toolbar-left,
+.remuneracion-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+:host ::ng-deep .remuneracion-icon-btn.p-button.p-button-sm {
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  padding: 0 !important;
+  border-radius: 8px !important;
+}
+
+:host ::ng-deep .remuneracion-icon-btn .p-button-icon {
+  font-size: 11px !important;
+}

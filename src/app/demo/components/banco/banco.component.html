@@ -10,21 +10,80 @@
     </p-panel>
     
     <div class="shadow-xl rounded-full surface-card px-4 py-4">
-    <div class="flex justify-content-between align-items-center mb-3">
-      <button pButton type="button"
-                icon="pi pi-plus"
-                class="p-button-sm add-button"
-                (click)="agregarNuevo()"
-                label="Nuevo Banco"
-                pTooltip="Agregar nuevo banco"
-                tooltipPosition="bottom"></button>
+    <div class="banco-toolbar-row">
+  <div class="banco-toolbar">
+    <div class="banco-toolbar-left">
+      <button
+        pButton
+        type="button"
+        icon="pi pi-plus"
+        class="p-button-sm add-button banco-btn"
+        (click)="agregarNuevo()"
+        label="Nuevo Banco"
+        pTooltip="Agregar nuevo banco"
+        tooltipPosition="bottom"
+        [disabled]="hayBancoEditando">
+      </button>
     </div>
+
+    <div class="banco-toolbar-right">
+      <button
+        *ngIf="!selectedBanco?.isEditing"
+        pButton
+        type="button"
+        icon="pi pi-pencil"
+        class="p-button-info banco-icon-btn"
+        (click)="editarSeleccionado()"
+        [disabled]="!selectedBanco"
+        pTooltip="Editar"
+        tooltipPosition="bottom">
+      </button>
+
+      <button
+        *ngIf="!selectedBanco?.isEditing"
+        pButton
+        type="button"
+        icon="pi pi-trash"
+        class="p-button-danger banco-icon-btn"
+        (click)="eliminarSeleccionado()"
+        [disabled]="!selectedBanco"
+        pTooltip="Eliminar"
+        tooltipPosition="bottom">
+      </button>
+
+      <button
+        *ngIf="selectedBanco?.isEditing"
+        pButton
+        type="button"
+        icon="pi pi-save"
+        class="p-button-success banco-icon-btn"
+        (click)="guardarSeleccionado()"
+        pTooltip="Guardar"
+        tooltipPosition="bottom">
+      </button>
+
+      <button
+        *ngIf="selectedBanco?.isEditing"
+        pButton
+        type="button"
+        icon="pi pi-undo"
+        class="p-button-secondary banco-icon-btn"
+        (click)="cancelarSeleccionado()"
+        pTooltip="Cancelar"
+        tooltipPosition="bottom">
+      </button>
+    </div>
+  </div>
+</div>
 
     <p-table
       #dt
       [value]="bancos"
       [paginator]="true"
       [rows]="10"
+      selectionMode="single"
+      [(selection)]="selectedBanco"
+      dataKey="codigo"
       [rowsPerPageOptions]="[5, 10, 20, 50]"
       [showCurrentPageReport]="true"
       currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} bancos"
@@ -35,17 +94,16 @@
       <!-- Columnas -->
       <!-- Columnas -->
       <ng-template pTemplate="header">
-        <tr>
+        <tr >
           <th style="width: auto">Codigo</th>
           <th style="width: auto">Descripcion</th>
           <th style="width: auto; text-align: center">Activo</th>
-          <th style="width: auto; text-align: center">Acciones</th>
         </tr>
       </ng-template>
 
       <!-- Filas -->
       <ng-template pTemplate="body" let-banco let-rowIndex="rowIndex">
-        <tr>
+        <tr [pSelectableRow]="banco">
           <!-- Código -->
           <td>
             <input
@@ -81,63 +139,13 @@
             </p-checkbox>
           </td>
 
-          <!-- Acciones -->
-          <td class="actions-cell">
-            <div class="action-buttons">
-              <!-- Botón Editar -->
-              <button
-                pButton
-                type="button"
-                icon="pi pi-pencil"
-                class="p-button-rounded p-button-text p-button-sm"
-                (click)="editar(banco)"
-                pTooltip="Editar"
-                tooltipPosition="top">
-              </button>
-
-              <!-- Botón Eliminar -->
-              <button
-                pButton
-                type="button"
-                icon="pi pi-trash"
-                class="p-button-rounded p-button-text p-button-sm p-button-danger"
-                (click)="eliminar(banco, rowIndex)"
-                pTooltip="Eliminar"
-                tooltipPosition="top">
-              </button>
-
-              <!-- Botón Cancelar -->
-              <button
-                pButton
-                type="button"
-                icon="pi pi-undo"
-                class="p-button-rounded p-button-text p-button-sm p-button-secondary"
-                (click)="cancelar(banco, rowIndex)"
-                [disabled]="!banco.isEditing"
-                pTooltip="Cancelar"
-                tooltipPosition="top">
-              </button>
-
-              <!-- Botón Guardar -->
-              <button
-                pButton
-                type="button"
-                icon="pi pi-save"
-                class="p-button-rounded p-button-text p-button-sm p-button-success"
-                (click)="guardar(banco, rowIndex)"
-                [disabled]="!banco.isEditing"
-                pTooltip="Guardar"
-                tooltipPosition="top">
-              </button>
-            </div>
-          </td>
         </tr>
       </ng-template>
 
       <!-- Empty message -->
       <ng-template pTemplate="emptymessage">
         <tr>
-          <td colspan="4" class="text-center empty-message">
+          <td colspan="3" class="text-center empty-message">
             <i class="pi pi-info-circle"></i>
             <p>No se encontraron bancos</p>
           </td>

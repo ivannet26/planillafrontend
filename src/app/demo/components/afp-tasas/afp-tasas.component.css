@@ -1,0 +1,132 @@
+.afp-card {
+  min-height: 380px;
+  padding: 1rem;
+}
+
+.afp-toolbar {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.afp-toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.afp-label {
+  font-weight: 600;
+  font-size: 12px;
+  margin-right: 0.15rem;
+}
+
+.edit-btn {
+  margin-right: 0.5rem;
+}
+
+.cancel-btn {
+  margin-right: 0.5rem;
+}
+
+:host ::ng-deep .p-panel .p-panel-header {
+  font-size: 15px !important;
+  padding: 0.85rem 1rem !important;
+}
+
+:host ::ng-deep .p-panel .p-panel-content {
+  padding: 0.8rem 1rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb {
+  font-size: 12px !important;
+  padding: 0.5rem 0.75rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb .p-menuitem-link {
+  padding: 0 !important;
+  gap: 0.35rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb .pi {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .p-breadcrumb .p-breadcrumb-chevron {
+  font-size: 11px !important;
+}
+
+:host ::ng-deep .afp-toolbar .p-button {
+  height: 34px !important;
+  font-size: 12px !important;
+  padding: 0 0.85rem !important;
+}
+
+:host ::ng-deep .afp-toolbar .p-button .p-button-icon,
+:host ::ng-deep .afp-toolbar .p-button .p-button-label {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .afp-dropdown {
+  min-width: 180px;
+}
+
+:host ::ng-deep .afp-dropdown .p-dropdown {
+  height: 34px !important;
+  min-width: 180px !important;
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .afp-dropdown .p-dropdown-label {
+  font-size: 12px !important;
+  line-height: 34px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+:host ::ng-deep .afp-dropdown .p-dropdown-trigger {
+  width: 34px !important;
+}
+
+body .p-dropdown-panel {
+  font-size: 12px !important;
+}
+
+body .p-dropdown-panel .p-dropdown-items {
+  padding: 0.2rem 0 !important;
+}
+
+body .p-dropdown-panel .p-dropdown-item {
+  font-size: 12px !important;
+  padding: 0.45rem 0.65rem !important;
+  min-height: 32px !important;
+}
+
+:host ::ng-deep .afp-table th {
+  text-align: center;
+  vertical-align: middle;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  padding: 0.55rem 0.65rem !important;
+}
+
+:host ::ng-deep .afp-table td {
+  white-space: nowrap;
+  font-size: 12px !important;
+  padding: 0.5rem 0.65rem !important;
+  vertical-align: middle !important;
+}
+
+:host ::ng-deep .afp-table input[pInputText],
+:host ::ng-deep .afp-table .p-inputtext {
+  height: 30px !important;
+  font-size: 12px !important;
+  padding: 0.2rem 0.4rem !important;
+}
+
+:host ::ng-deep .afp-table input[type="number"] {
+  height: 30px !important;
+  font-size: 12px !important;
+}

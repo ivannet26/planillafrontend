@@ -11,7 +11,8 @@ import { MenuItem } from 'primeng/api';
 import { TooltipModule } from 'primeng/tooltip';
 import { PanelModule } from 'primeng/panel';
 import { Router } from '@angular/router';
-
+import { BreadcrumbService } from '../../service/breadcrumb.service';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 @Component({
   selector: 'app-calcular-planilla',
   standalone: true,
@@ -25,7 +26,8 @@ import { Router } from '@angular/router';
     CardModule,
     StepsModule,
     TooltipModule,
-    PanelModule
+    PanelModule,
+    BreadcrumbModule,
   ],
   templateUrl: './calcular-planilla.component.html',
   styleUrls: ['./calcular-planilla.component.css']
@@ -44,8 +46,9 @@ export class CalcularPlanillaComponent implements OnInit {
   // Steps del asistente
   items: MenuItem[] = [];
   activeIndex: number = 0;
+  item: any[] = [];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private bS: BreadcrumbService) {}
 
   ngOnInit() {
     this.items = [
@@ -58,6 +61,18 @@ export class CalcularPlanillaComponent implements OnInit {
         icon: 'pi pi-check'
       }
     ];
+
+    this.bS.setBreadcrumbs([
+      { icon: 'pi pi-home', routerLink: '/home' },
+      { label: 'Sistema' },
+      { label: 'Procesos' },
+      { label: 'Asistente Calcular Planilla' },
+
+    ]);
+
+    this.bS.currentBreadcrumbs$.subscribe((bc) => {
+      this.item = bc;
+    });
 
     // Inicializar con fecha actual
     this.fecInicio = new Date(2025, 9, 20); // 20/10/2025

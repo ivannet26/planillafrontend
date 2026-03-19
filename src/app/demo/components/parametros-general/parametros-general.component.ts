@@ -66,6 +66,9 @@ export class ParametrosGeneralComponent implements OnInit {
   rowsPerPage: number = 10; // Numero de filas por página
   displayDialog: boolean = false;
 
+  selectedParametroGeneral: ParametroGeneral | null = null;
+  editingRowIndex: number | null = null;
+
   items: any[] = [];
 
   constructor(
@@ -151,18 +154,23 @@ export class ParametrosGeneralComponent implements OnInit {
   }
 
   //edicion
-  onRowEditInit(parametro: ParametroGeneral): void {
+  onRowEditInit(parametro: ParametroGeneral, index: number): void {
     this.editingParametroGeneral = { ...parametro };
+    this.selectedParametroGeneral = parametro;
+    this.editingRowIndex = index;
     this.isEditingAnyRow = true;
   }
 
   onRowEditSave(parametro: ParametroGeneral): void {
+    if (!this.editingParametroGeneral) return;
+
     if (this.editingParametroGeneral) {
       this.parametroGeneralService
         .ActualizarParametroGeneral(parametro)
         .subscribe({
           next: () => {
             this.editingParametroGeneral = null;
+            this.editingRowIndex = null;
             this.isEditingAnyRow = false;
             verMensajeInformativo(
               this.messageService,
@@ -170,6 +178,7 @@ export class ParametrosGeneralComponent implements OnInit {
               'Éxito',
               'Registro actualizado'
             );
+            this.cargarParametrosGenerales();
           },
           error: () => {
             verMensajeInformativo(
@@ -186,16 +195,23 @@ export class ParametrosGeneralComponent implements OnInit {
   onRowEditCancel(parametro: ParametroGeneral, index: number): void {
     if (this.editingParametroGeneral) {
       this.parametroGeneralList[index] = { ...this.editingParametroGeneral };
-      this.editingParametroGeneral = null;
-      this.isEditingAnyRow = false;
-      this.cargarParametrosGenerales();
     }
+    
+    this.editingParametroGeneral = null;
+    this.editingRowIndex = null;
+    this.isEditingAnyRow = false;
+    this.selectedParametroGeneral = null;
+    
+    this.cargarParametrosGenerales();
   }
 
   //crear parametroxEmpresa
   showAddRow() {
     this.isEditing = true;
     this.isNew = true;
+    this.isEditingAnyRow = false;
+    this.editingRowIndex = null;
+    this.selectedParametroGeneral = null;
 
     const nuevoCodigo =
       this.parametroGeneralService.GenerarNuevoCodigoParametro();
@@ -226,6 +242,9 @@ export class ParametrosGeneralComponent implements OnInit {
               next: () => {
                 this.isEditing = false;
                 this.isNew = false;
+                this.isEditingAnyRow = false;
+                this.editingRowIndex = null;
+                this.selectedParametroGeneral = null;
                 this.parametroGeneralForm.reset();
                 verMensajeInformativo(
                   this.messageService,
@@ -261,6 +280,9 @@ export class ParametrosGeneralComponent implements OnInit {
   onCancel() {
     this.isEditing = false;
     this.isNew = false;
+    this.isEditingAnyRow = false;
+    this.editingRowIndex = null;
+    this.selectedParametroGeneral = null;
     this.parametroGeneralForm.reset({
       /*
             ban01Empresa: this.globalService.getCodigoEmpresa(),
@@ -268,7 +290,7 @@ export class ParametrosGeneralComponent implements OnInit {
     });
   }
 
-  onDelete(parametro: ParametroGeneral, index: number) {
+  onDelete(parametro: ParametroGeneral): void {
     this.confirmationService.confirm({
       message: `¿Está seguro que desea eliminar el parametro <b>${parametro.pla40descripcion}</b>?`,
       header: 'Confirmar Eliminación',
@@ -282,12 +304,15 @@ export class ParametrosGeneralComponent implements OnInit {
           .EliminarParametroGeneral(parametro.pla40anio, parametro.pla40codigo)
           .subscribe({
             next: () => {
+              this.selectedParametroGeneral = null;
+
               verMensajeInformativo(
                 this.messageService,
                 'success',
                 'Éxito',
                 'Registro eliminado correctamente'
               );
+
               this.cargarParametrosGenerales();
             },
             error: () => {
@@ -302,4 +327,77 @@ export class ParametrosGeneralComponent implements OnInit {
       },
     });
   }
+
+  editarParametroSeleccionado(): void {
+  const seleccionado = this.selectedParametroGeneral;
+  if (!seleccionado) return;
+
+  this.editingParametroGeneral = JSON.parse(JSON.stringify(seleccionado));
+
+  this.editingRowIndex = this.parametroGeneralList.findIndex(
+    item => item.pla40codigo === seleccionado.pla40codigo
+  );
+
+  if (this.editingRowIndex === -1) {
+    this.editingParametroGeneral = null;
+    this.editingRowIndex = null;
+    return;
+  }
+
+  this.isEditingAnyRow = true;
+  this.isEditing = false;
+}
+
+eliminarParametroSeleccionado(): void {
+  const seleccionado = this.selectedParametroGeneral;
+  if (!seleccionado) return;
+
+  const index = this.parametroGeneralList.findIndex(
+    p => p.pla40codigo === seleccionado.pla40codigo
+  );
+
+  if (index === -1) return;
+
+  this.onDelete(seleccionado);
+}
+
+guardarEdicionSeleccionada(): void {
+  const edited = this.editingParametroGeneral;
+  if (!edited || this.editingRowIndex === null) return;
+
+  this.parametroGeneralService.ActualizarParametroGeneral(edited).subscribe({
+    next: () => {
+      this.editingParametroGeneral = null;
+      this.editingRowIndex = null;
+      this.isEditingAnyRow = false;
+      this.selectedParametroGeneral = null;
+
+      verMensajeInformativo(
+        this.messageService,
+        'success',
+        'Éxito',
+        'Registro actualizado'
+      );
+
+      this.cargarParametrosGenerales();
+    },
+    error: () => {
+      verMensajeInformativo(
+        this.messageService,
+        'error',
+        'Error',
+        'Error al actualizar'
+      );
+    },
+  });
+}
+
+cancelarEdicionSeleccionada(): void {
+  this.editingParametroGeneral = null;
+  this.editingRowIndex = null;
+  this.isEditingAnyRow = false;
+  this.selectedParametroGeneral = null;
+
+  this.cargarParametrosGenerales();
+}
 }

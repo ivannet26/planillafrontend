@@ -2,20 +2,21 @@
 <p-confirmDialog></p-confirmDialog>
 
 
-<p-panel header="Trabajador Detalle " styleClass="shadow-xl rounded-xl mb-3">
+<p-panel header="Trabajador Detalle " styleClass="trabajador-detalle-header-panel">
   <p-breadcrumb [model]="items" class="max-w-full"></p-breadcrumb>
 </p-panel>
-  <div class="shadow-xl rounded-xl surface-card px-4 py-4">
+
+  <div class="shadow-xl rounded-xl surface-card trabajador-detalle-container">
   <div class="button-group mx-1" style="display: flex; gap: 10px;">
 
-    <button pButton type="button" label="Regresar" icon="pi pi-arrow-left" (click)="regresar()" class="p-button-secondary"></button>
+    <button pButton type="button" label="Regresar" icon="pi pi-arrow-left" (click)="regresar()" class="p-button-secondary detalle-btn"></button>
 
     <!-- Botón Guardar -->
     <button *ngIf="!esModoVisualizacion && !isNewRecord" pButton type="button" label="Guardar Edición" icon="pi pi-save"
-      (click)="confirmGuardarEdicion()" class="p-button-success"></button>
+      (click)="confirmGuardarEdicion()" class="p-button-success detalle-btn"></button>
 
     <button *ngIf="!esModoVisualizacion && isNewRecord" pButton type="button" label="Guardar Nuevo" icon="pi pi-save"
-      (click)="guardarNuevoRegistro()" class="p-button-success"></button>
+      (click)="guardarNuevoRegistro()" class="p-button-success detalle-btn"></button>
   </div>
 
 
@@ -672,7 +673,7 @@
 
 <!-- Modal para seleccionar régimen laboral -->
 
-<p-dialog [(visible)]="displayBusquedaRegLaboralDialog" [header]="'Búsqueda de Régimen Laboral'" [modal]="true"
+<p-dialog [(visible)]="displayBusquedaRegLaboralDialog" styleClass="trabajador-busqueda-dialog" [header]="'Búsqueda de Régimen Laboral'" [modal]="true"
     [style]="{width: '800px'}" [draggable]="false" [closable]="false" [resizable]="false">
     <p-table [value]="regimenesLaborales" [scrollable]="true" scrollHeight="350px" selectionMode="single">
       <ng-template pTemplate="header">
@@ -696,7 +697,7 @@
 
 <!-- Modal para seleccionar tipo de documento -->
 
-<p-dialog [(visible)]="displayBusquedaTipoDocumentoDialog" [header]="'Búsqueda de Tipo de Documento'" [modal]="true"
+<p-dialog [(visible)]="displayBusquedaTipoDocumentoDialog" styleClass="trabajador-busqueda-dialog" [header]="'Búsqueda de Tipo de Documento'" [modal]="true"
     [style]="{width: '800px'}" [draggable]="false" [closable]="false" [resizable]="false">
     <p-table [value]="tiposDocumentos" [scrollable]="true" scrollHeight="350px" selectionMode="single">
       <ng-template pTemplate="header">
@@ -722,7 +723,7 @@
 <!--                -->
 
 <!-- Modal Centro Costos -->
-<p-dialog [(visible)]="mostrarModalCentroCostos" [header]="'Centro de Costo'" [modal]="true"
+<p-dialog [(visible)]="mostrarModalCentroCostos" styleClass="trabajador-busqueda-dialog" [header]="'Centro de Costo'" [modal]="true"
     [style]="{width: '800px'}" [draggable]="false" [closable]="false" [resizable]="false">
     <p-table [value]="centroCostos" [scrollable]="true" scrollHeight="350px" selectionMode="single">
       <ng-template pTemplate="header">
@@ -745,7 +746,7 @@
 </p-dialog>
 
 <!-- Modal Cargos -->
-<p-dialog [(visible)]="mostrarModalCargos" [header]="'Cargo'" [modal]="true"
+<p-dialog [(visible)]="mostrarModalCargos" styleClass="trabajador-busqueda-dialog" [header]="'Cargo'" [modal]="true"
     [style]="{width: '800px'}" [draggable]="false" [closable]="false" [resizable]="false">
     <p-table [value]="cargos" [scrollable]="true" scrollHeight="350px" selectionMode="single">
       <ng-template pTemplate="header">
@@ -768,7 +769,7 @@
 </p-dialog>
 
 <!-- Modal Banco remuneracion -->
-<p-dialog [(visible)]="mostrarBancosRemuneracion" [header]="'Bancos para Cuenta Remuneración'" [modal]="true"
+<p-dialog [(visible)]="mostrarBancosRemuneracion" styleClass="trabajador-busqueda-dialog" [header]="'Bancos para Cuenta Remuneración'" [modal]="true"
     [style]="{width: '800px'}" [draggable]="false" [closable]="false" [resizable]="false">
     <p-table [value]="bancosRemuneracion" [scrollable]="true" scrollHeight="350px" selectionMode="single">
       <ng-template pTemplate="header">
@@ -791,7 +792,7 @@
 </p-dialog>
 
 <!-- Modal Monedas remuneracion -->
-<p-dialog [(visible)]="mostrarMonedasRemuneracion" [header]="'Moneda'" [modal]="true"
+<p-dialog [(visible)]="mostrarMonedasRemuneracion" styleClass="trabajador-busqueda-dialog" [header]="'Moneda'" [modal]="true"
     [style]="{width: '800px'}" [draggable]="false" [closable]="false" [resizable]="false">
     <p-table [value]="monedasRemuneracion" [scrollable]="true" scrollHeight="350px" selectionMode="single">
       <ng-template pTemplate="header">
@@ -814,7 +815,7 @@
 </p-dialog>
 
 <!-- Modal Bancos CTS -->
-<p-dialog [(visible)]="mostrarBancosCTS" [header]="'Bancos para cuenta depósito CTS'" [modal]="true"
+<p-dialog [(visible)]="mostrarBancosCTS" styleClass="trabajador-busqueda-dialog" [header]="'Bancos para cuenta depósito CTS'" [modal]="true"
     [style]="{width: '800px'}" [draggable]="false" [closable]="false" [resizable]="false">
     <p-table [value]="bancosCTS" [scrollable]="true" scrollHeight="350px" selectionMode="single">
       <ng-template pTemplate="header">
@@ -837,7 +838,7 @@
 </p-dialog>
 
 <!-- Modal Monedas CTS -->
-<p-dialog [(visible)]="mostrarMonedasCTS" [header]="'Moneda'" [modal]="true"
+<p-dialog [(visible)]="mostrarMonedasCTS" styleClass="trabajador-busqueda-dialog" [header]="'Moneda'" [modal]="true"
     [style]="{width: '800px'}" [draggable]="false" [closable]="false" [resizable]="false">
     <p-table [value]="monedasCTS" [scrollable]="true" scrollHeight="350px" selectionMode="single">
       <ng-template pTemplate="header">
@@ -864,7 +865,7 @@
 <!-- Modal Seguro Social -->
 <!--                     -->
 
-<p-dialog [(visible)]="mostrarModalRegimenSalud" [header]="'Regimen Salud'" [modal]="true"
+<p-dialog [(visible)]="mostrarModalRegimenSalud" styleClass="trabajador-busqueda-dialog" [header]="'Regimen Salud'" [modal]="true"
     [style]="{width: '800px'}" [draggable]="false" [closable]="false" [resizable]="false">
     <p-table [value]="regimenesSalud" [scrollable]="true" scrollHeight="350px" selectionMode="single">
       <ng-template pTemplate="header">

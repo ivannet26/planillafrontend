@@ -65,6 +65,8 @@ export class CentroCostoComponent implements OnInit {
   isAddMode: boolean = false;
   isEditMode: boolean = false;
 
+  editingRowIndex: number | null = null;
+
   editingCentroCosto: CentroCosto | null = null;
 
 
@@ -129,12 +131,17 @@ export class CentroCostoComponent implements OnInit {
     this.centrosCosto.push(newCentroCosto);
 
     this.editingCentroCosto = JSON.parse(JSON.stringify(newCentroCosto));
+    this.selectedCentroCosto = newCentroCosto;
+
+    this.editingRowIndex = this.centrosCosto.findIndex(
+      c => c.pla57codigo === tempId
+    );
+
 
     this.isAddMode = true;
     this.isEditMode = false;
 
     this.centroCosto = this.initializeCentroCosto();
-    this.selectedCentroCosto = null;
   }
 
   cancelar(): void {
@@ -150,6 +157,11 @@ export class CentroCostoComponent implements OnInit {
   onRowEditarCentroCosto(centroCosto: CentroCosto): void {
     // Clonamos profundamente el objeto para evitar modificar la tabla directamente
     this.editingCentroCosto = JSON.parse(JSON.stringify(centroCosto));
+    this.selectedCentroCosto = centroCosto;
+
+    this.editingRowIndex = this.centrosCosto.findIndex(
+      c => c.pla57codigo === centroCosto.pla57codigo
+    );
 
     this.isEditMode = true;
     this.isAddMode = false;
@@ -161,10 +173,12 @@ export class CentroCostoComponent implements OnInit {
     }
 
     this.editingCentroCosto = null;
+    this.editingRowIndex = null;
     this.isEditMode = false;
     this.isAddMode = false;
 
     this.centrosCosto = JSON.parse(JSON.stringify(this.currentCentrosCosto));
+    this.selectedCentroCosto = null;
   }
 
   onRowValidarCampos(centroCosto: CentroCosto): boolean {
@@ -254,6 +268,7 @@ export class CentroCostoComponent implements OnInit {
 
         if (this.currentCentrosCosto.length < initialLength) {
           this.centrosCosto = JSON.parse(JSON.stringify(this.currentCentrosCosto));
+          this.selectedCentroCosto = null;
           verMensajeInformativo(this.messageService, 'success', 'Éxito', `Centro de costo ${codigoAeliminar} eliminado.`);
         } else {
           verMensajeInformativo(this.messageService, 'error', 'Error', `No se encontró el cargo ${codigoAeliminar} para eliminar.`);
@@ -261,4 +276,32 @@ export class CentroCostoComponent implements OnInit {
       }
     });
   }
+
+  editarCentroCostoSeleccionado(): void {
+  if (!this.selectedCentroCosto) return;
+  this.onRowEditarCentroCosto(this.selectedCentroCosto);
+}
+
+eliminarCentroCostoSeleccionado(): void {
+  if (!this.selectedCentroCosto) return;
+  this.eliminarCentroCosto(this.selectedCentroCosto);
+}
+
+guardarEdicionSeleccionada(): void {
+  if (this.editingRowIndex === null) return;
+
+  const centroCostoOriginal = this.centrosCosto[this.editingRowIndex];
+  if (!centroCostoOriginal) return;
+
+  this.onRowGuardarEdicion(centroCostoOriginal);
+}
+
+cancelarEdicionSeleccionada(): void {
+  if (this.editingRowIndex === null) return;
+
+  const centroCostoOriginal = this.centrosCosto[this.editingRowIndex];
+  if (!centroCostoOriginal) return;
+
+  this.onRowCancelarEdicion(centroCostoOriginal);
+}
 }

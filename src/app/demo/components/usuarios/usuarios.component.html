@@ -3,6 +3,11 @@
 
   <p-confirmDialog></p-confirmDialog>
 
+  <p-panel header="Usuarios" styleClass="shadow-xl rounded-xl mb-3">
+    <p-breadcrumb [model]="items" class="max-w-full"></p-breadcrumb>
+  </p-panel>
+
+  <!--
   <div class="page-header">
     <div class="header-content">
       <span class="header-title">Usuarios</span>
@@ -14,8 +19,17 @@
               tooltipPosition="bottom"></button>
     </div>
   </div>
+  -->
 
   <div class="table-wrapper">
+    <button pButton type="button"
+              icon="pi pi-plus"
+              class="p-button-sm add-button mb-2"
+              (click)="agregarNuevo()"
+              label="Nuevo Usuario" 
+              pTooltip="Agregar nuevo usuario"
+              tooltipPosition="bottom"></button>
+
     <p-table
       [value]="usuarios"
       [paginator]="true"

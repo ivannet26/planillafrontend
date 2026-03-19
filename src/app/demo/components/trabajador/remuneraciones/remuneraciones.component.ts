@@ -75,6 +75,11 @@ export class RemuneracionesComponent implements OnInit {
   isNew: boolean = false;
   isEditingAnyRow: boolean = false; // Indica si alguna fila está en edición
 
+
+  remuneracionSeleccionada: Remuneracion | null = null;
+
+  editingRowIndex: number | null = null;
+
   // Modal para elegir codigo de concepto de regimen
   mostrarModalConceptoCod: boolean = false; // Controla la visibilidad del modal
   // Lista de tipos de regimenes pensionarios
@@ -125,72 +130,58 @@ export class RemuneracionesComponent implements OnInit {
   }
 
   onRowEditSave(rowIndex: number): void {
-    const remuneracion = this.remuneraciones.at(rowIndex) as FormGroup;
+  const remuneracion = this.remuneraciones.at(rowIndex) as FormGroup;
 
-    // Confirmar la acción antes de guardar
-    this.confirmationService.confirm({
-      message:
-        '¿Está seguro que desea guardar los cambios en esta remuneración?',
-      header: 'Confirmar Cambios',
-      icon: 'pi pi-question-circle',
-      acceptLabel: 'Sí',
-      rejectLabel: 'No',
-      acceptButtonStyleClass: 'p-button',
-      rejectButtonStyleClass: 'p-button-danger',
-      accept: () => {
-        // Actualizar el FormArray y la lista en el índice correspondiente
-        const remuneracionActualizada: Remuneracion = remuneracion.value;
+  this.confirmationService.confirm({
+    message: '¿Está seguro que desea guardar los cambios en esta remuneración?',
+    header: 'Confirmar Cambios',
+    icon: 'pi pi-question-circle',
+    acceptLabel: 'Sí',
+    rejectLabel: 'No',
+    acceptButtonStyleClass: 'p-button',
+    rejectButtonStyleClass: 'p-button-danger',
+    accept: () => {
+      const remuneracionActualizada: Remuneracion = remuneracion.value;
 
-        console.log('Valor actualizado:', remuneracionActualizada.pla05importe);
+      console.log('Valor actualizado:', remuneracionActualizada.pla05importe);
 
-        // Actualizar el FormArray
-        this.remuneraciones.at(rowIndex).patchValue(remuneracionActualizada);
-        // Actualizar la lista
-        this.setFormArrayDesdeLista(this.remuneracionesLista);
+      this.remuneraciones.at(rowIndex).patchValue(remuneracionActualizada);
+      this.setFormArrayDesdeLista(this.remuneracionesLista);
 
-        // Eliminar el clon y desactivar el modo de edición
-        delete this.clonedRemuneraciones[rowIndex];
-        this.isEditingAnyRow = false;
-        this.editingRemuneracion = null;
+      delete this.clonedRemuneraciones[rowIndex];
 
-        // Habilitar todas las filas
-        this.remuneraciones.controls.forEach((control) => control.enable());
+      this.isEditingAnyRow = false;
+      this.editingRemuneracion = null;
+      this.editingRowIndex = null;
 
-        this.editingRemuneracion = null;
-        this.isEditingAnyRow = false;
+      this.remuneraciones.controls.forEach((control) => control.enable());
 
-        // Mostrar mensaje de éxito
-        verMensajeInformativo(
-          this.messageService,
-          'success',
-          'Éxito',
-          'Remuneración actualizada correctamente'
-        );
+      verMensajeInformativo(
+        this.messageService,
+        'success',
+        'Éxito',
+        'Remuneración actualizada correctamente'
+      );
 
-        console.log(
-          'Cambios guardados para la remuneración en la fila:',
-          rowIndex
-        );
-        console.log('Datos actualizados:', remuneracion.value);
-      },
-      reject: () => {
-        // Restaurar el estado de edición y habilitar las filas
-        this.isEditingAnyRow = false;
-        this.editingRemuneracion = null;
+      console.log('Cambios guardados para la remuneración en la fila:', rowIndex);
+      console.log('Datos actualizados:', remuneracion.value);
+    },
+    reject: () => {
+      this.isEditingAnyRow = false;
+      this.editingRemuneracion = null;
+      this.editingRowIndex = null;
 
-        // Habilitar todas las filas
-        this.remuneraciones.controls.forEach((control) => control.enable());
+      this.remuneraciones.controls.forEach((control) => control.enable());
 
-        // Mostrar mensaje de cancelación
-        verMensajeInformativo(
-          this.messageService,
-          'info',
-          'Cancelado',
-          'Los cambios no fueron guardados'
-        );
-      },
-    });
-  }
+      verMensajeInformativo(
+        this.messageService,
+        'info',
+        'Cancelado',
+        'Los cambios no fueron guardados'
+      );
+    },
+  });
+}
 
   onRowEditCancel(rowIndex: number): void {
     console.log('Cancelando edición. Valores originales:', this.clonedRemuneraciones[rowIndex]);
@@ -211,6 +202,8 @@ export class RemuneracionesComponent implements OnInit {
       // Restablecer el estado de edición
       this.isEditingAnyRow = false;
       this.editingRemuneracion = null;
+
+      this.editingRowIndex = null;
 
       // Habilitar todas las filas
       this.remuneraciones.controls.forEach((control) => control.enable());
@@ -414,4 +407,42 @@ export class RemuneracionesComponent implements OnInit {
     console.log('FormArray:', this.remuneraciones.value);
     console.log('Lista:', this.remuneracionesLista);
   }
+
+  editarRemuneracionSeleccionada(): void {
+  if (!this.remuneracionSeleccionada) return;
+
+  const rowIndex = this.remuneracionesLista.findIndex(
+    r => r.pla05conceptocod === this.remuneracionSeleccionada?.pla05conceptocod
+  );
+
+  if (rowIndex === -1) return;
+
+  this.clonedRemuneraciones[rowIndex] = { ...this.remuneracionesLista[rowIndex] };
+  this.editingRemuneracion = { ...this.remuneracionesLista[rowIndex] };
+  this.editingRowIndex = rowIndex;
+  this.isEditingAnyRow = true;
+}
+
+eliminarRemuneracionSeleccionada(): void {
+  if (!this.remuneracionSeleccionada) return;
+
+  const rowIndex = this.remuneracionesLista.findIndex(
+    r => r.pla05conceptocod === this.remuneracionSeleccionada?.pla05conceptocod
+  );
+
+  if (rowIndex === -1) return;
+
+  this.onDelete(this.remuneracionSeleccionada, rowIndex);
+}
+
+guardarEdicionSeleccionada(): void {
+  if (this.editingRowIndex === null) return;
+  this.onRowEditSave(this.editingRowIndex);
+}
+
+cancelarEdicionSeleccionada(): void {
+  if (this.editingRowIndex === null) return;
+  this.onRowEditCancel(this.editingRowIndex);
+}
+
 }

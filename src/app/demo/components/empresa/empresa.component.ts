@@ -450,4 +450,19 @@ export class EmpresaComponent implements OnInit {
         this.dt.filter(value, 'ruc', 'contains');
     }
 
+    vistaPreviaSeleccionada(): void {
+  if (!this.selectedEmpresa) return;
+  this.vistaPrevia(this.selectedEmpresa);
+}
+
+editarEmpresaSeleccionada(): void {
+  if (!this.selectedEmpresa) return;
+  this.editarEmpresa(this.selectedEmpresa);
+}
+
+eliminarEmpresaSeleccionada(): void {
+  if (!this.selectedEmpresa) return;
+  this.eliminarEmpresa(this.selectedEmpresa);
+}
+
 }

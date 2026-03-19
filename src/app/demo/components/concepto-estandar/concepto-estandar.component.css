@@ -83,7 +83,8 @@
 }
 
 ::ng-deep .p-button-info {
-  color: #0dcaf0 !important;
+  /*color: #0dcaf0 !important;*/
+  color:white
 }
 
 ::ng-deep .p-button-info:hover {
@@ -353,4 +354,19 @@
   width: auto !important;
   table-layout: auto;
 
+}
+
+
+.actions-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: nowrap; 
+  white-space: nowrap;
+}
+
+
+.actions-cell .action-btn {
+  flex: 0 0 auto;
 }

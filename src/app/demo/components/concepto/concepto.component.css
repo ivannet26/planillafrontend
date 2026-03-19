@@ -1,10 +1,415 @@
+.concepto-card {
+  padding: 1rem;
+}
+
+:host ::ng-deep .p-panel .p-panel-header {
+  font-size: 15px !important;
+  padding: 0.8rem 1rem !important;
+}
+
+:host ::ng-deep .p-panel .p-panel-content {
+  padding: 0.8rem 0.9rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb {
+  font-size: 12px !important;
+  padding: 0.5rem 0.75rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb .p-menuitem-link {
+  padding: 0 !important;
+  gap: 0.35rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb .pi {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .p-breadcrumb .p-breadcrumb-chevron {
+  font-size: 11px !important;
+}
+
 ::ng-deep .table-concepto {
   width: fit-content;
   max-width: 100%;
 }
 
-::ng-deep .table-concepto {
+::ng-deep .table-concepto table {
   border-collapse: collapse;
   width: auto !important;
   table-layout: auto;
+}
+
+.concepto-toolbar-btn {
+  height: 34px !important;
+  font-size: 12px !important;
+  padding: 0 0.85rem !important;
+}
+
+:host ::ng-deep .concepto-toolbar-btn .p-button-icon,
+:host ::ng-deep .concepto-toolbar-btn .p-button-label {
+  font-size: 12px !important;
+}
+
+
+:host ::ng-deep .table-concepto .p-datatable-thead > tr > th {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  padding: 0.55rem 0.65rem !important;
+  text-align: center;
+}
+
+:host ::ng-deep .table-concepto .p-datatable-tbody > tr > td {
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  padding: 0.5rem 0.65rem !important;
+  vertical-align: middle !important;
+}
+
+:host ::ng-deep .table-concepto .p-paginator {
+  font-size: 12px !important;
+  padding: 0.45rem 0.6rem !important;
+}
+
+:host ::ng-deep .table-concepto .p-paginator .p-paginator-pages .p-paginator-page,
+:host ::ng-deep .table-concepto .p-paginator .p-dropdown,
+:host ::ng-deep .table-concepto .p-paginator .p-dropdown-label,
+:host ::ng-deep .table-concepto .p-paginator .p-paginator-current {
+  font-size: 12px !important;
+}
+
+
+:host ::ng-deep .table-concepto .p-paginator {
+  font-size: 12px !important;
+  padding: 0.45rem 0.6rem !important;
+}
+
+:host ::ng-deep .table-concepto .p-paginator .p-paginator-pages .p-paginator-page,
+:host ::ng-deep .table-concepto .p-paginator .p-dropdown,
+:host ::ng-deep .table-concepto .p-paginator .p-dropdown-label,
+:host ::ng-deep .table-concepto .p-paginator .p-paginator-current {
+  font-size: 12px !important;
+}
+
+::ng-deep .p-tooltip .p-tooltip-text {
+  font-size: 11px !important;
+  padding: 0.3rem 0.45rem !important;
+  line-height: 1.15 !important;
+}
+
+::ng-deep .p-tooltip {
+  max-width: 160px !important;
+}
+
+::ng-deep .p-tooltip .p-tooltip-arrow {
+  transform: scale(0.8);
+}
+
+.concepto-card {
+  padding: 1rem;
+}
+
+:host ::ng-deep .p-panel .p-panel-header {
+  font-size: 15px !important;
+  padding: 0.8rem 1rem !important;
+}
+
+:host ::ng-deep .p-panel .p-panel-content {
+  padding: 0.8rem 0.9rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb {
+  font-size: 12px !important;
+  padding: 0.5rem 0.75rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb .p-menuitem-link {
+  padding: 0 !important;
+  gap: 0.35rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb .pi {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .p-breadcrumb .p-breadcrumb-chevron {
+  font-size: 11px !important;
+}
+
+::ng-deep .table-concepto {
+  width: fit-content;
+  max-width: 100%;
+}
+
+::ng-deep .table-concepto table {
+  border-collapse: collapse;
+  width: auto !important;
+  table-layout: auto;
+}
+
+.concepto-toolbar-btn {
+  height: 34px !important;
+  font-size: 12px !important;
+  padding: 0 0.85rem !important;
+}
+
+:host ::ng-deep .concepto-toolbar-btn .p-button-icon,
+:host ::ng-deep .concepto-toolbar-btn .p-button-label {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .table-concepto .p-datatable-thead > tr > th {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  padding: 0.55rem 0.65rem !important;
+  text-align: center;
+}
+
+:host ::ng-deep .table-concepto .p-datatable-tbody > tr > td {
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  padding: 0.5rem 0.65rem !important;
+  vertical-align: middle !important;
+}
+
+:host ::ng-deep .table-concepto .p-paginator {
+  font-size: 12px !important;
+  padding: 0.45rem 0.6rem !important;
+}
+
+:host ::ng-deep .table-concepto .p-paginator .p-paginator-pages .p-paginator-page,
+:host ::ng-deep .table-concepto .p-paginator .p-dropdown,
+:host ::ng-deep .table-concepto .p-paginator .p-dropdown-label,
+:host ::ng-deep .table-concepto .p-paginator .p-paginator-current {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .table-concepto .p-button.p-button-sm {
+  width: 30px !important;
+  height: 30px !important;
+  min-width: 30px !important;
+  padding: 0 !important;
+}
+
+:host ::ng-deep .table-concepto .p-button.p-button-sm .p-button-icon {
+  font-size: 12px !important;
+}
+
+::ng-deep .p-tooltip .p-tooltip-text {
+  font-size: 11px !important;
+  padding: 0.3rem 0.45rem !important;
+  line-height: 1.15 !important;
+}
+
+::ng-deep .p-tooltip {
+  max-width: 160px !important;
+}
+
+::ng-deep .p-tooltip .p-tooltip-arrow {
+  transform: scale(0.8);
+}
+
+:host ::ng-deep .concepto-toolbar-btn {
+  height: 34px !important;
+  font-size: 12px !important;
+  padding: 0 0.85rem !important;
+  border-radius: 8px !important;
+}
+
+:host ::ng-deep .concepto-toolbar-btn .p-button-icon,
+:host ::ng-deep .concepto-toolbar-btn .p-button-label {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .concepto-toolbar-btn .p-button-label {
+  font-weight: 600 !important;
+}
+
+/*DIALOG */
+
+:host ::ng-deep .concepto-dialog {
+  max-width: 95vw !important;
+}
+
+:host ::ng-deep .concepto-dialog .p-dialog-header {
+  padding: 0.75rem 0.95rem !important;
+}
+
+:host ::ng-deep .concepto-dialog .p-dialog-title {
+  font-size: 14px !important;
+  font-weight: 600 !important;
+}
+
+:host ::ng-deep .concepto-dialog .p-dialog-header-icon {
+  width: 30px !important;
+  height: 30px !important;
+}
+
+:host ::ng-deep .concepto-dialog .p-dialog-header-icon .pi {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .concepto-dialog .p-dialog-content {
+  padding: 0.85rem 0.95rem !important;
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .concepto-dialog .p-dialog-footer {
+  padding: 0.7rem 0.95rem !important;
+}
+
+:host ::ng-deep .concepto-dialog .p-dialog-footer .p-button {
+  height: 34px !important;
+  font-size: 12px !important;
+  padding: 0 0.85rem !important;
+  border-radius: 8px !important;
+}
+
+:host ::ng-deep .concepto-dialog .p-dialog-footer .p-button .p-button-icon,
+:host ::ng-deep .concepto-dialog .p-dialog-footer .p-button .p-button-label {
+  font-size: 12px !important;
+}
+
+
+.concepto-detalle {
+  font-size: 12px;
+}
+
+
+.concepto-detalle .border-1 {
+  padding: 0.75rem !important;
+  margin-bottom: 0.75rem !important;
+}
+
+/* labels */
+.concepto-detalle label {
+  display: inline-block;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  margin-bottom: 0.3rem !important;
+  line-height: 1.2 !important;
+}
+
+
+.concepto-detalle .form-row {
+  gap: 0.75rem !important;
+  margin-bottom: 0.75rem !important;
+}
+
+.concepto-detalle .form-group {
+  min-width: 0;
+}
+
+:host ::ng-deep .concepto-dialog input[pInputText],
+:host ::ng-deep .concepto-dialog .p-inputtext,
+:host ::ng-deep .concepto-dialog .p-dropdown,
+:host ::ng-deep .concepto-dialog .p-dropdown-label,
+:host ::ng-deep .concepto-dialog .p-inputtextarea {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .concepto-dialog input[pInputText],
+:host ::ng-deep .concepto-dialog .p-inputtext,
+:host ::ng-deep .concepto-dialog .p-dropdown {
+  height: 34px !important;
+}
+
+:host ::ng-deep .concepto-dialog .p-dropdown-label {
+  line-height: 34px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+:host ::ng-deep .concepto-dialog .p-dropdown-trigger {
+  width: 34px !important;
+}
+
+:host ::ng-deep .concepto-dialog .p-inputtextarea {
+  min-height: unset !important;
+  padding: 0.5rem 0.65rem !important;
+  line-height: 1.35 !important;
+}
+
+/* checkbox */
+:host ::ng-deep .concepto-dialog .p-checkbox {
+  width: 16px !important;
+  height: 16px !important;
+}
+
+:host ::ng-deep .concepto-dialog .p-checkbox .p-checkbox-box {
+  width: 16px !important;
+  height: 16px !important;
+  border-radius: 3px !important;
+}
+
+:host ::ng-deep .concepto-dialog .p-checkbox .p-checkbox-icon {
+  font-size: 10px !important;
+}
+
+
+:host ::ng-deep .concepto-dialog .p-checkbox + label,
+:host ::ng-deep .concepto-dialog .p-checkbox-label {
+  font-size: 12px !important;
+  font-weight: 500 !important;
+}
+
+
+:host ::ng-deep .concepto-dialog .p-datatable .p-datatable-thead > tr > th {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  padding: 0.45rem 0.55rem !important;
+  line-height: 1.2 !important;
+}
+
+:host ::ng-deep .concepto-dialog .p-datatable .p-datatable-tbody > tr > td {
+  font-size: 12px !important;
+  padding: 0.4rem 0.55rem !important;
+  line-height: 1.2 !important;
+  vertical-align: middle !important;
+}
+
+
+.concepto-detalle .font-medium {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  margin-bottom: 0.4rem !important;
+}
+
+.concepto-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.85rem;
+}
+
+.concepto-toolbar-left,
+.concepto-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+:host ::ng-deep .concepto-toolbar-btn {
+  height: 34px !important;
+  font-size: 12px !important;
+  padding: 0 0.85rem !important;
+  border-radius: 8px !important;
+}
+
+:host ::ng-deep .concepto-toolbar-btn .p-button-icon,
+:host ::ng-deep .concepto-toolbar-btn .p-button-label {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .concepto-icon-btn {
+  width: 34px !important;
+  height: 34px !important;
+  min-width: 34px !important;
+  padding: 0 !important;
+  border-radius: 8px !important;
+}
+
+:host ::ng-deep .concepto-icon-btn .p-button-icon {
+  font-size: 12px !important;
 }

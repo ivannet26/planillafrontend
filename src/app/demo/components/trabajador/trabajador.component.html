@@ -1,34 +1,76 @@
 <p-toast></p-toast>
 <p-confirmDialog></p-confirmDialog>
 
-<div class="p-1 py-5 max-h-screen">
+<div class="trabajador-page">
 
-  <p-panel header="Trabajador" styleClass="shadow-xl rounded-xl mb-3">
+  <p-panel header="Trabajador" styleClass="trabajador-header-panel">
     <p-breadcrumb [model]="items" class="max-w-full"></p-breadcrumb>
   </p-panel>
 
-  <div class="mb-2">
-    <div class="shadow-xl rounded-xl surface-card px-4 py-4">
+  <div class="trabajador-content-panel">
+    <div class="shadow-xl rounded-xl surface-card trabajador-container">
 
-      <div class="flex align-items-center mb-3" style="gap: 10px;">
-        <button type="button" pButton icon="pi pi-plus" label="Nuevo Trabajador"
-        (click)="nuevoTrabajador()"
-        class="p-button-sm"></button>
+      <div class="trabajador-toolbar">
+        <div class="trabajador-toolbar-left">
+          <button
+            type="button"
+            pButton
+            icon="pi pi-plus"
+            label="Nuevo Trabajador"
+            (click)="nuevoTrabajador()"
+            class="p-button-sm trabajador-btn">
+          </button>
 
-        <button
-        pButton
-        pRipple
-        type="button"
-        label="Importar"
-        icon="pi pi-upload"
-        class="p-button-info"
-        (click)="importDialogVisible = true">
-      </button>
+          <button
+            pButton
+            pRipple
+            type="button"
+            label="Importar"
+            icon="pi pi-upload"
+            class="p-button-sm trabajador-btn"
+            (click)="importDialogVisible = true">
+          </button>
+        </div>
+
+        <div class="trabajador-toolbar-right">
+          <button
+            pButton
+            type="button"
+            icon="pi pi-eye"
+            class="p-button-sm trabajador-icon-btn"
+            pTooltip="Ver detalle"
+            tooltipPosition="bottom"
+            [disabled]="!trabajadorSeleccionado"
+            (click)="verTrabajadorSeleccionado()">
+          </button>
+
+          <button
+            pButton
+            type="button"
+            icon="pi pi-pencil"
+            class="p-button-sm trabajador-icon-btn"
+            pTooltip="Editar"
+            tooltipPosition="bottom"
+            [disabled]="!trabajadorSeleccionado"
+            (click)="editarTrabajadorSeleccionado()">
+          </button>
+
+          <button
+            pButton
+            type="button"
+            icon="pi pi-trash"
+            class="p-button-sm trabajador-icon-btn p-button-danger"
+            pTooltip="Eliminar"
+            tooltipPosition="bottom"
+            [disabled]="!trabajadorSeleccionado"
+            (click)="eliminarTrabajadorSeleccionado()">
+          </button>
+        </div>
       </div>
 
       <p-table
       [value]="trabajadorList"
-      dataKey="pla01empresacod"
+      dataKey="pla01empleadocod"
       [paginator]="true"
       [rows]="rowsPerPage"
       [rowsPerPageOptions]="[5, 10, 20, 50]"
@@ -38,6 +80,8 @@
       [tableStyle]="{ 'width': '1366px' }"
       styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines"
       class="table-trabajador"
+      selectionMode="single"
+      [(selection)]="trabajadorSeleccionado"
       >
         <!-- Cabecera-->
         <ng-template pTemplate="header">
@@ -50,12 +94,11 @@
             <th style="text-align: center; width: 10%;">Teléfono</th>
             <th style="text-align: center; width: 10%;">Fec. Ingreso</th>
             <th style="text-align: center; width: 10%;">Centro costo</th>
-            <th style="text-align: center; width: 10%;">Acciones</th>
           </tr>
         </ng-template>
         <!-- Cuerpo -->
         <ng-template pTemplate="body" let-trabajador>
-          <tr>
+          <tr [pSelectableRow]="trabajador">
             <td>{{trabajador.pla01empleadocod}}</td>
             <td>{{trabajador.pla01docuidentidadnro}}</td>
             <td>{{trabajador.apellidosynombres}}</td>
@@ -64,36 +107,6 @@
             <td>{{trabajador.pla01telefono}}</td>
             <td>{{trabajador.pla01fechaingreso | date: 'dd/MM/yyyy'}}</td>
             <td>{{trabajador.pla01centrocosto}}</td>
-            <td>
-              <div class="flex justify-content-center gap-2">
-
-                <!-- Botón Ver Detalle -->
-
-                <button pButton
-                type="button"
-                icon="pi pi-eye"
-                pTooltip="Ver Detalle"
-                (click)="verTrabajador(trabajador)"
-                class="p-button-rounded p-button-text p-button-sm"></button>
-
-                <!-- Botón Editar -->
-                <button pButton
-                (click)="editarTrabajador(trabajador)"
-                icon="pi pi-pencil"
-                pTooltip="Editar"
-                class="p-button-rounded p-button-text p-button-sm"
-                ></button>
-
-                <!-- Botón Eliminar -->
-                <button pButton
-                type="button"
-                (click)="eliminarTrabajador(trabajador)"
-                icon="pi pi-trash"
-                pTooltip="Eliminar"
-                class="p-button-rounded p-button-text p-button-sm p-button-danger"></button>
-
-              </div>
-            </td>
           </tr>
         </ng-template>
       </p-table>
@@ -109,7 +122,8 @@
   [style]="{ width: '90vw' }"
   [maximizable]="true"
   [draggable]="false"
-  [resizable]="true">
+  [resizable]="true"
+  styleClass="trabajador-import-dialog">
 
   <div class="flex align-items-center gap-2 mb-3">
     <input

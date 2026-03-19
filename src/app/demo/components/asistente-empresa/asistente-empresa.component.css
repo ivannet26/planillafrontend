@@ -1,0 +1,491 @@
+.empresa-form-grid,
+.subform-grid,
+.bancos-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-row {
+  display: flex;
+  gap: 0.9rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.field-inline {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.field-inline label {
+  min-width: 88px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #374151;
+  white-space: nowrap;
+}
+
+.field-inline input,
+.field-inline .p-dropdown {
+  width: 100%;
+}
+
+.field-codigo input {
+  width: 80px;
+}
+
+.field-ruc input {
+  width: 145px;
+}
+
+.field-razon {
+  flex: 1;
+}
+
+.field-razon input {
+  width: 100%;
+  min-width: 240px;
+}
+
+.field-direccion {
+  flex: 1;
+}
+
+.field-direccion input {
+  width: 100%;
+  min-width: 420px;
+}
+
+.field-doc-tipo .p-dropdown {
+  width: 155px;
+}
+
+.field-doc-num input {
+  width: 135px;
+}
+
+.field-apellido {
+  flex: 1;
+}
+
+.field-apellido input {
+  width: 100%;
+  min-width: 190px;
+}
+
+.field-nombres {
+  flex: 1;
+}
+
+.field-nombres input {
+  width: 100%;
+  min-width: 240px;
+}
+
+.banco-field {
+  flex: 1;
+}
+
+.banco-field input,
+.banco-field .p-dropdown {
+  width: 100%;
+  min-width: 190px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+:host ::ng-deep .surface-card .p-inputtext,
+:host ::ng-deep .surface-card .p-dropdown,
+:host ::ng-deep .surface-card .p-dropdown-label {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .surface-card .p-inputtext,
+:host ::ng-deep .surface-card .p-dropdown {
+  height: 34px !important;
+}
+
+:host ::ng-deep .surface-card .p-dropdown-label {
+  line-height: 34px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+:host ::ng-deep .surface-card .p-dropdown-trigger {
+  width: 34px !important;
+}
+
+:host ::ng-deep .p-panel .p-panel-header {
+  font-size: 15px !important;
+  padding: 0.8rem 1rem !important;
+}
+
+:host ::ng-deep .p-panel .p-panel-content {
+  padding: 0.8rem 0.9rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb {
+  font-size: 12px !important;
+  padding: 0.5rem 0.75rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb .p-menuitem-link {
+  padding: 0 !important;
+  gap: 0.35rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb .pi {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .p-breadcrumb .p-breadcrumb-chevron {
+  font-size: 11px !important;
+}
+
+.empresa-card {
+  padding: 1rem;
+}
+
+.empresa-form-grid,
+.subform-grid,
+.bancos-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-row {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.field-inline {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.field-inline label {
+  min-width: 82px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #374151;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.field-inline input,
+.field-inline .p-dropdown {
+  width: 100%;
+  min-width: 0;
+}
+
+.field-codigo {
+  flex: 0 0 auto;
+}
+
+.field-codigo input {
+  width: 80px;
+}
+
+.field-ruc {
+  flex: 0 0 auto;
+}
+
+.field-ruc input {
+  width: 145px;
+}
+
+.field-razon,
+.field-direccion,
+.field-apellido,
+.field-nombres,
+.banco-field {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.field-razon input {
+  width: 100%;
+  min-width: 0;
+}
+
+.field-direccion input {
+  width: 100%;
+  min-width: 0;
+}
+
+.field-doc-tipo {
+  flex: 0 0 auto;
+}
+
+.field-doc-tipo .p-dropdown {
+  width: 135px;
+  min-width: 135px;
+}
+
+.field-doc-num {
+  flex: 0 0 auto;
+}
+
+.field-doc-num input {
+  width: 115px;
+}
+
+.field-apellido input,
+.field-nombres input,
+.banco-field input,
+.banco-field .p-dropdown {
+  width: 100%;
+  min-width: 0;
+}
+
+.full-width {
+  width: 100%;
+  min-width: 0;
+}
+
+.wizard-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.wizard-btn {
+  height: 40px !important;
+  font-size: 13px !important;
+  padding: 0 1rem !important;
+  border-radius: 10px !important;
+}
+
+.wizard-btn .p-button-icon,
+.wizard-btn .p-button-label {
+  font-size: 13px !important;
+}
+
+.wizard-btn-cancel {
+  min-width: 140px;
+}
+
+.wizard-btn-primary {
+  min-width: 140px;
+}
+
+@media (max-width: 1400px) {
+  .field-doc-tipo .p-dropdown {
+    width: 120px;
+    min-width: 120px;
+  }
+
+  .field-doc-num input {
+    width: 105px;
+  }
+
+  .field-inline label {
+    min-width: 78px;
+  }
+}
+
+@media (max-width: 1350px) {
+  .subform-grid .form-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.55rem;
+  }
+
+  .subform-grid .field-inline {
+    width: 100%;
+  }
+
+  .subform-grid .field-doc-tipo,
+  .subform-grid .field-doc-num,
+  .subform-grid .field-apellido,
+  .subform-grid .field-nombres {
+    flex: 1 1 100%;
+    min-width: 0;
+  }
+
+  .subform-grid .field-doc-tipo .p-dropdown,
+  .subform-grid .field-doc-num input,
+  .subform-grid .field-apellido input,
+  .subform-grid .field-nombres input {
+    width: 100%;
+    min-width: 0 !important;
+  }
+
+  
+}
+
+.empresa-asistente-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.steps-container {
+  padding: 0.85rem 1rem 0.5rem 1rem;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.empresa-asistente-content {
+  flex: 1;
+  padding: 1rem 1rem 0.75rem 1rem;
+  overflow-y: auto;
+}
+
+.step-title {
+  margin: 0 0 1rem 0;
+  font-size: 15px;
+  color: #1f2937;
+  font-weight: 600;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.confirmation-step {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.confirmation-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.confirmation-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.85rem;
+}
+
+.confirmation-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 0.75rem;
+  background-color: #f9fafb;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+}
+
+.confirmation-label {
+  font-size: 12px;
+  color: #6b7280;
+  font-weight: 600;
+}
+
+.confirmation-value {
+  font-size: 12px;
+  color: #1f2937;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.confirmation-message {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 12px;
+  padding: 0.75rem;
+}
+
+.confirmation-message p {
+  margin: 0;
+  line-height: 1.35;
+}
+
+.asistente-footer {
+  padding: 0.85rem 1rem;
+  background-color: #f8f9fa;
+  border-top: 1px solid #e5e7eb;
+  box-shadow: none;
+}
+
+.footer-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navigation-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+:host ::ng-deep .empresa-asistente-container .p-card .p-card-body {
+  padding: 1rem !important;
+}
+
+:host ::ng-deep .empresa-asistente-container .p-card .p-card-content {
+  padding: 0 !important;
+}
+
+:host ::ng-deep .empresa-asistente-container .p-inputtext,
+:host ::ng-deep .empresa-asistente-container .p-dropdown,
+:host ::ng-deep .empresa-asistente-container .p-dropdown-label {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .empresa-asistente-container .p-inputtext,
+:host ::ng-deep .empresa-asistente-container .p-dropdown {
+  height: 34px !important;
+}
+
+:host ::ng-deep .empresa-asistente-container .p-dropdown-label {
+  line-height: 34px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+:host ::ng-deep .empresa-asistente-container .p-dropdown-trigger {
+  width: 34px !important;
+}
+
+:host ::ng-deep .empresa-asistente-container .p-button {
+  height: 34px !important;
+  font-size: 12px !important;
+  padding: 0 0.85rem !important;
+}
+
+:host ::ng-deep .empresa-asistente-container .p-button .p-button-label,
+:host ::ng-deep .empresa-asistente-container .p-button .p-button-icon {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .custom-steps .p-steps {
+  padding: 0 !important;
+}
+
+:host ::ng-deep .custom-steps .p-steps-item .p-menuitem-link {
+  padding: 0.4rem 0.6rem !important;
+}
+
+:host ::ng-deep .custom-steps .p-steps-number {
+  min-width: 1.6rem !important;
+  height: 1.6rem !important;
+  font-size: 11px !important;
+}
+
+:host ::ng-deep .custom-steps .p-steps-title {
+  font-size: 12px !important;
+  margin-top: 0.35rem !important;
+}

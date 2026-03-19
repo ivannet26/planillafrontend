@@ -1,1 +1,100 @@
-<p>asiento-contable works!</p>
+<p-toast></p-toast>
+
+<p-panel header="Asiento Contable" styleClass="asiento-header-panel">
+  <p-breadcrumb [model]="items"></p-breadcrumb>
+</p-panel>
+
+<p-panel styleClass="shadow-xl rounded-xl py-2 header-large">
+  <div class="surface-card asiento-container">
+    <div class="asiento-wrapper">
+  <!-- lado izquierdo -->
+  <div class="tabla-seccion izquierda">
+    <button
+      pButton
+      type="button"
+      label="Generar Voucher Contable"
+      icon="pi pi-arrow-right"
+      class="asiento-btn"
+      (click)="mostrarDetalle()"
+      [disabled]="!filaSeleccionada"
+    ></button>
+
+    <div class="seccion-titulo">Periodo Pago a contabilizar</div>
+
+    <p-table
+      [value]="periodosMock"
+      selectionMode="single"
+      [(selection)]="filaSeleccionada"
+      dataKey="id"
+      styleClass="p-datatable-sm"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Tipo</th>
+          <th>PlanillaGrupo</th>
+          <th>Periodo</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-item>
+        <tr [pSelectableRow]="item">
+          <td>{{ item.tipo }}</td>
+          <td>{{ item.planillaGrupo }}</td>
+          <td>{{ item.periodo }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+  <!-- Linea -->
+  <div class="divisor-tablas"></div>
+
+  <!-- lado derecho -->
+  <div class="tabla-seccion derecha">
+
+    <button
+      pButton
+      type="button"
+      icon="pi pi-file-excel"
+      label="Exportar Excel"
+      class="p-button-success p-button-sm asiento-btn"
+      (click)="exportarExcel()"
+      [disabled]="detalleAsiento.length === 0"
+    ></button>
+
+    <div class="seccion-titulo">Asiento Contable - Detalle</div>
+
+    <p-table
+      [value]="detalleAsiento"
+      styleClass="p-datatable-sm"
+      emptyMessage=" "
+      [tableStyle]="{ 'min-width': '20rem' }"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Cuenta</th>
+          <th>Debe</th>
+          <th>Haber</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-det>
+        <tr>
+          <td>{{ det.cuenta }}</td>
+          <td>{{ det.debe | number:'1.2-2' }}</td>
+          <td>{{ det.haber | number:'1.2-2' }}</td>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="footer">
+      <tr>
+        <td><strong>TOTAL</strong></td>
+        <td><strong>{{ totalDebe | number:'1.2-2' }}</strong></td>
+        <td><strong>{{ totalHaber | number:'1.2-2' }}</strong></td>
+      </tr>
+    </ng-template>
+    </p-table>
+  </div>
+</div>
+  </div>
+</p-panel>

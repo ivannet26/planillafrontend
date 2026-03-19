@@ -1,1 +1,161 @@
-<p>transferencia-bancaria works!</p>
+<p-toast></p-toast>
+
+<p-panel header="Transferencia Bancaria" styleClass="tb-header-panel">
+  <p-breadcrumb [model]="items"></p-breadcrumb>
+</p-panel>
+
+<p-panel styleClass="shadow-xl rounded-lg panel-sin-header">
+  <div class="surface-card transferencia-content">
+
+    <div class="flex justify-content-between align-items-center mb-3">
+     <div class="flex" style="gap: 10px;">
+
+        <button
+        pButton
+        pRipple
+        icon="pi pi-search"
+        label="Vista Previa"
+        class="p-button-sm"
+        (click)="vistaPreviaGeneral()"
+        pTooltip="Vista Previa"
+        tooltipPosition="bottom">
+       </button>
+
+       <button
+        pButton
+        pRipple
+        icon="pi pi-file"
+        label="Exportar TXT"
+        class="p-button-sm p-button-success"
+        (click)="exportarTxt()"
+        [disabled]="!puedeExportarTxt()"
+        pTooltip="Exportar TXT"
+        tooltipPosition="bottom">
+       </button>
+
+        <p-dropdown
+        [options]="bancosOptions"
+        [(ngModel)]="selectedBanco"
+        optionLabel="label"
+        optionValue="value"
+        placeholder="Seleccione un banco"
+        (onChange)="filtrarPorBanco()"
+        styleClass="w-full md:w-16rem">
+        </p-dropdown>
+    </div>
+    </div>
+
+    <p-table
+      [paginator]="false"
+      [value]="pagosFiltrados"
+      dataKey="empleado"
+      responsiveLayout="scroll"
+      styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th class="text-center">Código</th>
+          <th class="text-center">Documento</th>
+          <th class="text-center">Apellidos y Nombres</th>
+          <th class="text-center">Importe</th>
+          <th class="text-center">Cta.Remu.Numero</th>
+          <th class="text-center">Cta.Remu.BancoCod</th>
+          <th class="text-center">Banco Desc</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-pago>
+        <tr>
+          <td class="text-center">{{ pago.empleado }}</td>
+          <td class="text-center">{{ pago.documento }}</td>
+          <td>{{ pago.apellidosNombres }}</td>
+          <td class="text-center">{{ pago.importe | number:'1.2-2' }}</td>
+          <td class="text-center">{{ pago.ctaRemuNumero }}</td>
+          <td class="text-center">{{ pago.ctaRemBancoCod }}</td>
+          <td>{{ pago.bancoDesc }}</td>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="7" class="text-center">
+            No se encontraron registros
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</p-panel>
+
+<p-dialog
+  [(visible)]="displayReporteDialog"
+  [modal]="true"
+  [style]="{ width: '1200px', 'max-height': '90vh' }"
+  [maximizable]="true"
+  [draggable]="false"
+  [resizable]="false"
+  header="Vista Previa">
+
+  <div class="preview-dialog-body bg-white text-900 print-section">
+    <div class="border-top-1 border-bottom-1 border-900 py-2 mb-4">
+        <div class="grid grid-nogutter align-items-center text-sm font-bold">
+            <div class="col-4 text-left">
+                {{ reporteData.empresa }}
+            </div>
+            
+            <div class="col-4 text-center">
+                {{ reporteData.titulo }}
+            </div>
+            
+            <div class="col-4 text-right">
+                {{ reporteData.subtitulo }}
+            </div>
+        </div>
+    </div>
+
+    <div class="preview-table-wrapper">
+  <table class="preview-table">
+    <thead>
+      <tr>
+        <th>Código</th>
+        <th>Documento</th>
+        <th>Apellidos y Nombres</th>
+        <th>Importe</th>
+        <th>Cta.Remu.<br>Numero</th>
+        <th>Cta.Remu.<br>BancoCod</th>
+        <th>Banco Desc</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let row of reporteData.rows">
+        <td>{{ row.codigo }}</td>
+        <td>{{ row.documento }}</td>
+        <td>{{ row.nombres }}</td>
+        <td class="text-right">{{ row.importe | number:'1.2-2' }}</td>
+        <td class="text-center">{{ row.ctaRemuNumero }}</td>
+        <td class="text-center">{{ row.ctaRemBancoCod }}</td>
+        <td>{{ row.bancoDesc }}</td>
+      </tr>
+
+      <tr *ngIf="reporteData.rows.length === 0">
+        <td colspan="7" class="text-center empty-message">
+          No hay datos para mostrar en este reporte
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      type="button"
+      label="Imprimir"
+      icon="pi pi-print"
+      class="p-button-info"
+      (click)="imprimir()">
+    </button>
+  </ng-template>
+</p-dialog>

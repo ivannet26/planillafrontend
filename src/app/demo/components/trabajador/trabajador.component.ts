@@ -70,7 +70,7 @@ type TrabajadorRow = Trabajador & {
   ],
   templateUrl: './trabajador.component.html',
   styleUrls: ['./trabajador.component.css'],
-  providers: [MessageService, ConfirmationService, BreadcrumbService],
+  providers: [MessageService, ConfirmationService],
 })
 
 
@@ -111,6 +111,8 @@ export class TrabajadorComponent implements OnInit {
 
   //trabajadorList: Trabajador[] = []; //Quitar el = luego
   trabajadorList: TrabajadorRow[] = [];
+
+  trabajadorSeleccionado: TrabajadorRow | null = null;
 
   rowsPerPage: number = 10; // Numero de filas por página
 
@@ -476,6 +478,14 @@ export class TrabajadorComponent implements OnInit {
           )
           .subscribe({
             next: () => {
+              if (
+                this.trabajadorSeleccionado &&
+                this.trabajadorSeleccionado.pla01empresacod === trabajador.pla01empresacod &&
+                this.trabajadorSeleccionado.pla01empleadocod === trabajador.pla01empleadocod
+              ) {
+                this.trabajadorSeleccionado = null;
+              }
+              
               verMensajeInformativo(
                 this.messageService,
                 'success',
@@ -649,4 +659,19 @@ export class TrabajadorComponent implements OnInit {
       const next = max + idx + 1;
       return next.toString().padStart(6, '0');
     }
+
+    verTrabajadorSeleccionado(): void {
+  if (!this.trabajadorSeleccionado) return;
+  this.verTrabajador(this.trabajadorSeleccionado);
+}
+
+editarTrabajadorSeleccionado(): void {
+  if (!this.trabajadorSeleccionado) return;
+  this.editarTrabajador(this.trabajadorSeleccionado);
+}
+
+eliminarTrabajadorSeleccionado(): void {
+  if (!this.trabajadorSeleccionado) return;
+  this.eliminarTrabajador(this.trabajadorSeleccionado);
+}
 }

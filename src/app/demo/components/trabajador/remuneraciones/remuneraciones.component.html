@@ -2,23 +2,85 @@
 <p-confirmDialog></p-confirmDialog>
 
 <p-panel header="Remuneraciones" styleClass="shadow-xl rounded-xl mb-3">
-  <button type="button" pButton icon="pi pi-plus" label="Nueva Remuneración"
-  (click)="showAddRow()" [disabled]="isEditingAnyRow || esModoVisualizacion"
-  class="p-button-sm"></button>
+  <div class="remuneracion-toolbar">
+  <div class="remuneracion-toolbar-left">
+    <button
+      type="button"
+      pButton
+      icon="pi pi-plus"
+      label="Nueva Remuneración"
+      (click)="showAddRow()"
+      [disabled]="isEditingAnyRow || esModoVisualizacion"
+      class="p-button-sm remuneracion-btn">
+    </button>
+  </div>
 
-  <p-table [value]="remuneracionesLista" dataKey="pla05conceptocod" editMode="row" styleClass="p-datatable-sm">
+  <div class="remuneracion-toolbar-right">
+    <button
+    *ngIf="editingRowIndex === null"
+      pButton
+      type="button"
+      icon="pi pi-pencil"
+      class="p-button-sm remuneracion-icon-btn"
+      pTooltip="Editar"
+      tooltipPosition="bottom"
+      [disabled]="!remuneracionSeleccionada || isEditingAnyRow || esModoVisualizacion || isNew"
+      (click)="editarRemuneracionSeleccionada()">
+    </button>
+
+    <button
+    *ngIf="editingRowIndex === null"
+      pButton
+      type="button"
+      icon="pi pi-trash"
+      class="p-button-sm remuneracion-icon-btn p-button-danger"
+      pTooltip="Eliminar"
+      tooltipPosition="bottom"
+      [disabled]="!remuneracionSeleccionada || isEditingAnyRow || esModoVisualizacion || isNew"
+      (click)="eliminarRemuneracionSeleccionada()">
+    </button>
+
+    <button
+    *ngIf="editingRowIndex !== null"
+    pButton
+    type="button"
+    icon="pi pi-check"
+    class="p-button-sm remuneracion-icon-btn p-button-success"
+    pTooltip="Guardar"
+    tooltipPosition="bottom"
+    (click)="guardarEdicionSeleccionada()">
+  </button>
+
+  <button
+    *ngIf="editingRowIndex !== null"
+    pButton
+    type="button"
+    icon="pi pi-times"
+    class="p-button-sm remuneracion-icon-btn p-button-danger"
+    pTooltip="Cancelar"
+    tooltipPosition="bottom"
+    (click)="cancelarEdicionSeleccionada()">
+  </button>
+  </div>
+</div>
+
+  <p-table 
+  selectionMode="single" 
+  [(selection)]="remuneracionSeleccionada" 
+  [value]="remuneracionesLista" 
+  dataKey="pla05conceptocod" 
+  styleClass="p-datatable-sm">
 
     <ng-template pTemplate="header">
       <tr>
         <th style="width: 20%;">Concepto Cod.</th>
         <th style="width: 40%;">Concepto Desc.</th>
         <th style="width: 20%;">Importe</th>
-        <th style="width: 20%; text-align: center;">Acciones</th>
       </tr>
     </ng-template>
 
-    <ng-template pTemplate="body" let-remuneracion let-ri="rowIndex" let-editing="editing">
-      <tr [pEditableRow]="remuneracion">
+    <ng-template pTemplate="body" let-remuneracion let-ri="rowIndex">
+      <tr  [pSelectableRow]="remuneracion">
         <td>
           {{ remuneracion.pla05conceptocod }}
           <!-- El código no deberia ser editable en el programa de escritorio no se puede editar-->
@@ -55,55 +117,25 @@
         </td>
 
         <td>
-          <p-cellEditor>
-            <ng-template pTemplate="input">
-              <input type="text" pInputText [(ngModel)]="remuneracion.pla05importe" class="w-full" />
-            </ng-template>
-            <ng-template pTemplate="output">
-              {{ remuneracion.pla05importe | number:'1.2-2' }}
-            </ng-template>
-          </p-cellEditor>
-        </td>
+  <ng-container *ngIf="editingRowIndex === ri; else importeVista">
+    <input
+      type="text"
+      pInputText
+      [(ngModel)]="remuneracionesLista[ri].pla05importe"
+      class="w-full" />
+  </ng-container>
 
-        <td style="text-align: center;">
-          <div class="flex justify-content-center gap-2">
-            <button *ngIf="!editing" pButton
-                      pInitEditableRow
-                      (click)="onRowEditInit(remuneracion, ri)"
-                      icon="pi pi-pencil"
-                      pTooltip="Editar"
-                      [disabled]="isEditingAnyRow || esModoVisualizacion || isNew "
-                      class="p-button-rounded p-button-text p-button-sm"></button>
+  <ng-template #importeVista>
+    {{ remuneracion.pla05importe | number:'1.2-2' }}
+  </ng-template>
+</td>
 
-              <button *ngIf="editing" pButton
-                      pSaveEditableRow
-                      (click)="onRowEditSave(ri)"
-                      icon="pi pi-check"
-                      pTooltip="Guardar"
-                      class="p-button-rounded p-button-text p-button-sm p-button-success"></button>
-
-              <button *ngIf="editing" pButton
-                      pCancelEditableRow
-                      (click)="onRowEditCancel(remuneracion)"
-                      icon="pi pi-times"
-                      pTooltip="Cancelar"
-                      class="p-button-rounded p-button-text p-button-sm p-button-danger"></button>
-
-              <button *ngIf="!editing" pButton
-                      type="button"
-                      (click)="onDelete(remuneracion, ri)"
-                      icon="pi pi-trash"
-                      pTooltip="Eliminar"
-                      [disabled]="isEditingAnyRow || esModoVisualizacion || isNew "
-                      class="p-button-rounded p-button-text p-button-sm p-button-danger"></button>
-          </div>
-        </td>
       </tr>
     </ng-template>
 
     <ng-template pTemplate="footer">
       <tr *ngIf="isEditing">
-        <td colspan="4">
+        <td colspan="3">
           <form [formGroup]="nuevaRemuneracionForm" class="grid p-fluid">
 
             <div class="col-1" style="width: 20%;">

@@ -1,7 +1,30 @@
-/* ================================
-   BASE AFECTACIÓN - SOLO SOBREESCRITURAS ESPECÍFICAS
-   La mayoría de estilos vienen de styles.css
-================================ */
+
+:host ::ng-deep .p-panel .p-panel-header {
+  font-size: 15px !important;
+  padding: 0.8rem 1rem !important;
+}
+
+:host ::ng-deep .p-panel .p-panel-content {
+  padding: 0.8rem 0.9rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb {
+  font-size: 12px !important;
+  padding: 0.5rem 0.75rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb .p-menuitem-link {
+  padding: 0 !important;
+  gap: 0.35rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb .pi {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .p-breadcrumb .p-breadcrumb-chevron {
+  font-size: 11px !important;
+}
 
 .base-afectacion-container {
   display: flex;
@@ -10,35 +33,190 @@
   background-color: #ffffff;
 }
 
-/* Solo si necesitas ajustes específicos de esta tabla */
-::ng-deep .base-afectacion-table .p-datatable-tbody > tr > td:first-child {
-  text-align: center; /* Código centrado en lugar de izquierda */
+:host ::ng-deep .surface-card {
+  padding: 0.9rem 1rem !important;
+  border-radius: 16px !important;
 }
 
-/* Input tipo number centrado */
+
+:host ::ng-deep .base-afectacion-btn {
+  height: 34px !important;
+  font-size: 12px !important;
+  padding: 0 0.85rem !important;
+  border-radius: 8px !important;
+}
+
+:host ::ng-deep .base-afectacion-btn .p-button-icon,
+:host ::ng-deep .base-afectacion-btn .p-button-label {
+  font-size: 12px !important;
+}
+
+.add-button {
+  background-color: #0d6efd !important;
+  border-color: #0d6efd !important;
+}
+
+.add-button:hover {
+  background-color: #0b5ed7 !important;
+  border-color: #0a58ca !important;
+}
+
+/* table */
+:host ::ng-deep .base-afectacion-table {
+  width: 100%;
+  max-width: 100%;
+}
+
+:host ::ng-deep .base-afectacion-table table {
+  width: 100% !important;
+  border-collapse: collapse;
+  table-layout: auto;
+}
+
+:host ::ng-deep .base-afectacion-table .p-datatable-thead > tr > th {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  padding: 0.5rem 0.55rem !important;
+  text-align: center !important;
+  line-height: 1.2 !important;
+  white-space: nowrap;
+}
+
+:host ::ng-deep .base-afectacion-table .p-datatable-tbody > tr > td {
+  font-size: 12px !important;
+  padding: 0.4rem 0.55rem !important;
+  vertical-align: middle !important;
+  line-height: 1.2 !important;
+}
+
+
+:host ::ng-deep .base-afectacion-table .p-datatable-tbody > tr > td:first-child {
+  text-align: center !important;
+}
+
+/* hover */
+:host ::ng-deep .base-afectacion-table .p-datatable-tbody > tr:hover > td {
+  background: #f8fafc !important;
+}
+
+
+.table-input {
+  width: 100%;
+  height: 30px !important;
+  padding: 0.3rem 0.45rem !important;
+  border: 1px solid #ddd !important;
+  border-radius: 4px !important;
+  font-size: 12px !important;
+  background-color: #ffffff !important;
+}
+
 .table-input[type="number"] {
   text-align: center;
 }
 
-/* Responsive específico si es necesario */
+.table-input:focus {
+  border-color: #0d6efd !important;
+  box-shadow: 0 0 0 2px rgba(13, 110, 253, 0.1) !important;
+  outline: none !important;
+}
+
+.table-input:disabled {
+  background-color: #f5f5f5 !important;
+  color: #6c757d !important;
+  cursor: not-allowed;
+}
+
+
+.text-center {
+  text-align: center;
+}
+
+:host ::ng-deep .base-afectacion-table .p-checkbox {
+  display: inline-flex;
+  transform: scale(0.9);
+}
+
+:host ::ng-deep .base-afectacion-table .p-checkbox .p-checkbox-box {
+  width: 16px;
+  height: 16px;
+}
+
+
+.actions-cell {
+  text-align: center;
+  padding: 0.35rem !important;
+}
+
+.action-buttons {
+  display: inline-flex;
+  gap: 0.4rem;
+  justify-content: center;
+  align-items: center;
+}
+
+:host ::ng-deep .base-afectacion-table .p-button-rounded,
+:host ::ng-deep .base-afectacion-table .p-button.p-button-sm {
+  width: 28px !important;
+  height: 28px !important;
+  min-width: 28px !important;
+  padding: 0 !important;
+}
+
+:host ::ng-deep .base-afectacion-table .p-button-rounded .p-button-icon,
+:host ::ng-deep .base-afectacion-table .p-button.p-button-sm .p-button-icon {
+  font-size: 11px !important;
+}
+
+
+.empty-message {
+  font-size: 12px;
+  padding: 1rem 0;
+}
+
+.empty-message i {
+  font-size: 14px;
+  margin-bottom: 0.25rem;
+}
+
+.empty-message p {
+  margin: 0.25rem 0 0 0;
+}
+
+
+:host ::ng-deep .base-afectacion-table .p-paginator {
+  font-size: 12px !important;
+  padding: 0.45rem 0.6rem !important;
+}
+
+:host ::ng-deep .base-afectacion-table .p-paginator .p-paginator-current,
+:host ::ng-deep .base-afectacion-table .p-paginator .p-paginator-pages .p-paginator-page {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .base-afectacion-table .p-paginator .p-paginator-pages .p-paginator-page {
+  min-width: 28px;
+  height: 28px;
+}
+
+/* tooltip */
+::ng-deep .p-tooltip .p-tooltip-text {
+  font-size: 11px !important;
+  padding: 0.3rem 0.45rem !important;
+  line-height: 1.15 !important;
+}
+
+::ng-deep .p-tooltip {
+  max-width: 160px !important;
+}
+
+::ng-deep .p-tooltip .p-tooltip-arrow {
+  transform: scale(0.8);
+}
+
+
 @media (max-width: 768px) {
-  ::ng-deep .base-afectacion-table .p-datatable-tbody > tr > td {
-    padding: 0.35rem 0.5rem;
-    font-size: 0.8rem;
+  :host ::ng-deep .base-afectacion-table .p-datatable-tbody > tr > td {
+    padding: 0.35rem 0.45rem !important;
+    font-size: 11px !important;
   }
-}
-/* ================================
-   TABLA
-================================ */
-::ng-deep .base-afectacion-table {
-  width: fit-content;
-  max-width: 100%;
-
-}
-
-::ng-deep .banco-table table {
-  border-collapse: collapse;
-  width: auto !important;
-  table-layout: auto;
-
 }

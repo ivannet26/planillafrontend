@@ -71,6 +71,8 @@ export class RegimenPensionarioComponent implements OnInit {
   isEditingAnyRow: boolean = false;
   rowsPerPage: number = 10; // Numero de filas por página
 
+  selectedRegimenPensionario: RegimenPensionario | null = null;
+
   constructor(
     private regimenPensionarioService: RegimenPensionarioService,
     private fb: FormBuilder,
@@ -341,4 +343,63 @@ export class RegimenPensionarioComponent implements OnInit {
   ): void {
     regimen[field] = checked ? 'S' : 'N';
   }
+
+  editarRegimenSeleccionado(): void {
+  const seleccionado = this.selectedRegimenPensionario;
+  if (!seleccionado || this.isNew || this.isEditingAnyRow) return;
+
+  const index = this.regimenPensionarioList.findIndex(
+    r => r.pla61codigo === seleccionado.pla61codigo
+  );
+
+  if (index === -1) return;
+
+  this.editingRowIndex = index;
+  this.editingRegimenPensionario = JSON.parse(JSON.stringify(seleccionado));
+  this.isEditingAnyRow = true;
+}
+
+eliminarRegimenSeleccionado(): void {
+  if (!this.selectedRegimenPensionario || this.isEditingAnyRow) return;
+  this.onDelete(this.selectedRegimenPensionario);
+}
+
+guardarEdicionSeleccionada(): void {
+  const edited = this.editingRegimenPensionario;
+  if (!edited || this.editingRowIndex === null) return;
+
+  this.regimenPensionarioService.ActualizarRegimenPensionario(edited).subscribe({
+    next: () => {
+      this.editingRegimenPensionario = null;
+      this.editingRowIndex = null;
+      this.isEditingAnyRow = false;
+      this.selectedRegimenPensionario = null;
+
+      verMensajeInformativo(
+        this.messageService,
+        'success',
+        'Éxito',
+        'Registro actualizado'
+      );
+
+      this.cargarRegimenesPensionarios();
+    },
+    error: () => {
+      verMensajeInformativo(
+        this.messageService,
+        'error',
+        'Error',
+        'Error al actualizar'
+      );
+    },
+  });
+}
+
+cancelarEdicionSeleccionada(): void {
+  this.editingRegimenPensionario = null;
+  this.editingRowIndex = null;
+  this.isEditingAnyRow = false;
+  this.selectedRegimenPensionario = null;
+  this.cargarRegimenesPensionarios();
+}
 }

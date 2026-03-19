@@ -1,12 +1,202 @@
-  ::ng-deep .table-parametros-general {
-  width: fit-content;
-  max-width: 100%;
-
+/* panel */
+:host ::ng-deep .p-panel .p-panel-header {
+  font-size: 15px !important;
+  padding: 0.8rem 1rem !important;
 }
 
-::ng-deep .table-parametros-general {
+:host ::ng-deep .p-panel .p-panel-content {
+  padding: 0.8rem 0.9rem !important;
+}
+
+/* breadcrumb */
+:host ::ng-deep .p-breadcrumb {
+  font-size: 12px !important;
+  padding: 0.5rem 0.75rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb .p-menuitem-link {
+  padding: 0 !important;
+  gap: 0.35rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb .pi {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .p-breadcrumb .p-breadcrumb-chevron {
+  font-size: 11px !important;
+}
+
+/* card */
+:host ::ng-deep .surface-card {
+  padding: 0.9rem 1rem !important;
+  border-radius: 16px !important;
+}
+
+.parametros-toolbar-row {
+  margin-bottom: 0.6rem !important;
+}
+
+.parametros-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.parametros-toolbar-left,
+.parametros-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+:host ::ng-deep .parametros-btn {
+  height: 34px !important;
+  font-size: 12px !important;
+  padding: 0 0.85rem !important;
+  border-radius: 8px !important;
+}
+
+:host ::ng-deep .parametros-btn .p-button-icon,
+:host ::ng-deep .parametros-btn .p-button-label {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .table-parametros-general {
+  width: fit-content;
+  max-width: 100%;
+}
+
+:host ::ng-deep .parametros-table table {
   border-collapse: collapse;
   width: auto !important;
   table-layout: auto;
+}
 
+
+:host ::ng-deep .parametros-table .p-datatable-thead > tr > th {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  padding: 0.5rem 0.55rem !important;
+  line-height: 1.2 !important;
+  text-align: center !important;
+  white-space: nowrap;
+}
+
+
+:host ::ng-deep .parametros-table .p-datatable-tbody > tr > td,
+:host ::ng-deep .parametros-table .p-datatable-tfoot > tr > td {
+  font-size: 12px !important;
+  padding: 0.45rem 0.55rem !important;
+  line-height: 1.2 !important;
+  vertical-align: middle !important;
+}
+
+:host ::ng-deep .parametros-table .p-inputtext {
+  height: 32px !important;
+  font-size: 12px !important;
+  padding: 0.35rem 0.5rem !important;
+}
+
+/* dropdown */
+:host ::ng-deep .parametros-table .p-dropdown {
+  height: 32px !important;
+  font-size: 12px !important;
+  min-width: unset !important;
+}
+
+:host ::ng-deep .parametros-table .p-dropdown .p-dropdown-label {
+  display: flex !important;
+  align-items: center !important;
+  height: 32px !important;
+  font-size: 12px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+:host ::ng-deep .parametros-table .p-dropdown .p-dropdown-trigger {
+  width: 32px !important;
+}
+
+/* botones */
+:host ::ng-deep .parametros-table .p-button.p-button-sm,
+:host ::ng-deep .parametros-table .p-button-rounded {
+  width: 30px !important;
+  height: 30px !important;
+  min-width: 30px !important;
+  padding: 0 !important;
+}
+
+:host ::ng-deep .parametros-table .p-button .p-button-icon {
+  font-size: 12px !important;
+}
+
+
+:host ::ng-deep .parametros-table .grid {
+  gap: 0.2rem 0.3rem !important;
+}
+
+:host ::ng-deep .parametros-table .col-2,
+:host ::ng-deep .parametros-table .col-4 {
+  padding: 0.2rem !important;
+}
+
+
+:host ::ng-deep .parametros-table .p-paginator {
+  font-size: 12px !important;
+  padding: 0.45rem 0.6rem !important;
+}
+
+:host ::ng-deep .parametros-table .p-paginator .p-paginator-pages .p-paginator-page,
+:host ::ng-deep .parametros-table .p-paginator .p-dropdown,
+:host ::ng-deep .parametros-table .p-paginator .p-dropdown-label,
+:host ::ng-deep .parametros-table .p-paginator .p-paginator-current,
+:host ::ng-deep .parametros-table .p-paginator .p-paginator-first,
+:host ::ng-deep .parametros-table .p-paginator .p-paginator-prev,
+:host ::ng-deep .parametros-table .p-paginator .p-paginator-next,
+:host ::ng-deep .parametros-table .p-paginator .p-paginator-last {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .parametros-table .empty-message {
+  font-size: 12px !important;
+  padding: 0.9rem !important;
+}
+
+:host ::ng-deep .parametros-table .empty-message i {
+  font-size: 14px !important;
+  margin-bottom: 0.25rem !important;
+}
+
+:host ::ng-deep .parametros-table .empty-message p {
+  margin: 0.2rem 0 0 0 !important;
+  font-size: 12px !important;
+}
+
+/* tooltip */
+::ng-deep .p-tooltip .p-tooltip-text {
+  font-size: 11px !important;
+  padding: 0.3rem 0.45rem !important;
+  line-height: 1.15 !important;
+}
+
+::ng-deep .p-tooltip {
+  max-width: 160px !important;
+}
+
+::ng-deep .p-tooltip .p-tooltip-arrow {
+  transform: scale(0.8);
+}
+
+:host ::ng-deep .parametros-icon-btn {
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  padding: 0 !important;
+  border-radius: 8px !important;
+}
+
+:host ::ng-deep .parametros-icon-btn .p-button-icon {
+  font-size: 12px !important;
 }

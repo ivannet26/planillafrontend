@@ -25,6 +25,8 @@ import { SplitterModule } from 'primeng/splitter';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { verMensajeInformativo, aMayusculas } from 'src/app/demo/components/utilities/funciones_utilitarias';
 import { Calcular, DetalleProceso, Ajuste, ConceptoAjustable, ImpIngDesc } from 'src/app/demo/model/Calcular';
+import { BreadcrumbService } from '../../service/breadcrumb.service';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 
 @Component({
     selector: 'app-calcular',
@@ -49,7 +51,8 @@ import { Calcular, DetalleProceso, Ajuste, ConceptoAjustable, ImpIngDesc } from 
         PanelModule,
         ConfirmDialogModule,
         FileUploadModule,
-        SplitterModule
+        SplitterModule,
+        BreadcrumbModule
     ],
     providers: [MessageService, ConfirmationService],
     templateUrl: './calcular.component.html',
@@ -79,7 +82,9 @@ export class CalcularComponent implements OnInit {
 
     displayReporteDialog: boolean = false;
     tituloReporte: string = '';
-    // Estructura de datos para el reporte de Boleta (basado en tu imagen)
+
+    items: any[] = [];
+
     reporteBoletaData: any = {
         periodo: '',
         subtitulo: '',
@@ -123,14 +128,29 @@ export class CalcularComponent implements OnInit {
     conceptosAjustables: ConceptoAjustable[] = [];
     private nextTempId: number = -1;
 
-    // Variables de Importación
+    // variables de importacion
     displayImportDialog: boolean = false;
     datosImportados: ImpIngDesc[] = [];
     logsImportacion: ImpIngDesc[] = [];
 
-    constructor(private messageService: MessageService, private confirmationService: ConfirmationService) { }
+    constructor(
+        private messageService: MessageService, 
+        private confirmationService: ConfirmationService,
+       private bS: BreadcrumbService) { }
 
     ngOnInit(): void {
+        this.bS.setBreadcrumbs([
+      { icon: 'pi pi-home', routerLink: '/home' },
+      { label: 'Sistema' },
+      { label: 'Procesos' },
+      { label: 'Calcular' },
+
+    ]);
+
+    this.bS.currentBreadcrumbs$.subscribe((bc) => {
+      this.items = bc;
+    });
+
         this.loadConceptosAjustables();
     }
 

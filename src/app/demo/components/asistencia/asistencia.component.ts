@@ -29,6 +29,8 @@ import {
 
 import { Asistencia, AsistenciaView  } from 'src/app/demo/model/Asistencia';
 import { Inasistencia, PeriodoPago, TipoSuspension } from 'src/app/demo/model/Inasistencia'; 
+import { BreadcrumbService } from '../../service/breadcrumb.service';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 
 @Component({
     selector: 'app-asistencia',
@@ -51,7 +53,8 @@ import { Inasistencia, PeriodoPago, TipoSuspension } from 'src/app/demo/model/In
         DialogModule,
         CalendarModule,
         BadgeModule, 
-        InputNumberModule 
+        InputNumberModule,
+        BreadcrumbModule,
     ],
     providers: [ConfirmationService, MessageService],
     templateUrl: './asistencia.component.html',
@@ -74,6 +77,8 @@ export class AsistenciaComponent implements OnInit {
     inasistencias: Inasistencia[] = []; 
     selectedInasistencia: Inasistencia | null = null; 
     isEditingInasistencia: boolean = false; 
+
+    items: any[] = [];
 
     // Variables para el Reporte de Vista Previa
     displayReporteDialog: boolean = false;
@@ -104,10 +109,24 @@ export class AsistenciaComponent implements OnInit {
 
     constructor(
         private confirmationService: ConfirmationService,
-        private messageService: MessageService 
+        private messageService: MessageService,
+        private bS: BreadcrumbService
     ) { }
 
     ngOnInit() {
+        this.bS.setBreadcrumbs([
+      { icon: 'pi pi-home', routerLink: '/home' },
+      { label: 'Sistema' },
+      { label: 'Procesos' },
+      { label: 'Asistencia' },
+
+    ]);
+
+    this.bS.currentBreadcrumbs$.subscribe((bc) => {
+      this.items = bc;
+    });
+
+
         this.loadEmpleados(); 
     }
 
@@ -364,4 +383,37 @@ export class AsistenciaComponent implements OnInit {
     getEstadoLabel(estado: string): string {
         return estado === 'A' ? 'ACTIVO' : 'INACTIVO';
     }
+
+    guardarEmpleado(empleado: AsistenciaView) {
+        const valorActual =
+        this.selectedPeriodoPago === 'UTILIDADES'
+        ? empleado.pla02utilidad
+        : empleado.pla02gratificacion;
+        
+        this.confirmationService.confirm({
+            message: `¿Está seguro que desea guardar los cambios de ${empleado.apellidosynombres}?`,
+            header: 'Confirmar',
+            icon: 'pi pi-exclamation-triangle',
+            acceptLabel: 'Sí',
+            rejectLabel: 'No',
+            acceptButtonStyleClass: 'p-button-danger',
+            rejectButtonStyleClass: 'p-button',
+            accept: () => {
+                verMensajeInformativo(
+                    this.messageService,
+                    'success',
+                    'Guardado',
+                    `Se guardó correctamente ${empleado.apellidosynombres}`
+                );
+            }
+        });
+    }
+
+    eliminarSeleccionado() {
+      if (!this.selectedEmpleado) {
+          return;
+      }
+
+      this.eliminarEmpleado(this.selectedEmpleado);
+}
 }

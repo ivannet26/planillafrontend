@@ -8,7 +8,9 @@ import { TooltipModule } from 'primeng/tooltip';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmationService, MessageService } from 'primeng/api';
-
+import { BreadcrumbService } from '../../service/breadcrumb.service';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { PanelModule } from 'primeng/panel';
 // Importar la interface desde el archivo de modelo
 import { ConceptoEstandar } from 'src/app/demo/model/ConceptoEstandar';
 
@@ -22,7 +24,9 @@ import { ConceptoEstandar } from 'src/app/demo/model/ConceptoEstandar';
     InputTextModule,
     TooltipModule,
     ConfirmDialogModule,
-    ToastModule
+    ToastModule,
+    BreadcrumbModule,
+    PanelModule,
   ],
   providers: [ConfirmationService, MessageService],
   templateUrl: './concepto-estandar.component.html',
@@ -31,14 +35,28 @@ import { ConceptoEstandar } from 'src/app/demo/model/ConceptoEstandar';
 export class ConceptoEstandarComponent implements OnInit {
   conceptos: ConceptoEstandar[] = [];
 
+  items: any[] = [];
+
   constructor(
     private router: Router,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private bS: BreadcrumbService,
   ) {}
 
   ngOnInit() {
-    this.loadConceptos();
+    this.bS.setBreadcrumbs([
+    { icon: 'pi pi-home', routerLink: '/home' },
+    { label: 'Sistema' },
+    { label: 'Maestro estandar' },
+    { label: 'Concepto estandar' }
+  ]);
+
+  this.bS.currentBreadcrumbs$.subscribe((bc) => {
+    this.items = bc;
+  });
+
+  this.loadConceptos();
   }
 
   loadConceptos() {

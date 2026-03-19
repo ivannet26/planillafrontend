@@ -1,0 +1,98 @@
+
+.right-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  align-items: start;
+  justify-items: start;
+}
+
+.right-grid > div{
+  width: 100%;
+}
+
+.slot-row{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.slot-code{
+  width: 5.5rem;
+  min-width: 4rem;
+  text-align: center;
+}
+
+.slot-dd{
+  flex: 1;
+}
+
+:host ::ng-deep .slot-dd .p-dropdown{
+  width: 100% !important;
+}
+
+.conceptos-wrapper{
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.conceptos-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.button-save{
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+
+.right-panel {
+  width: 100%;
+  min-width: 0;
+  overflow: hidden; 
+}
+
+.right-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+
+@media (max-width: 992px) { 
+  .right-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+.slot-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+
+.slot-dd {
+  flex: 1 1 auto;
+  min-width: 0; 
+}
+
+
+:host ::ng-deep .slot-dd .p-dropdown {
+  width: 100%;
+}
+
+:host ::ng-deep .slot-dd .p-dropdown-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

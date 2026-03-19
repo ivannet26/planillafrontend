@@ -1,0 +1,311 @@
+/* panel breadcrumb */
+:host ::ng-deep .header-large .p-panel-header {
+  display: none !important;
+}
+
+:host ::ng-deep .header-large .p-panel-content {
+  border-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+:host ::ng-deep .p-panel .p-panel-header {
+  font-size: 15px !important;
+  padding: 0.85rem 1rem !important;
+}
+
+:host ::ng-deep .p-panel .p-panel-content {
+  padding: 0.9rem 1rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb {
+  font-size: 12px !important;
+  padding: 0.5rem 0.75rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb .p-menuitem-link {
+  padding: 0 !important;
+  gap: 0.35rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb .pi {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .p-breadcrumb .p-breadcrumb-chevron {
+  font-size: 11px !important;
+}
+
+
+/* container */
+.afpnet-container {
+  padding: 1rem 1rem 0.9rem 1rem !important;
+}
+
+.afpnet-layout {
+  display: flex;
+  align-items: stretch;
+  min-height: 420px;
+  gap: 0.9rem;
+}
+
+.afpnet-content {
+  flex: 1;
+  overflow: auto;
+  min-width: 0;
+}
+
+
+.afpnet-sidebar {
+  width: 118px;
+  border-right: 4px solid #d6d6d6;
+  margin-right: 0;
+  background: #fff;
+  flex-shrink: 0;
+}
+
+.sidebar-option {
+  padding: 0.8rem 0.85rem;
+  font-size: 12px;
+  line-height: 1.25;
+  cursor: pointer;
+  border-bottom: 1px solid #e9e9e9;
+  font-weight: 500;
+}
+
+.sidebar-option.active {
+  background: #b7d7ee;
+  font-weight: 600;
+}
+
+
+/* botones*/
+.afpnet-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 0.85rem;
+}
+
+:host ::ng-deep .afpnet-btn.p-button.p-button-sm {
+  height: 34px !important;
+  padding: 0 0.85rem !important;
+  font-size: 12px !important;
+  border-radius: 8px !important;
+}
+
+:host ::ng-deep .afpnet-btn .p-button-icon,
+:host ::ng-deep .afpnet-btn .p-button-label {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .afpnet-btn .p-button-label {
+  font-weight: 600;
+}
+
+
+/* table */
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  padding: 0.55rem 0.6rem !important;
+  text-align: center !important;
+  line-height: 1.3 !important;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr > td {
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  padding: 0.5rem 0.6rem !important;
+  vertical-align: middle !important;
+  line-height: 1.3 !important;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-emptymessage td {
+  font-size: 12px !important;
+  padding: 0.75rem !important;
+}
+
+
+/* tooltip */
+::ng-deep .p-tooltip .p-tooltip-text {
+  font-size: 11px !important;
+  padding: 0.3rem 0.45rem !important;
+  line-height: 1.15 !important;
+}
+
+::ng-deep .p-tooltip {
+  max-width: 160px !important;
+}
+
+::ng-deep .p-tooltip .p-tooltip-arrow {
+  transform: scale(0.8) !important;
+}
+
+
+/* parametros*/
+.parametros-row {
+  display: grid;
+  grid-template-columns: 430px 80px 1fr;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.codigo-input {
+  width: 100%;
+  text-align: center;
+}
+
+.codigo-input-small {
+  width: 70px !important;
+  min-width: 70px;
+  max-width: 70px;
+  text-align: center;
+}
+
+.desc-input {
+  width: 100%;
+}
+
+.editable-yellow {
+  background-color: #fff7bf !important;
+}
+
+
+/* dialog*/
+:host ::ng-deep .afpnet-dialog {
+  width: 900px;
+  max-width: 92vw;
+}
+
+:host ::ng-deep .afpnet-dialog .p-dialog-header {
+  padding: 0.75rem 0.95rem !important;
+}
+
+:host ::ng-deep .afpnet-dialog .p-dialog-title {
+  font-size: 14px !important;
+  font-weight: 600 !important;
+}
+
+:host ::ng-deep .afpnet-dialog .p-dialog-header-icon {
+  width: 30px !important;
+  height: 30px !important;
+}
+
+:host ::ng-deep .afpnet-dialog .p-dialog-header-icon .pi {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .afpnet-dialog .p-dialog-content {
+  padding: 0.85rem 0.95rem !important;
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .afpnet-dialog .p-dialog-footer {
+  padding: 0.7rem 0.95rem !important;
+}
+
+:host ::ng-deep .afpnet-dialog .p-dialog-footer .p-button {
+  height: 34px !important;
+  font-size: 12px !important;
+  padding: 0 0.85rem !important;
+  border-radius: 8px !important;
+}
+
+:host ::ng-deep .afpnet-dialog .p-dialog-footer .p-button .p-button-icon,
+:host ::ng-deep .afpnet-dialog .p-dialog-footer .p-button .p-button-label {
+  font-size: 12px !important;
+}
+
+
+.parametros-section {
+  margin-bottom: 1rem;
+}
+
+.parametros-section h4 {
+  font-size: 13px;
+  font-weight: 700;
+  margin: 0 0 0.65rem 0;
+  color: #374151;
+}
+
+
+.parametros-row {
+  display: grid;
+  grid-template-columns: 360px 70px 1fr;
+  gap: 0.55rem;
+  align-items: center;
+  margin-bottom: 0.55rem;
+}
+
+.parametros-row label {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.25;
+  color: #374151;
+  margin: 0;
+}
+
+
+/*inputs*/
+:host ::ng-deep .afpnet-dialog input[pInputText],
+:host ::ng-deep .afpnet-dialog .p-inputtext {
+  height: 34px !important;
+  font-size: 12px !important;
+  padding: 0.45rem 0.6rem !important;
+}
+
+.codigo-input {
+  width: 100%;
+  text-align: center;
+}
+
+.codigo-input-small {
+  width: 70px !important;
+  min-width: 70px;
+  max-width: 70px;
+  text-align: center;
+}
+
+.desc-input {
+  width: 100%;
+}
+
+.editable-yellow {
+  background-color: #fff7bf !important;
+}
+
+.codigo-input,
+.codigo-input-small {
+  background-color: #fff7bf !important;
+}
+@media (max-width: 768px) {
+  :host ::ng-deep .afpnet-dialog {
+    width: 95vw !important;
+  }
+
+  .parametros-row {
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .codigo-input-small,
+  .codigo-input,
+  .desc-input {
+    width: 100% !important;
+    max-width: 100%;
+  }
+
+  .parametros-section h4 {
+    font-size: 12.5px;
+  }
+
+  .parametros-row label {
+    font-size: 11.5px;
+  }
+}
+
+:host ::ng-deep .afpnet-header-panel {
+  margin-bottom: 0.9rem !important;
+}

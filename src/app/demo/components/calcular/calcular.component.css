@@ -11,6 +11,30 @@
 
 }
 
+:host ::ng-deep .header-large .p-panel-header {
+  display: none !important;
+}
+
+:host ::ng-deep .p-datatable-scrollable-body {
+  overflow-x: auto !important;
+}
+
+:host ::ng-deep .header-large .p-panel-content {
+  border-top: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+}
+
+:host ::ng-deep .content-wrapper {
+  overflow-x: auto;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.calcular-content {
+  padding: 1.5rem 1.25rem 0 1.25rem;
+}
+
 /* Estilos para el Panel principal */
 :host ::ng-deep .calcular-panel.header-large .p-panel-title {
     font-size: 1.4rem; 
@@ -24,11 +48,18 @@
     max-width: 100%;
 }
 
-/* Estilos para alinear el Toolbar y los Controles de Página con la Tabla */
+/* Estilos para alinear el Toolbar y los Controles de Página con la Tabla
 :host ::ng-deep .align-to-table {
     padding-left: 1.25rem;
     padding-right: 1.25rem;
     width: 100%; 
+}
+     */
+
+:host ::ng-deep .align-to-table {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  width: 100%;
 }
 
 
@@ -97,3 +128,336 @@
     text-align: center;
 }
 
+
+
+
+.calcular-card {
+  padding: 1.25rem 1.25rem 1rem 1.25rem;
+}
+
+.calcular-content {
+  padding: 0;
+}
+
+:host ::ng-deep .toolbar-clean {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+:host ::ng-deep .align-to-table {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  width: 100%;
+}
+
+:host ::ng-deep .content-wrapper {
+  overflow-x: auto;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+:host ::ng-deep .calcular-table {
+  width: fit-content;
+  max-width: 100%;
+}
+
+::ng-deep .calcular-table table {
+  border-collapse: collapse;
+  width: auto !important;
+  table-layout: auto;
+}
+
+:host ::ng-deep .header-large .p-panel-header {
+  display: none !important;
+}
+
+:host ::ng-deep .header-large .p-panel-content {
+  border-top: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+}
+
+:host ::ng-deep .p-datatable-scrollable-body {
+  overflow-x: auto !important;
+}
+
+:host ::ng-deep .content-wrapper {
+  overflow-x: auto;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.calcular-card {
+  padding: 1rem 1rem 0.75rem 1rem;
+}
+
+.calcular-content {
+  padding: 0;
+}
+
+:host ::ng-deep .toolbar-clean {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+:host ::ng-deep .align-to-table {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  width: 100%;
+}
+
+:host ::ng-deep .p-toolbar {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .p-toolbar .p-button {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .p-toolbar .p-button-sm {
+  height: 34px !important;
+  padding: 0 0.85rem !important;
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .p-toolbar .p-button .p-button-icon,
+:host ::ng-deep .p-toolbar .p-button .p-button-label {
+  font-size: 12px !important;
+}
+
+.toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.reporte-tipo-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-right: 0.75rem;
+  padding: 0.45rem 0.75rem;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.reporte-tipo-group label {
+  margin-left: 0.35rem !important;
+  font-size: 12px !important;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+:host ::ng-deep .reporte-tipo-group .p-radiobutton {
+  width: 16px !important;
+  height: 16px !important;
+}
+
+:host ::ng-deep .reporte-tipo-group .p-radiobutton .p-radiobutton-box {
+  width: 16px !important;
+  height: 16px !important;
+}
+
+:host ::ng-deep .reporte-tipo-group .p-radiobutton .p-radiobutton-icon {
+  width: 8px !important;
+  height: 8px !important;
+}
+
+:host ::ng-deep .calcular-table .p-datatable-thead > tr > th {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  padding: 0.55rem 0.65rem !important;
+  text-align: center;
+}
+
+:host ::ng-deep .calcular-table .p-datatable-tbody > tr > td {
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  padding: 0.5rem 0.65rem !important;
+  vertical-align: middle;
+}
+
+:host ::ng-deep .calcular-table .p-paginator {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .calcular-table .p-paginator .p-paginator-pages .p-paginator-page,
+:host ::ng-deep .calcular-table .p-paginator .p-dropdown,
+:host ::ng-deep .calcular-table .p-paginator .p-dropdown-label {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .calcular-table .p-column-filter {
+  width: 100% !important;
+}
+
+:host ::ng-deep .calcular-table .p-column-filter .p-inputtext {
+  height: 30px !important;
+  font-size: 11px !important;
+  padding: 0.25rem 0.45rem !important;
+}
+
+:host ::ng-deep .calcular-table .p-column-filter .p-placeholder,
+:host ::ng-deep .calcular-table .p-column-filter input::placeholder {
+  font-size: 11px !important;
+}
+
+:host ::ng-deep .calcular-table .p-button.p-button-sm {
+  width: 30px !important;
+  height: 30px !important;
+  min-width: 30px !important;
+  padding: 0 !important;
+}
+
+:host ::ng-deep .calcular-table .p-button.p-button-sm .p-button-icon {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .p-panel .p-panel-header {
+  font-size: 15px !important;
+  padding: 0.85rem 1rem !important;
+}
+
+:host ::ng-deep .p-panel .p-panel-content {
+  padding: 0.8rem 1rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb {
+  font-size: 12px !important;
+  padding: 0.5rem 0.75rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb .p-menuitem-link {
+  padding: 0 !important;
+  gap: 0.35rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb .pi {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .p-breadcrumb .p-breadcrumb-chevron {
+  font-size: 11px !important;
+}
+
+:host ::ng-deep .compact-dialog .p-dialog-header {
+  padding: 0.7rem 0.9rem !important;
+}
+
+:host ::ng-deep .compact-dialog .p-dialog-title {
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  line-height: 1.2 !important;
+}
+
+:host ::ng-deep .compact-dialog .p-dialog-header-icon {
+  width: 28px !important;
+  height: 28px !important;
+}
+
+:host ::ng-deep .compact-dialog .p-dialog-header-icon .pi {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .compact-dialog .p-dialog-content {
+  padding: 0.85rem 0.95rem !important;
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .compact-dialog .p-dialog-footer {
+  padding: 0.7rem 0.9rem !important;
+}
+
+:host ::ng-deep .compact-dialog .p-button {
+  height: 32px !important;
+  font-size: 12px !important;
+  padding: 0 0.8rem !important;
+}
+
+:host ::ng-deep .compact-dialog .p-button .p-button-icon,
+:host ::ng-deep .compact-dialog .p-button .p-button-label {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .compact-dialog .p-datatable .p-datatable-thead > tr > th {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  padding: 0.5rem 0.6rem !important;
+}
+
+:host ::ng-deep .compact-dialog .p-datatable .p-datatable-tbody > tr > td {
+  font-size: 12px !important;
+  padding: 0.45rem 0.6rem !important;
+  vertical-align: middle !important;
+}
+
+:host ::ng-deep .compact-dialog .p-datatable .p-datatable-tbody > tr > td .p-button.p-button-sm,
+:host ::ng-deep .compact-dialog .p-datatable .p-button.p-button-sm {
+  width: 30px !important;
+  height: 30px !important;
+  min-width: 30px !important;
+  padding: 0 !important;
+}
+
+:host ::ng-deep .compact-dialog .p-datatable .p-button.p-button-sm .p-button-icon {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .compact-dialog .p-inputtext,
+:host ::ng-deep .compact-dialog .p-dropdown,
+:host ::ng-deep .compact-dialog .p-inputnumber-input,
+:host ::ng-deep .compact-dialog .p-calendar .p-inputtext {
+  height: 32px !important;
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .compact-dialog .p-dropdown-label {
+  font-size: 12px !important;
+  line-height: 32px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+:host ::ng-deep .compact-dialog .p-dropdown-trigger,
+:host ::ng-deep .compact-dialog .p-datepicker-trigger {
+  width: 32px !important;
+}
+
+
+:host ::ng-deep .compact-dialog-ajuste .p-toolbar {
+  padding: 0.45rem 0.6rem !important;
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .compact-dialog-ajuste .p-toolbar .p-button-sm {
+  height: 32px !important;
+}
+
+
+.ajuste-empleado-text {
+  font-size: 13px;
+  font-weight: 600;
+  margin: 0 0 0.75rem 0;
+  line-height: 1.3;
+}
+
+
+.ajuste-desc-cell {
+  font-size: 12px !important;
+  text-align: left;
+}
+
+.ajuste-desc-cell .text-700 {
+  font-size: 12px !important;
+}

@@ -9,24 +9,82 @@
       <div class="card">
         <div class="shadow-xl rounded-full surface-card px-4 py-4">
           <!-- Botón Nuevo y Dropdown Filas por Página -->
-          <div class="flex justify-content-between align-items-center mb-3">
-              <button type="button" pButton icon="pi pi-plus" label="Nuevo Parámetro"
-                      (click)="showAddRow()" [disabled]="isEditingAnyRow"
-                      class="p-button-sm"></button>
-          </div>
+          <div class="mb-2 parametros-toolbar-row">
+            <div class="parametros-toolbar">
+                <div class="parametros-toolbar-left">
+                    <button
+                    type="button"
+                    pButton
+                    icon="pi pi-plus"
+                    label="Nuevo Parámetro"
+                    (click)="showAddRow()"
+                    [disabled]="isEditingAnyRow || isEditing"
+                    class="p-button-info parametros-btn"
+                    pTooltip="Nuevo parámetro"
+                    tooltipPosition="bottom"></button>
+                </div>
+                
+                <div class="parametros-toolbar-right">
+                    <button
+                    *ngIf="editingRowIndex === null"
+                    pButton
+                    type="button"
+                    icon="pi pi-pencil"
+                    class="p-button-info parametros-icon-btn"
+                    pTooltip="Editar"
+                    tooltipPosition="bottom"
+                    [disabled]="!selectedParametroGeneral || isEditing || isEditingAnyRow"
+                    (click)="editarParametroSeleccionado()"></button>
+                    
+                    <button
+                    *ngIf="editingRowIndex === null"
+                    pButton
+                    type="button"
+                    icon="pi pi-trash"
+                    class="p-button-danger parametros-icon-btn"
+                    pTooltip="Eliminar"
+                    tooltipPosition="bottom"
+                    [disabled]="!selectedParametroGeneral || isEditing || isEditingAnyRow"
+                    (click)="eliminarParametroSeleccionado()"></button>
+                    
+                    <button
+                    *ngIf="editingRowIndex !== null"
+                    pButton
+                    type="button"
+                    icon="pi pi-check"
+                    class="p-button-success parametros-icon-btn"
+                    pTooltip="Guardar"
+                    tooltipPosition="bottom"
+                    (click)="guardarEdicionSeleccionada()"></button>
+                    
+                    <button
+                    *ngIf="editingRowIndex !== null"
+                    pButton
+                    type="button"
+                    icon="pi pi-times"
+                    class="p-button-danger parametros-icon-btn"
+                    pTooltip="Cancelar"
+                    tooltipPosition="bottom"
+                    (click)="cancelarEdicionSeleccionada()">
+                </button>
+            </div>
+        </div>
+    </div>
 
           <!-- Tabla Principal -->
           <p-table [value]="parametroGeneralList"
                   dataKey="pla40codigo"
                   editMode="row"
                   [paginator]="true"
+                  selectionMode="single"
+                  [(selection)]="selectedParametroGeneral"
                   [rows]="rowsPerPage"
                   responsiveLayout="scroll"
                   [showCurrentPageReport]="true"
                   [rowsPerPageOptions]="[5, 10, 20, 50]"
                   [tableStyle]="{ 'width': '1500px' }"
                   currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} parámetros"
-                  styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines"
+                  styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines parametros-table"
                   class="table-parametros-general"
                   >
               <!-- Cabecera de Tabla -->
@@ -49,250 +107,240 @@
                       <th style="text-align: center; width: 5%;">10</th>
                       <th style="text-align: center; width: 5%;">11</th>
                       <th style="text-align: center; width: 5%;">12</th>
-                      <th style="text-align: center; width: 10%;">Acciones</th>
                   </tr>
               </ng-template>
 
               <!-- Cuerpo de Tabla -->
-              <ng-template pTemplate="body" let-parametro let-ri="rowIndex" let-editing="editing">
-                  <tr [pEditableRow]="parametro">
+              <ng-template pTemplate="body" let-parametro let-ri="rowIndex">
+  <tr [pSelectableRow]="parametro">
 
-                      <td style="text-align: left;">
-                          <p-cellEditor>
-                              <ng-template pTemplate="input">
-                                  <input pInputText type="text" [(ngModel)]="parametro.pla40codigo"
-                                         class="p-inputtext-sm w-full" required>
-                              </ng-template>
-                              <ng-template pTemplate="output">
-                                  {{parametro.pla40codigo}}
-                              </ng-template>
-                          </p-cellEditor>
-                      </td>
+    <td style="text-align: left;">
+      <div *ngIf="editingRowIndex === ri; else displayCodigo">
+        <input
+          pInputText
+          type="text"
+          [(ngModel)]="editingParametroGeneral!.pla40codigo"
+          class="p-inputtext-sm w-full"
+          [disabled]="true" />
+      </div>
+      <ng-template #displayCodigo>
+        {{ parametro.pla40codigo }}
+      </ng-template>
+    </td>
 
-                      <td style="text-align: left;">
-                          <p-cellEditor>
-                              <ng-template pTemplate="input">
-                                  <input pInputText type="text" [(ngModel)]="parametro.pla40descripcion"
-                                         class="p-inputtext-sm w-full" required>
-                              </ng-template>
-                              <ng-template pTemplate="output">
-                                  {{parametro.pla40descripcion}}
-                              </ng-template>
-                          </p-cellEditor>
-                      </td>
+    <td style="text-align: left;">
+      <div *ngIf="editingRowIndex === ri; else displayDescripcion">
+        <input
+          pInputText
+          type="text"
+          [(ngModel)]="editingParametroGeneral!.pla40descripcion"
+          class="p-inputtext-sm w-full"
+          required />
+      </div>
+      <ng-template #displayDescripcion>
+        {{ parametro.pla40descripcion }}
+      </ng-template>
+    </td>
 
-                      <td style="text-align: left;">
-                          <p-cellEditor>
-                              <ng-template pTemplate="input">
-                                  <p-dropdown
-                                      [(ngModel)]="parametro.pla40flagtipodato"
-                                      [options]="[
-                                          { label: 'Importe', value: 'I' },
-                                          { label: 'Porcentaje', value: 'P' }
-                                      ]"
-                                      placeholder="Tipo de dato"
-                                      optionLabel="label"
-                                      optionValue="value"
-                                      class="p-inputtext-sm w-full"
-                                      appendTo="body">
-                                  </p-dropdown>
-                              </ng-template>
-                              <ng-template pTemplate="output">
-                                  {{parametro.pla40flagtipodato}}
-                              </ng-template>
-                          </p-cellEditor>
-                      </td>
+    <td style="text-align: left;">
+      <div *ngIf="editingRowIndex === ri; else displayCodTipo">
+        <p-dropdown
+          [(ngModel)]="editingParametroGeneral!.pla40flagtipodato"
+          [options]="[
+            { label: 'Importe', value: 'I' },
+            { label: 'Porcentaje', value: 'P' }
+          ]"
+          placeholder="Tipo de dato"
+          optionLabel="label"
+          optionValue="value"
+          class="w-full"
+          appendTo="body">
+        </p-dropdown>
+      </div>
+      <ng-template #displayCodTipo>
+        {{ parametro.pla40flagtipodato }}
+      </ng-template>
+    </td>
 
-                      <td style="text-align: left;">
-                        {{ getTipoDatoTexto(parametro.pla40flagtipodato) }}
-                      </td>
+    <td style="text-align: left;">
+      <span *ngIf="editingRowIndex === ri">
+        {{ getTipoDatoTexto(editingParametroGeneral!.pla40flagtipodato) }}
+      </span>
+      <span *ngIf="editingRowIndex !== ri">
+        {{ getTipoDatoTexto(parametro.pla40flagtipodato) }}
+      </span>
+    </td>
 
-                      <td style="text-align: left;">
-                          <p-cellEditor>
-                              <ng-template pTemplate="input">
-                                  <input pInputText type="text" [(ngModel)]="parametro.pla4001"
-                                         class="p-inputtext-sm w-full" required>
-                              </ng-template>
-                              <ng-template pTemplate="output">
-                                  {{ parametro.pla4001 | number:'1.2-2' }}
-                              </ng-template>
-                          </p-cellEditor>
-                      </td>
+    <td style="text-align: left;">
+      <div *ngIf="editingRowIndex === ri; else display01">
+        <input
+          pInputText
+          type="text"
+          [(ngModel)]="editingParametroGeneral!.pla4001"
+          class="p-inputtext-sm w-full"
+          required />
+      </div>
+      <ng-template #display01>
+        {{ parametro.pla4001 | number:'1.2-2' }}
+      </ng-template>
+    </td>
 
-                      <td style="text-align: left;">
-                          <p-cellEditor>
-                              <ng-template pTemplate="input">
-                                  <input pInputText type="text" [(ngModel)]="parametro.pla4002"
-                                         class="p-inputtext-sm w-full" required>
-                              </ng-template>
-                              <ng-template pTemplate="output">
-                                  {{ parametro.pla4002 | number:'1.2-2' }}
-                              </ng-template>
-                          </p-cellEditor>
-                      </td>
+    <td style="text-align: left;">
+      <div *ngIf="editingRowIndex === ri; else display02">
+        <input
+          pInputText
+          type="text"
+          [(ngModel)]="editingParametroGeneral!.pla4002"
+          class="p-inputtext-sm w-full"
+          required />
+      </div>
+      <ng-template #display02>
+        {{ parametro.pla4002 | number:'1.2-2' }}
+      </ng-template>
+    </td>
 
-                      <td style="text-align: left;">
-                          <p-cellEditor>
-                              <ng-template pTemplate="input">
-                                  <input pInputText type="text" [(ngModel)]="parametro.pla4003"
-                                         class="p-inputtext-sm w-full" required>
-                              </ng-template>
-                              <ng-template pTemplate="output">
-                                  {{ parametro.pla4003 | number:'1.2-2' }}
-                              </ng-template>
-                          </p-cellEditor>
-                      </td>
+    <td style="text-align: left;">
+      <div *ngIf="editingRowIndex === ri; else display03">
+        <input
+          pInputText
+          type="text"
+          [(ngModel)]="editingParametroGeneral!.pla4003"
+          class="p-inputtext-sm w-full"
+          required />
+      </div>
+      <ng-template #display03>
+        {{ parametro.pla4003 | number:'1.2-2' }}
+      </ng-template>
+    </td>
 
-                      <td style="text-align: left;">
-                          <p-cellEditor>
-                              <ng-template pTemplate="input">
-                                  <input pInputText type="text" [(ngModel)]="parametro.pla4004"
-                                         class="p-inputtext-sm w-full" required>
-                              </ng-template>
-                              <ng-template pTemplate="output">
-                                  {{ parametro.pla4004 | number:'1.2-2' }}
-                              </ng-template>
-                          </p-cellEditor>
-                      </td>
+    <td style="text-align: left;">
+      <div *ngIf="editingRowIndex === ri; else display04">
+        <input
+          pInputText
+          type="text"
+          [(ngModel)]="editingParametroGeneral!.pla4004"
+          class="p-inputtext-sm w-full"
+          required />
+      </div>
+      <ng-template #display04>
+        {{ parametro.pla4004 | number:'1.2-2' }}
+      </ng-template>
+    </td>
 
-                      <td style="text-align: left;">
-                          <p-cellEditor>
-                              <ng-template pTemplate="input">
-                                  <input pInputText type="text" [(ngModel)]="parametro.pla4005"
-                                         class="p-inputtext-sm w-full" required>
-                              </ng-template>
-                              <ng-template pTemplate="output">
-                                  {{ parametro.pla4005 | number:'1.2-2' }}
-                              </ng-template>
-                          </p-cellEditor>
-                      </td>
+    <td style="text-align: left;">
+      <div *ngIf="editingRowIndex === ri; else display05">
+        <input
+          pInputText
+          type="text"
+          [(ngModel)]="editingParametroGeneral!.pla4005"
+          class="p-inputtext-sm w-full"
+          required />
+      </div>
+      <ng-template #display05>
+        {{ parametro.pla4005 | number:'1.2-2' }}
+      </ng-template>
+    </td>
 
-                      <td style="text-align: left;">
-                          <p-cellEditor>
-                              <ng-template pTemplate="input">
-                                  <input pInputText type="text" [(ngModel)]="parametro.pla4006"
-                                         class="p-inputtext-sm w-full" required>
-                              </ng-template>
-                              <ng-template pTemplate="output">
-                                  {{ parametro.pla4006 | number:'1.2-2' }}
-                              </ng-template>
-                          </p-cellEditor>
-                      </td>
+    <td style="text-align: left;">
+      <div *ngIf="editingRowIndex === ri; else display06">
+        <input
+          pInputText
+          type="text"
+          [(ngModel)]="editingParametroGeneral!.pla4006"
+          class="p-inputtext-sm w-full"
+          required />
+      </div>
+      <ng-template #display06>
+        {{ parametro.pla4006 | number:'1.2-2' }}
+      </ng-template>
+    </td>
 
-                      <td style="text-align: left;">
-                          <p-cellEditor>
-                              <ng-template pTemplate="input">
-                                  <input pInputText type="text" [(ngModel)]="parametro.pla4007"
-                                         class="p-inputtext-sm w-full" required>
-                              </ng-template>
-                              <ng-template pTemplate="output">
-                                  {{ parametro.pla4007 | number:'1.2-2' }}
-                              </ng-template>
-                          </p-cellEditor>
-                      </td>
+    <td style="text-align: left;">
+      <div *ngIf="editingRowIndex === ri; else display07">
+        <input
+          pInputText
+          type="text"
+          [(ngModel)]="editingParametroGeneral!.pla4007"
+          class="p-inputtext-sm w-full"
+          required />
+      </div>
+      <ng-template #display07>
+        {{ parametro.pla4007 | number:'1.2-2' }}
+      </ng-template>
+    </td>
 
-                      <td style="text-align: left;">
-                          <p-cellEditor>
-                              <ng-template pTemplate="input">
-                                  <input pInputText type="text" [(ngModel)]="parametro.pla4008"
-                                         class="p-inputtext-sm w-full" required>
-                              </ng-template>
-                              <ng-template pTemplate="output">
-                                  {{ parametro.pla4008 | number:'1.2-2' }}
-                              </ng-template>
-                          </p-cellEditor>
-                      </td>
+    <td style="text-align: left;">
+      <div *ngIf="editingRowIndex === ri; else display08">
+        <input
+          pInputText
+          type="text"
+          [(ngModel)]="editingParametroGeneral!.pla4008"
+          class="p-inputtext-sm w-full"
+          required />
+      </div>
+      <ng-template #display08>
+        {{ parametro.pla4008 | number:'1.2-2' }}
+      </ng-template>
+    </td>
 
-                      <td style="text-align: left;">
-                          <p-cellEditor>
-                              <ng-template pTemplate="input">
-                                  <input pInputText type="text" [(ngModel)]="parametro.pla4009"
-                                         class="p-inputtext-sm w-full" required>
-                              </ng-template>
-                              <ng-template pTemplate="output">
-                                  {{ parametro.pla4009 | number:'1.2-2' }}
-                              </ng-template>
-                          </p-cellEditor>
-                      </td>
+    <td style="text-align: left;">
+      <div *ngIf="editingRowIndex === ri; else display09">
+        <input
+          pInputText
+          type="text"
+          [(ngModel)]="editingParametroGeneral!.pla4009"
+          class="p-inputtext-sm w-full"
+          required />
+      </div>
+      <ng-template #display09>
+        {{ parametro.pla4009 | number:'1.2-2' }}
+      </ng-template>
+    </td>
 
-                      <td style="text-align: left;">
-                          <p-cellEditor>
-                              <ng-template pTemplate="input">
-                                  <input pInputText type="text" [(ngModel)]="parametro.pla4010"
-                                         class="p-inputtext-sm w-full" required>
-                              </ng-template>
-                              <ng-template pTemplate="output">
-                                  {{ parametro.pla4010 | number:'1.2-2' }}
-                              </ng-template>
-                          </p-cellEditor>
-                      </td>
+    <td style="text-align: left;">
+      <div *ngIf="editingRowIndex === ri; else display10">
+        <input
+          pInputText
+          type="text"
+          [(ngModel)]="editingParametroGeneral!.pla4010"
+          class="p-inputtext-sm w-full"
+          required />
+      </div>
+      <ng-template #display10>
+        {{ parametro.pla4010 | number:'1.2-2' }}
+      </ng-template>
+    </td>
 
-                      <td style="text-align: left;">
-                          <p-cellEditor>
-                              <ng-template pTemplate="input">
-                                  <input pInputText type="text" [(ngModel)]="parametro.pla4011"
-                                         class="p-inputtext-sm w-full" required>
-                              </ng-template>
-                              <ng-template pTemplate="output">
-                                  {{ parametro.pla4011 | number:'1.2-2' }}
-                              </ng-template>
-                          </p-cellEditor>
-                      </td>
+    <td style="text-align: left;">
+      <div *ngIf="editingRowIndex === ri; else display11">
+        <input
+          pInputText
+          type="text"
+          [(ngModel)]="editingParametroGeneral!.pla4011"
+          class="p-inputtext-sm w-full"
+          required />
+      </div>
+      <ng-template #display11>
+        {{ parametro.pla4011 | number:'1.2-2' }}
+      </ng-template>
+    </td>
 
-                      <td style="text-align: left;">
-                          <p-cellEditor>
-                              <ng-template pTemplate="input">
-                                  <input pInputText type="text" [(ngModel)]="parametro.pla4012"
-                                         class="p-inputtext-sm w-full" required>
-                              </ng-template>
-                              <ng-template pTemplate="output">
-                                  {{ parametro.pla4012 | number:'1.2-2' }}
-                              </ng-template>
-                          </p-cellEditor>
-                      </td>
+    <td style="text-align: left;">
+      <div *ngIf="editingRowIndex === ri; else display12">
+        <input
+          pInputText
+          type="text"
+          [(ngModel)]="editingParametroGeneral!.pla4012"
+          class="p-inputtext-sm w-full"
+          required />
+      </div>
+      <ng-template #display12>
+        {{ parametro.pla4012 | number:'1.2-2' }}
+      </ng-template>
+    </td>
 
-                      <!-- Acciones -->
-                      <td>
-                          <div class="flex justify-content-center gap-2">
-                              <!-- Botón Editar -->
-                              <button *ngIf="!editing" pButton
-                                      pInitEditableRow
-                                      (click)="onRowEditInit(parametro)"
-                                      icon="pi pi-pencil"
-                                      pTooltip="Editar"
-                                      [disabled]="isNew || isEditingAnyRow"
-                                      class="p-button-rounded p-button-text p-button-sm"
-                                      ></button>
-
-                              <!-- Botón Guardar -->
-                              <button *ngIf="editing" pButton
-                                      pSaveEditableRow
-                                      (click)="onRowEditSave(parametro)"
-                                      icon="pi pi-check"
-                                      pTooltip="Guardar"
-                                      class="p-button-rounded p-button-text p-button-sm p-button-success"></button>
-
-                              <!-- Botón Cancelar -->
-                              <button *ngIf="editing" pButton
-                                      pCancelEditableRow
-                                      (click)="onRowEditCancel(parametro, ri)"
-                                      icon="pi pi-times"
-                                      pTooltip="Cancelar"
-                                      class="p-button-rounded p-button-text p-button-sm p-button-danger"></button>
-
-                              <!-- Botón Eliminar -->
-                              <button *ngIf="!editing" pButton
-                                      type="button"
-                                      (click)="onDelete(parametro, ri)"
-                                      icon="pi pi-trash"
-                                      pTooltip="Eliminar"
-                                      [disabled]="isNew || isEditingAnyRow"
-                                      class="p-button-rounded p-button-text p-button-sm p-button-danger"></button>
-
-                          </div>
-                      </td>
-                  </tr>
-              </ng-template>
+  </tr>
+</ng-template>
 
               <!-- Footer para Nuevo Registro -->
               <ng-template pTemplate="footer">
