@@ -39,26 +39,62 @@
 }
 
 
-:host ::ng-deep .base-afectacion-btn {
-  height: 34px !important;
-  font-size: 12px !important;
-  padding: 0 0.85rem !important;
-  border-radius: 8px !important;
+.base-afectacion-toolbar-row {
+  width: 100%;
+  margin-bottom: 0.75rem;
 }
 
-:host ::ng-deep .base-afectacion-btn .p-button-icon,
+.base-afectacion-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.base-afectacion-toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+:host ::ng-deep .base-afectacion-btn {
+  height: 32px !important;
+  min-height: 32px !important;
+  padding: 0 0.8rem !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  border-radius: 9px !important;
+  min-width: 0 !important;
+  gap: 0.4rem !important;
+  background: #3b82f6 !important;
+  border: 1px solid #3b82f6 !important;
+  box-shadow: none !important;
+}
+
+:host ::ng-deep .base-afectacion-btn .p-button-label,
+:host ::ng-deep .base-afectacion-btn .p-button-icon {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .base-afectacion-btn:hover {
+  background: #2563eb !important;
+  border-color: #2563eb !important;
+}
+
 :host ::ng-deep .base-afectacion-btn .p-button-label {
   font-size: 12px !important;
+  font-weight: 600 !important;
+  line-height: 1 !important;
 }
 
-.add-button {
-  background-color: #0d6efd !important;
-  border-color: #0d6efd !important;
+:host ::ng-deep .base-afectacion-btn .p-button-icon {
+  font-size: 12px !important;
 }
 
-.add-button:hover {
-  background-color: #0b5ed7 !important;
-  border-color: #0a58ca !important;
+:host ::ng-deep .base-afectacion-btn.p-button {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
 /* table */
@@ -219,4 +255,23 @@
     padding: 0.35rem 0.45rem !important;
     font-size: 11px !important;
   }
+}
+
+:host ::ng-deep .base-afectacion-icon-btn {
+  width: 34px !important;
+  height: 34px !important;
+  min-width: 34px !important;
+  padding: 0 !important;
+  border-radius: 8px !important;
+}
+
+:host ::ng-deep .base-afectacion-icon-btn .p-button-icon {
+  font-size: 12px !important;
+}
+
+
+.base-afectacion-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
 }

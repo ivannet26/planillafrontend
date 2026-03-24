@@ -9,7 +9,8 @@
     <p-breadcrumb [model]="items" class="max-w-full"></p-breadcrumb>
     </p-panel>
     
-    <div class="shadow-xl rounded-full surface-card px-4 py-4">
+    <div class="banco-section-wrapper">
+  <div class="shadow-xl rounded-full surface-card px-4 py-4">
     <div class="banco-toolbar-row">
   <div class="banco-toolbar">
     <div class="banco-toolbar-left">
@@ -27,52 +28,52 @@
     </div>
 
     <div class="banco-toolbar-right">
-      <button
-        *ngIf="!selectedBanco?.isEditing"
-        pButton
-        type="button"
-        icon="pi pi-pencil"
-        class="p-button-info banco-icon-btn"
-        (click)="editarSeleccionado()"
-        [disabled]="!selectedBanco"
-        pTooltip="Editar"
-        tooltipPosition="bottom">
-      </button>
+  <button
+    *ngIf="editingRowIndex === null"
+    pButton
+    type="button"
+    icon="pi pi-pencil"
+    class="p-button-info banco-icon-btn"
+    (click)="editarSeleccionado()"
+    [disabled]="!selectedBanco || hayBancoEditando"
+    pTooltip="Editar"
+    tooltipPosition="bottom">
+  </button>
 
-      <button
-        *ngIf="!selectedBanco?.isEditing"
-        pButton
-        type="button"
-        icon="pi pi-trash"
-        class="p-button-danger banco-icon-btn"
-        (click)="eliminarSeleccionado()"
-        [disabled]="!selectedBanco"
-        pTooltip="Eliminar"
-        tooltipPosition="bottom">
-      </button>
+  <button
+    *ngIf="editingRowIndex === null"
+    pButton
+    type="button"
+    icon="pi pi-trash"
+    class="p-button-danger banco-icon-btn"
+    (click)="eliminarSeleccionado()"
+    [disabled]="!selectedBanco || hayBancoEditando"
+    pTooltip="Eliminar"
+    tooltipPosition="bottom">
+  </button>
 
-      <button
-        *ngIf="selectedBanco?.isEditing"
-        pButton
-        type="button"
-        icon="pi pi-save"
-        class="p-button-success banco-icon-btn"
-        (click)="guardarSeleccionado()"
-        pTooltip="Guardar"
-        tooltipPosition="bottom">
-      </button>
+  <button
+    *ngIf="editingRowIndex !== null"
+    pButton
+    type="button"
+    icon="pi pi-check"
+    class="p-button-success banco-icon-btn"
+    (click)="guardarSeleccionado()"
+    pTooltip="Guardar"
+    tooltipPosition="bottom">
+  </button>
 
-      <button
-        *ngIf="selectedBanco?.isEditing"
-        pButton
-        type="button"
-        icon="pi pi-undo"
-        class="p-button-secondary banco-icon-btn"
-        (click)="cancelarSeleccionado()"
-        pTooltip="Cancelar"
-        tooltipPosition="bottom">
-      </button>
-    </div>
+  <button
+    *ngIf="editingRowIndex !== null"
+    pButton
+    type="button"
+    icon="pi pi-times"
+    class="p-button-danger banco-icon-btn"
+    (click)="cancelarSeleccionado()"
+    pTooltip="Cancelar"
+    tooltipPosition="bottom">
+  </button>
+</div>
   </div>
 </div>
 

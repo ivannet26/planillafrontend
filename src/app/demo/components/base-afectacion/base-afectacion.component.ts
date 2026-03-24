@@ -42,6 +42,9 @@ export class BaseAfectacionComponent implements OnInit {
   basesAfectacion: BaseAfectacionView[] = [];
   originalBase: BaseAfectacionView | null = null;
 
+  selectedBase: BaseAfectacionView | null = null;
+  editingRowIndex: number | null = null;
+
   items: any[] = [];
 
   constructor(
@@ -112,6 +115,9 @@ export class BaseAfectacionComponent implements OnInit {
     };
 
     this.basesAfectacion.unshift(nuevaBase);
+    this.selectedBase = nuevaBase;
+    this.editingRowIndex = 0;
+    this.originalBase = null;
 
     if (this.table) {
       this.table.first = 0;
@@ -131,6 +137,10 @@ export class BaseAfectacionComponent implements OnInit {
 
     this.originalBase = { ...base };
     base.isEditing = true;
+    base.isNew = false;
+
+    this.selectedBase = base;
+    this.editingRowIndex = this.basesAfectacion.findIndex(b => b === base);
   }
 
   eliminar(base: BaseAfectacionView, index: number) {
@@ -142,6 +152,9 @@ export class BaseAfectacionComponent implements OnInit {
       rejectLabel: 'No',
       accept: () => {
         this.basesAfectacion.splice(index, 1);
+        this.selectedBase = null;
+        this.editingRowIndex = null;
+
         this.messageService.add({
           severity: 'success',
           summary: 'Éxito',
@@ -166,6 +179,9 @@ export class BaseAfectacionComponent implements OnInit {
       base.isEditing = false;
       this.originalBase = null;
     }
+    this.originalBase = null;
+    this.selectedBase = null;
+    this.editingRowIndex = null;
   }
 
   guardar(base: BaseAfectacionView, index: number) {
@@ -187,23 +203,27 @@ export class BaseAfectacionComponent implements OnInit {
       return;
     }
 
-    if (base.isNew) {
-      const existe = this.basesAfectacion.find((b, i) =>
-        i !== index && b.codigo === base.codigo
-      );
-      if (existe) {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'Ya existe una base de afectación con este código'
-        });
-        return;
-      }
+    base.codigo = base.codigo.trim().toUpperCase();
+    base.descripcion = base.descripcion.trim().toUpperCase();
+    base.alias = base.alias.trim().toUpperCase();
+
+    const existe = this.basesAfectacion.find((b, i) =>
+      i !== index && b.codigo.trim().toUpperCase() === base.codigo
+    );
+
+    if (existe) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Ya existe una base de afectación con este código'
+      });
+      return;
     }
 
     base.isEditing = false;
     base.isNew = false;
     this.originalBase = null;
+    this.editingRowIndex = null;
 
     this.messageService.add({
       severity: 'success',
@@ -211,7 +231,45 @@ export class BaseAfectacionComponent implements OnInit {
       detail: 'Base de afectación guardada correctamente'
     });
 
-    const baseGuardada = this.basesAfectacion.splice(index, 1)[0];
-    this.basesAfectacion.push(baseGuardada);
+    this.selectedBase = null;
   }
+
+  editarSeleccionado(): void {
+  const base = this.selectedBase;
+  if (!base) return;
+
+  this.editar(base);
+}
+
+eliminarSeleccionado(): void {
+  const base = this.selectedBase;
+  if (!base) return;
+
+  const index = this.basesAfectacion.findIndex(b => b === base);
+  if (index === -1) return;
+
+  this.eliminar(base, index);
+}
+
+guardarSeleccionado(): void {
+  if (this.editingRowIndex === null) return;
+
+  const base = this.basesAfectacion[this.editingRowIndex];
+  if (!base) return;
+
+  this.guardar(base, this.editingRowIndex);
+}
+
+cancelarSeleccionado(): void {
+  if (this.editingRowIndex === null) return;
+
+  const base = this.basesAfectacion[this.editingRowIndex];
+  if (!base) return;
+
+  this.cancelar(base, this.editingRowIndex);
+}
+
+get hayBaseEditando(): boolean {
+  return this.basesAfectacion.some(b => !!b.isEditing);
+}
 }

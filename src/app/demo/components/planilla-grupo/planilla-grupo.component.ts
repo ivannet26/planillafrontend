@@ -38,6 +38,8 @@ import { PlanillaGrupo, PlanillaGrupoView, DropdownOption } from 'src/app/demo/m
 export class PlanillaGrupoComponent implements OnInit {
   planillasGrupo: PlanillaGrupoView[] = [];
   originalPlanilla: PlanillaGrupoView | null = null;
+  selectedPlanillaGrupo: PlanillaGrupoView | null = null;
+  editingRowIndex: number | null = null;
 
   items: any[] = [];
 
@@ -128,6 +130,9 @@ export class PlanillaGrupoComponent implements OnInit {
       isNew: true
     };
     this.planillasGrupo.push(nuevaPlanilla);
+    this.selectedPlanillaGrupo = nuevaPlanilla;
+    this.editingRowIndex = this.planillasGrupo.length - 1;
+    this.originalPlanilla = null;
   }
 
   editar(planilla: PlanillaGrupoView) {
@@ -154,6 +159,9 @@ export class PlanillaGrupoComponent implements OnInit {
       rejectLabel: 'No',
       accept: () => {
         this.planillasGrupo.splice(index, 1);
+        this.selectedPlanillaGrupo = null;
+        this.editingRowIndex = null;
+
         this.messageService.add({
           severity: 'success',
           summary: 'Éxito',
@@ -175,8 +183,12 @@ export class PlanillaGrupoComponent implements OnInit {
         planilla.controlAsistencia = this.originalPlanilla.controlAsistencia;
       }
       planilla.isEditing = false;
-      this.originalPlanilla = null;
+      planilla.isNew = false;
     }
+
+    this.originalPlanilla = null;
+    this.selectedPlanillaGrupo = null;
+    this.editingRowIndex = null;
   }
 
   guardar(planilla: PlanillaGrupoView, index: number) {
@@ -198,28 +210,88 @@ export class PlanillaGrupoComponent implements OnInit {
       return;
     }
 
-    if (planilla.isNew) {
-      const existe = this.planillasGrupo.find((p, i) =>
-        i !== index && p.codigo === planilla.codigo
-      );
-      if (existe) {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'Ya existe una planilla grupo con este código'
-        });
-        return;
-      }
+    planilla.codigo = planilla.codigo.trim().toUpperCase();
+    planilla.descripcion = planilla.descripcion.trim().toUpperCase();
+    
+    const existe = this.planillasGrupo.find((p, i) =>
+      i !== index && p.codigo.trim().toUpperCase() === planilla.codigo
+    );
+
+    if (existe) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Ya existe una planilla grupo con este código'
+      });
+      return;
     }
 
     planilla.isEditing = false;
     planilla.isNew = false;
     this.originalPlanilla = null;
+    this.editingRowIndex = null;
 
     this.messageService.add({
       severity: 'success',
       summary: 'Éxito',
       detail: 'Planilla grupo guardada correctamente'
     });
+
+    this.selectedPlanillaGrupo = null;
   }
+
+
+  editarSeleccionado(): void {
+    const planilla = this.selectedPlanillaGrupo;
+    if (!planilla) return;
+
+    const editing = this.planillasGrupo.find(p => p.isEditing);
+    if (editing && editing !== planilla) {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Advertencia',
+        detail: 'Complete o cancele la edición actual'
+      });
+      return;
+    }
+
+    this.originalPlanilla = { ...planilla };
+    planilla.isEditing = true;
+    planilla.isNew = false;
+
+    this.editingRowIndex = this.planillasGrupo.findIndex(p => p === planilla);
+  }
+
+  eliminarSeleccionado(): void {
+    const planilla = this.selectedPlanillaGrupo;
+    if (!planilla) return;
+
+    const index = this.planillasGrupo.findIndex(p => p === planilla);
+    if (index === -1) return;
+
+    this.eliminar(planilla, index);
+  }
+
+  guardarSeleccionado(): void {
+    if (this.editingRowIndex === null) return;
+
+    const planilla = this.planillasGrupo[this.editingRowIndex];
+    if (!planilla) return;
+
+    this.guardar(planilla, this.editingRowIndex);
+  }
+
+  cancelarSeleccionado(): void {
+    if (this.editingRowIndex === null) return;
+
+    const planilla = this.planillasGrupo[this.editingRowIndex];
+    if (!planilla) return;
+
+    this.cancelar(planilla, this.editingRowIndex);
+  }
+
+  get hayPlanillaGrupoEditando(): boolean {
+    return this.planillasGrupo.some(p => !!p.isEditing);
+  }
+  
 }

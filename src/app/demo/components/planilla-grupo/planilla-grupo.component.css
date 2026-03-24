@@ -1,19 +1,254 @@
-/* ====================================================
-   CSS INDIVIDUAL DEL COMPONENTE
-   Solo agrega aquí ajustes MUY específicos
-   Todo lo demás viene de styles.css automáticamente
-==================================================== */
-
-/* Ejemplo: Si necesitas que una columna específica esté alineada a la izquierda */
-::ng-deep .mi-tabla-especial td.columna-descripcion {
-  text-align: left !important;
+/* panel */
+:host ::ng-deep .p-panel .p-panel-header {
+  font-size: 15px !important;
+  padding: 0.8rem 1rem !important;
 }
 
-/* Ejemplo: Si necesitas un ancho fijo para alguna columna */
-::ng-deep .mi-tabla-especial th.columna-codigo,
-::ng-deep .mi-tabla-especial td.columna-codigo {
-  width: 80px;
-  max-width: 80px;
+:host ::ng-deep .p-panel .p-panel-content {
+  padding: 0.8rem 0.9rem !important;
 }
 
-/* La mayoría de componentes NO necesitarán nada aquí */
+/* breadcrumb */
+:host ::ng-deep .p-breadcrumb {
+  font-size: 12px !important;
+  padding: 0.5rem 0.75rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb .p-menuitem-link {
+  padding: 0 !important;
+  gap: 0.35rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb .pi {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .p-breadcrumb .p-breadcrumb-chevron {
+  font-size: 11px !important;
+}
+
+
+.planilla-grupo-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: #ffffff;
+}
+
+
+:host ::ng-deep .surface-card {
+  padding: 0.9rem 1rem !important;
+  border-radius: 16px !important;
+}
+
+/* toolbar */
+.planilla-grupo-toolbar-row {
+  width: 100%;
+  margin-bottom: 0.75rem;
+}
+
+.planilla-grupo-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.planilla-grupo-toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+:host ::ng-deep .planilla-grupo-btn {
+  height: 34px !important;
+  min-height: 34px !important;
+  padding: 0 0.85rem !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  border-radius: 8px !important;
+}
+
+:host ::ng-deep .planilla-grupo-btn .p-button-icon,
+:host ::ng-deep .planilla-grupo-btn .p-button-label {
+  font-size: 12px !important;
+}
+
+/* tabla */
+:host ::ng-deep .planilla-tipo-table {
+  width: 100%;
+  max-width: 100%;
+}
+
+:host ::ng-deep .planilla-tipo-table table {
+  width: 100% !important;
+  border-collapse: collapse;
+  table-layout: auto;
+}
+
+:host ::ng-deep .planilla-tipo-table .p-datatable-thead > tr > th {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  padding: 0.5rem 0.55rem !important;
+  text-align: center !important;
+  line-height: 1.2 !important;
+  white-space: nowrap;
+}
+
+:host ::ng-deep .planilla-tipo-table .p-datatable-tbody > tr > td {
+  font-size: 12px !important;
+  padding: 0.4rem 0.55rem !important;
+  vertical-align: middle !important;
+  line-height: 1.2 !important;
+}
+
+:host ::ng-deep .planilla-tipo-table .p-datatable-tbody > tr > td:first-child {
+  text-align: center !important;
+}
+
+:host ::ng-deep .planilla-tipo-table .p-datatable-tbody > tr:hover > td {
+  background: #f8fafc !important;
+}
+
+.table-input {
+  width: 100%;
+  height: 30px !important;
+  padding: 0.3rem 0.45rem !important;
+  border: 1px solid #ddd !important;
+  border-radius: 4px !important;
+  font-size: 12px !important;
+  background-color: #ffffff !important;
+}
+
+.table-input:focus {
+  border-color: #0d6efd !important;
+  box-shadow: 0 0 0 2px rgba(13, 110, 253, 0.1) !important;
+  outline: none !important;
+}
+
+.table-input:disabled {
+  background-color: #f5f5f5 !important;
+  color: #6c757d !important;
+  cursor: not-allowed;
+}
+
+:host ::ng-deep .planilla-tipo-table .table-dropdown {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .planilla-tipo-table .table-dropdown .p-dropdown {
+  height: 30px !important;
+  font-size: 12px !important;
+  min-width: unset !important;
+}
+
+:host ::ng-deep .planilla-tipo-table .table-dropdown .p-dropdown-label {
+  display: flex !important;
+  align-items: center !important;
+  height: 30px !important;
+  font-size: 12px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+:host ::ng-deep .planilla-tipo-table .table-dropdown .p-dropdown-trigger {
+  width: 30px !important;
+}
+
+
+.actions-cell {
+  text-align: center;
+  padding: 0.35rem !important;
+}
+
+.action-buttons {
+  display: inline-flex;
+  gap: 0.4rem;
+  justify-content: center;
+  align-items: center;
+}
+
+:host ::ng-deep .planilla-tipo-table .p-button-rounded,
+:host ::ng-deep .planilla-tipo-table .p-button.p-button-sm {
+  width: 28px !important;
+  height: 28px !important;
+  min-width: 28px !important;
+  padding: 0 !important;
+}
+
+:host ::ng-deep .planilla-tipo-table .p-button-rounded .p-button-icon,
+:host ::ng-deep .planilla-tipo-table .p-button.p-button-sm .p-button-icon {
+  font-size: 11px !important;
+}
+
+
+:host ::ng-deep .planilla-tipo-table .p-paginator {
+  font-size: 12px !important;
+  padding: 0.45rem 0.6rem !important;
+}
+
+:host ::ng-deep .planilla-tipo-table .p-paginator .p-paginator-current,
+:host ::ng-deep .planilla-tipo-table .p-paginator .p-paginator-pages .p-paginator-page {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .planilla-tipo-table .p-paginator .p-paginator-pages .p-paginator-page {
+  min-width: 28px;
+  height: 28px;
+}
+
+.empty-message {
+  font-size: 12px;
+  padding: 1rem 0;
+}
+
+.empty-message i {
+  font-size: 14px;
+  margin-bottom: 0.25rem;
+}
+
+.empty-message p {
+  margin: 0.25rem 0 0 0;
+}
+
+/* tooltip */
+::ng-deep .p-tooltip .p-tooltip-text {
+  font-size: 11px !important;
+  padding: 0.3rem 0.45rem !important;
+  line-height: 1.15 !important;
+}
+
+::ng-deep .p-tooltip {
+  max-width: 160px !important;
+}
+
+::ng-deep .p-tooltip .p-tooltip-arrow {
+  transform: scale(0.8);
+}
+
+.planilla-grupo-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+:host ::ng-deep .planilla-grupo-icon-btn {
+  width: 34px !important;
+  height: 34px !important;
+  min-width: 34px !important;
+  padding: 0 !important;
+  border-radius: 8px !important;
+}
+
+:host ::ng-deep .planilla-grupo-icon-btn .p-button-icon {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .planilla-tipo-table .p-datatable-tbody > tr.p-highlight > td {
+  background: #eef4ff !important;
+  color: #1f2937 !important;
+}
+
+.planilla-grupo-card-spacing {
+  margin-top: 10px;
+}

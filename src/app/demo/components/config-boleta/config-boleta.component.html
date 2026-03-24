@@ -2,7 +2,6 @@
 <p-confirmDialog></p-confirmDialog>
 
 <div class="p-1 py-3 max-h-screen">
-
   <p-panel header="Configuracion boleta" styleClass="shadow-xl rounded-xl mb-3">
     <p-breadcrumb [model]="items" class="max-w-full"></p-breadcrumb>
   </p-panel>
@@ -10,36 +9,34 @@
   <div class="mb-2">
     <div class="shadow-xl rounded-xl surface-card boleta-card">
 
-      <div class="grid gap">
-
-        <!-- IZQUIERDA -->
-
-        <div class="col-12 lg:col-4">
-
-          <div class="table-actions-bar">
-          
+      <div class="boleta-toolbar-row">
+        <div class="boleta-toolbar-right">
           <button
-          pButton
-          type="button"
-          icon="pi pi-pencil"
-          class="p-button-sm table-action-btn"
-          pTooltip="Editar seleccionado"
-          tooltipPosition="top"
-          (click)="editarSeleccionado()"
-          [disabled]="!planillaSelected || isEditMode"
-          ></button>
-          
+            pButton
+            type="button"
+            icon="pi pi-pencil"
+            class="p-button-info table-action-btn"
+            pTooltip="Editar seleccionado"
+            tooltipPosition="bottom"
+            (click)="editarSeleccionado()"
+            [disabled]="!planillaSelected || isEditMode">
+          </button>
+
           <button
-          pButton
-          type="button"
-          icon="pi pi-trash"
-          class="p-button-sm p-button-danger table-action-btn"
-          pTooltip="Eliminar seleccionado"
-          tooltipPosition="top"
-          (click)="eliminarSeleccionado()"
-          [disabled]="!planillaSelected || isEditMode"
-          ></button>
+            pButton
+            type="button"
+            icon="pi pi-trash"
+            class="p-button-danger table-action-btn"
+            pTooltip="Eliminar seleccionado"
+            tooltipPosition="bottom"
+            (click)="eliminarSeleccionado()"
+            [disabled]="!planillaSelected || isEditMode">
+          </button>
         </div>
+      </div>
+
+      <div class="grid gap">
+        <div class="col-12 lg:col-4">
           <p-table
             [value]="planillaList"
             dataKey="codigo"
@@ -67,64 +64,61 @@
         </div>
 
         <div class="col-12 lg:col-8">
-
           <div class="surface-ground border-round p-3 right-panel">
             <div class="button-save">
               <button
-              *ngIf="isEditMode"
+                *ngIf="isEditMode"
                 type="button"
                 pButton
                 icon="pi pi-save"
                 label="Guardar"
                 class="p-button-success p-button-sm"
                 [disabled]="!planillaSelected || !isEditMode"
-                (click)="guardarMock()"
-              ></button>
+                (click)="guardarMock()">
+              </button>
             </div>
 
-
             <div class="conceptos-wrapper">
-            <div class="right-grid">
-              <div *ngFor="let slot of slots; let i = index">
-                <div class="slot-row">
-                  <p-dropdown
-                  class="slot-code-dd"
-                  [options]="conceptoOptions"
-                  optionLabel="label"
-                  optionValue="value"
-                  [(ngModel)]="slot.codigoSeleccionado"
-                  (onChange)="onSlotChange(i)"
-                  [disabled]="!planillaSelected || !isEditMode"
-                  appendTo="body"
-                  placeholder="Cód.">
-                </p-dropdown>
-                
-                <input
-                pInputText
-                class="slot-desc"
-                [value]="slot.descripcion"
-                placeholder="Descripción"
-                readonly
-                />
+              <div class="right-grid">
+                <div *ngFor="let slot of slots; let i = index">
+                  <div class="slot-row">
+                    <p-dropdown
+                      class="slot-code-dd"
+                      [options]="conceptoOptions"
+                      optionLabel="label"
+                      optionValue="value"
+                      [(ngModel)]="slot.codigoSeleccionado"
+                      (onChange)="onSlotChange(i)"
+                      [disabled]="!planillaSelected || !isEditMode"
+                      appendTo="body"
+                      placeholder="Cód.">
+                    </p-dropdown>
 
-                  <button
-                    pButton
-                    type="button"
-                    class="p-button-rounded p-button-text p-button-sm p-button-danger"
-                    pTooltip="Limpiar"
-                    [disabled]="!planillaSelected || !isEditMode"
-                    (click)="limpiarSlot(i)"
-                  ></button>
+                    <input
+                      pInputText
+                      class="slot-desc"
+                      [value]="slot.descripcion"
+                      placeholder="Descripción"
+                      readonly
+                    />
+
+                    <button
+                      pButton
+                      type="button"
+                      class="p-button-rounded p-button-text p-button-sm p-button-danger"
+                      pTooltip="Limpiar"
+                      [disabled]="!planillaSelected || !isEditMode"
+                      (click)="limpiarSlot(i)">
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-        </div>
 
+          </div>
         </div>
-    </div> 
-
       </div>
+
     </div>
   </div>
-
 </div>

@@ -9,21 +9,80 @@
     <p-breadcrumb [model]="items" class="max-w-full"></p-breadcrumb>
     </p-panel>
     
-    <div class="shadow-xl rounded-full surface-card px-4 py-4">
-    <div class="flex justify-content-between align-items-center mb-3">
-      <button pButton type="button"
-                icon="pi pi-plus"
-                class="p-button-sm add-button"
-                (click)="agregarNuevo()"
-                label="Nueva Planilla"
-                pTooltip="Agregar nueva planilla grupo"
-                tooltipPosition="bottom"></button>
+    <div class="shadow-xl rounded-full surface-card px-4 py-4 planilla-grupo-card-spacing">
+    <div class="planilla-grupo-toolbar-row">
+      <div class="planilla-grupo-toolbar">
+        <div class="planilla-grupo-toolbar-left">
+          <button
+            pButton
+            type="button"
+            icon="pi pi-plus"
+            class="p-button-info planilla-grupo-btn"
+            (click)="agregarNuevo()"
+            label="Nueva Planilla"
+            pTooltip="Agregar nueva planilla grupo"
+            tooltipPosition="bottom"
+            [disabled]="hayPlanillaGrupoEditando">
+          </button>
+        </div>
+
+        <div class="planilla-grupo-toolbar-right">
+          <button
+            *ngIf="editingRowIndex === null"
+            pButton
+            type="button"
+            icon="pi pi-pencil"
+            class="p-button-info planilla-grupo-icon-btn"
+            (click)="editarSeleccionado()"
+            [disabled]="!selectedPlanillaGrupo || hayPlanillaGrupoEditando"
+            pTooltip="Editar"
+            tooltipPosition="bottom">
+          </button>
+
+          <button
+            *ngIf="editingRowIndex === null"
+            pButton
+            type="button"
+            icon="pi pi-trash"
+            class="p-button-danger planilla-grupo-icon-btn"
+            (click)="eliminarSeleccionado()"
+            [disabled]="!selectedPlanillaGrupo || hayPlanillaGrupoEditando"
+            pTooltip="Eliminar"
+            tooltipPosition="bottom">
+          </button>
+
+          <button
+            *ngIf="editingRowIndex !== null"
+            pButton
+            type="button"
+            icon="pi pi-check"
+            class="p-button-success planilla-grupo-icon-btn"
+            (click)="guardarSeleccionado()"
+            pTooltip="Guardar"
+            tooltipPosition="bottom">
+          </button>
+
+          <button
+            *ngIf="editingRowIndex !== null"
+            pButton
+            type="button"
+            icon="pi pi-times"
+            class="p-button-danger planilla-grupo-icon-btn"
+            (click)="cancelarSeleccionado()"
+            pTooltip="Cancelar"
+            tooltipPosition="bottom">
+          </button>
+        </div>
+      </div>
     </div>
 
 
     <p-table
       [value]="planillasGrupo"
       [paginator]="true"
+      selectionMode="single"
+      [(selection)]="selectedPlanillaGrupo"
+      datakey="codigo"
       [rows]="10"
       [rowsPerPageOptions]="[5, 10, 20, 50]"
       [showCurrentPageReport]="true"
@@ -40,13 +99,12 @@
           <th style="width: 180px">TipoSueldoDes</th>
           <th style="width: 180px">Frecuencia Pago</th>
           <th style="width: 180px">Control Asistencia</th>
-          <th style="width: 200px; text-align: center">Acciones</th>
         </tr>
       </ng-template>
 
       <!-- Filas -->
       <ng-template pTemplate="body" let-planilla let-rowIndex="rowIndex">
-        <tr>
+        <tr [pSelectableRow]="planilla">
           <!-- Código -->
           <td>
             <input
@@ -120,63 +178,13 @@
             <span *ngIf="!planilla.isEditing">{{ planilla.controlAsistencia }}</span>
           </td>
 
-          <!-- Acciones -->
-          <td class="actions-cell">
-            <div class="action-buttons">
-              <!-- Botón Editar -->
-              <button
-                pButton
-                type="button"
-                icon="pi pi-pencil"
-                class="p-button-rounded p-button-text p-button-sm"
-                (click)="editar(planilla)"
-                pTooltip="Editar"
-                tooltipPosition="top">
-              </button>
-
-              <!-- Botón Eliminar -->
-              <button
-                pButton
-                type="button"
-                icon="pi pi-trash"
-                class="p-button-rounded p-button-text p-button-sm p-button-danger"
-                (click)="eliminar(planilla, rowIndex)"
-                pTooltip="Eliminar"
-                tooltipPosition="top">
-              </button>
-
-              <!-- Botón Cancelar -->
-              <button
-                pButton
-                type="button"
-                icon="pi pi-undo"
-                class="p-button-rounded p-button-text p-button-sm p-button-secondary"
-                (click)="cancelar(planilla, rowIndex)"
-                [disabled]="!planilla.isEditing"
-                pTooltip="Cancelar"
-                tooltipPosition="top">
-              </button>
-
-              <!-- Botón Guardar -->
-              <button
-                pButton
-                type="button"
-                icon="pi pi-save"
-                class="p-button-rounded p-button-text p-button-sm p-button-success"
-                (click)="guardar(planilla, rowIndex)"
-                [disabled]="!planilla.isEditing"
-                pTooltip="Guardar"
-                tooltipPosition="top">
-              </button>
-            </div>
-          </td>
         </tr>
       </ng-template>
 
       <!-- Empty message -->
       <ng-template pTemplate="emptymessage">
         <tr>
-          <td colspan="6" class="text-center empty-message">
+          <td colspan="5" class="text-center empty-message">
             <i class="pi pi-info-circle"></i>
             <p>No se encontraron planillas grupo</p>
           </td>

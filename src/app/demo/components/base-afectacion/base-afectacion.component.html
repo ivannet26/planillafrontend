@@ -10,21 +10,80 @@
     </p-panel>
     
     <div class="shadow-xl rounded-full surface-card px-4 py-4">
-    <div class="flex justify-content-between align-items-center mb-3">
-      <button pButton type="button"
-                icon="pi pi-plus"
-                class="p-button-sm add-button"
-                (click)="agregarNuevo()"
-                label="Nueva Base de Afectación"
-                pTooltip="Agregar nueva base de afectación"
-                tooltipPosition="bottom"></button>
+    <div class="base-afectacion-toolbar-row">
+  <div class="base-afectacion-toolbar">
+    <div class="base-afectacion-toolbar-left">
+      <button
+        pButton
+        type="button"
+        icon="pi pi-plus"
+        class="p-button-info base-afectacion-btn"
+        (click)="agregarNuevo()"
+        label="Nueva Base de Afectación"
+        pTooltip="Agregar nueva base de afectación"
+        tooltipPosition="bottom"
+        [disabled]="hayBaseEditando">
+      </button>
     </div>
+
+    <div class="base-afectacion-toolbar-right">
+      <button
+        *ngIf="editingRowIndex === null"
+        pButton
+        type="button"
+        icon="pi pi-pencil"
+        class="p-button-info base-afectacion-icon-btn"
+        (click)="editarSeleccionado()"
+        [disabled]="!selectedBase || hayBaseEditando"
+        pTooltip="Editar"
+        tooltipPosition="bottom">
+      </button>
+
+      <button
+        *ngIf="editingRowIndex === null"
+        pButton
+        type="button"
+        icon="pi pi-trash"
+        class="p-button-danger base-afectacion-icon-btn"
+        (click)="eliminarSeleccionado()"
+        [disabled]="!selectedBase || hayBaseEditando"
+        pTooltip="Eliminar"
+        tooltipPosition="bottom">
+      </button>
+
+      <button
+        *ngIf="editingRowIndex !== null"
+        pButton
+        type="button"
+        icon="pi pi-check"
+        class="p-button-success base-afectacion-icon-btn"
+        (click)="guardarSeleccionado()"
+        pTooltip="Guardar"
+        tooltipPosition="bottom">
+      </button>
+
+      <button
+        *ngIf="editingRowIndex !== null"
+        pButton
+        type="button"
+        icon="pi pi-times"
+        class="p-button-danger base-afectacion-icon-btn"
+        (click)="cancelarSeleccionado()"
+        pTooltip="Cancelar"
+        tooltipPosition="bottom">
+      </button>
+    </div>
+  </div>
+</div>
 
     <p-table
       #dt
       [value]="basesAfectacion"
       [paginator]="true"
       [rows]="10"
+      selectionMode="single"
+      [(selection)]="selectedBase"
+      dataKey="codigo"
       [rowsPerPageOptions]="[5, 10, 20, 50]"
       [showCurrentPageReport]="true"
       currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} bases de afectación"
@@ -41,13 +100,12 @@
           <th style="width: auto">Alias</th>
           <th style="width: auto">Activo</th>
           <th style="width: auto">Sunat</th>
-          <th style="width: auto">Acciones</th>
         </tr>
       </ng-template>
 
       <!-- Filas -->
       <ng-template pTemplate="body" let-base let-rowIndex="rowIndex">
-        <tr>
+        <tr [pSelectableRow]="base">
           <!-- Código -->
           <td>
             <input
@@ -116,63 +174,13 @@
             </p-checkbox>
           </td>
 
-          <!-- Acciones -->
-          <td class="actions-cell">
-            <div class="action-buttons">
-              <!-- Botón Editar -->
-              <button
-                pButton
-                type="button"
-                icon="pi pi-pencil"
-                class="p-button-rounded p-button-text p-button-sm"
-                (click)="editar(base)"
-                pTooltip="Editar"
-                tooltipPosition="top">
-              </button>
-
-              <!-- Botón Eliminar -->
-              <button
-                pButton
-                type="button"
-                icon="pi pi-trash"
-                class="p-button-rounded p-button-text p-button-sm p-button-danger"
-                (click)="eliminar(base, rowIndex)"
-                pTooltip="Eliminar"
-                tooltipPosition="top">
-              </button>
-
-              <!-- Botón Cancelar -->
-              <button
-                pButton
-                type="button"
-                icon="pi pi-undo"
-                class="p-button-rounded p-button-text p-button-sm p-button-secondary"
-                (click)="cancelar(base, rowIndex)"
-                [disabled]="!base.isEditing"
-                pTooltip="Cancelar"
-                tooltipPosition="top">
-              </button>
-
-              <!-- Botón Guardar -->
-              <button
-                pButton
-                type="button"
-                icon="pi pi-save"
-                class="p-button-rounded p-button-text p-button-sm p-button-success"
-                (click)="guardar(base, rowIndex)"
-                [disabled]="!base.isEditing"
-                pTooltip="Guardar"
-                tooltipPosition="top">
-              </button>
-            </div>
-          </td>
         </tr>
       </ng-template>
 
       <!-- Empty message -->
       <ng-template pTemplate="emptymessage">
         <tr>
-          <td colspan="7" class="text-center empty-message">
+          <td colspan="6" class="text-center empty-message">
             <i class="pi pi-info-circle"></i>
             <p>No se encontraron bases de afectación</p>
           </td>

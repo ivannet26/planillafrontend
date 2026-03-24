@@ -44,6 +44,7 @@ export class BancoComponent implements OnInit {
   globalFilterValue: string = '';
 
   selectedBanco: BancoView | null = null;
+  editingRowIndex: number | null = null;
 
   items: any[] = [];
 
@@ -107,7 +108,9 @@ export class BancoComponent implements OnInit {
     };
 
     this.bancos.unshift(nuevoBanco);
-
+    this.selectedBanco = nuevoBanco;
+    this.editingRowIndex = 0;
+    this.originalBanco = null;
     if (this.table) {
       this.table.first = 0;
     }
@@ -156,8 +159,11 @@ export class BancoComponent implements OnInit {
         banco.activo = this.originalBanco.activo;
       }
       banco.isEditing = false;
-      this.originalBanco = null;
+      banco.isNew = false;
     }
+    this.originalBanco = null;
+    this.editingRowIndex = null;
+    this.selectedBanco = null;
   }
 
   guardar(banco: BancoView, index: number) {
@@ -170,32 +176,36 @@ export class BancoComponent implements OnInit {
       return;
     }
 
-    if (banco.isNew) {
-      const existe = this.bancos.find((b, i) =>
-        i !== index && b.codigo === banco.codigo
-      );
-      if (existe) {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'Ya existe un banco con este código'
-        });
-        return;
-      }
-    }
+    banco.codigo = banco.codigo.trim().toUpperCase();
+    banco.descripcion = banco.descripcion.trim().toUpperCase();
 
-    banco.isEditing = false;
-    banco.isNew = false;
-    this.originalBanco = null;
+    const existe = this.bancos.find((b, i) =>
+    i !== index && b.codigo.trim().toUpperCase() === banco.codigo
+  );
 
+  if (existe) {
     this.messageService.add({
-      severity: 'success',
-      summary: 'Éxito',
-      detail: 'Banco guardado correctamente'
+      severity: 'error',
+      summary: 'Error',
+      detail: 'Ya existe un banco con este código'
     });
+    return;
+  }
 
-    const bancoGuardado = this.bancos.splice(index, 1)[0];
-    this.bancos.push(bancoGuardado);
+  banco.isEditing = false;
+  banco.isNew = false;
+  this.originalBanco = null;
+  this.editingRowIndex = null;
+
+  this.messageService.add({
+    severity: 'success',
+    summary: 'Éxito',
+    detail: 'Banco guardado correctamente'
+  });
+
+  const bancoGuardado = this.bancos.splice(index, 1)[0];
+  this.bancos.push(bancoGuardado);
+  this.selectedBanco = null;
   }
 
   onGlobalFilter(event: Event) {
@@ -219,6 +229,9 @@ export class BancoComponent implements OnInit {
 
   this.originalBanco = { ...banco };
   banco.isEditing = true;
+  banco.isNew = false;
+
+  this.editingRowIndex = this.bancos.findIndex(b => b === banco);
 }
 
 eliminarSeleccionado(): void {
@@ -232,25 +245,21 @@ eliminarSeleccionado(): void {
 }
 
 guardarSeleccionado(): void {
-  const banco = this.selectedBanco;
-  if (!banco || !banco.isEditing) return;
+  if (this.editingRowIndex === null) return;
 
-  const index = this.bancos.findIndex(b => b === banco);
-  if (index === -1) return;
+  const banco = this.bancos[this.editingRowIndex];
+  if (!banco) return;
 
-  this.guardar(banco, index);
-  this.selectedBanco = null;
+  this.guardar(banco, this.editingRowIndex);
 }
 
 cancelarSeleccionado(): void {
-  const banco = this.selectedBanco;
-  if (!banco || !banco.isEditing) return;
+  if (this.editingRowIndex === null) return;
 
-  const index = this.bancos.findIndex(b => b === banco);
-  if (index === -1) return;
+  const banco = this.bancos[this.editingRowIndex];
+  if (!banco) return;
 
-  this.cancelar(banco, index);
-  this.selectedBanco = null;
+  this.cancelar(banco, this.editingRowIndex);
 }
 
 get hayBancoEditando(): boolean {

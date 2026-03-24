@@ -36,6 +36,8 @@ import { PlanillaTipo, PlanillaTipoView } from 'src/app/demo/model/PlanillaTipo'
 export class PlanillaTipoComponent implements OnInit {
   planillasTipo: PlanillaTipoView[] = [];
   originalPlanilla: PlanillaTipoView | null = null;
+  selectedPlanilla: PlanillaTipoView | null = null;
+  editingRowIndex: number | null = null;
 
   items: any[] = [];
 
@@ -89,6 +91,9 @@ export class PlanillaTipoComponent implements OnInit {
       isNew: true
     };
     this.planillasTipo.push(nuevaPlanilla);
+    this.selectedPlanilla = nuevaPlanilla;
+    this.editingRowIndex = 0;
+    this.originalPlanilla = null;
   }
 
   editar(planilla: PlanillaTipoView) {
@@ -104,6 +109,7 @@ export class PlanillaTipoComponent implements OnInit {
 
     this.originalPlanilla = { ...planilla };
     planilla.isEditing = true;
+    planilla.isNew = false;
   }
 
   eliminar(planilla: PlanillaTipoView, index: number) {
@@ -115,6 +121,8 @@ export class PlanillaTipoComponent implements OnInit {
       rejectLabel: 'No',
       accept: () => {
         this.planillasTipo.splice(index, 1);
+        this.selectedPlanilla = null;
+        this.editingRowIndex = null;
         this.messageService.add({
           severity: 'success',
           summary: 'Éxito',
@@ -135,6 +143,10 @@ export class PlanillaTipoComponent implements OnInit {
       planilla.isEditing = false;
       this.originalPlanilla = null;
     }
+
+    this.originalPlanilla = null;
+    this.selectedPlanilla = null;
+    this.editingRowIndex = null;
   }
 
   guardar(planilla: PlanillaTipoView, index: number) {
@@ -147,28 +159,86 @@ export class PlanillaTipoComponent implements OnInit {
       return;
     }
 
-    if (planilla.isNew) {
-      const existe = this.planillasTipo.find((p, i) =>
-        i !== index && p.codigo === planilla.codigo
-      );
-      if (existe) {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'Ya existe una planilla tipo con este código'
-        });
-        return;
-      }
+    planilla.codigo = planilla.codigo.trim().toUpperCase();
+    planilla.descripcion = planilla.descripcion.trim().toUpperCase();
+
+    const existe = this.planillasTipo.find((p, i) =>
+      i !== index && p.codigo.trim().toUpperCase() === planilla.codigo
+    );
+
+    if (existe) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Ya existe una planilla tipo con este código'
+      });
+      return;
     }
 
     planilla.isEditing = false;
     planilla.isNew = false;
     this.originalPlanilla = null;
+    this.editingRowIndex = null;
 
     this.messageService.add({
       severity: 'success',
       summary: 'Éxito',
       detail: 'Planilla tipo guardada correctamente'
     });
+
+    this.selectedPlanilla = null;
+  }
+
+  editarSeleccionado(): void {
+    const planilla = this.selectedPlanilla;
+    if (!planilla) return;
+
+    const editing = this.planillasTipo.find(p => p.isEditing);
+    if (editing && editing !== planilla) {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Advertencia',
+        detail: 'Complete o cancele la edición actual'
+      });
+      return;
+    }
+
+    this.originalPlanilla = { ...planilla };
+    planilla.isEditing = true;
+    planilla.isNew = false;
+
+    this.editingRowIndex = this.planillasTipo.findIndex(p => p === planilla);
+  }
+
+  eliminarSeleccionado(): void {
+    const planilla = this.selectedPlanilla;
+    if (!planilla) return;
+
+    const index = this.planillasTipo.findIndex(p => p === planilla);
+    if (index === -1) return;
+
+    this.eliminar(planilla, index);
+  }
+
+  guardarSeleccionado(): void {
+    if (this.editingRowIndex === null) return;
+
+    const planilla = this.planillasTipo[this.editingRowIndex];
+    if (!planilla) return;
+
+    this.guardar(planilla, this.editingRowIndex);
+  }
+
+  cancelarSeleccionado(): void {
+    if (this.editingRowIndex === null) return;
+
+    const planilla = this.planillasTipo[this.editingRowIndex];
+    if (!planilla) return;
+
+    this.cancelar(planilla, this.editingRowIndex);
+  }
+
+  get hayPlanillaEditando(): boolean {
+    return this.planillasTipo.some(p => !!p.isEditing);
   }
 }

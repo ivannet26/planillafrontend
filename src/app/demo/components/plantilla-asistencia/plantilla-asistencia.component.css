@@ -75,20 +75,29 @@
   font-size: 12px !important;
 }
 
-/* boton */
-:host ::ng-deep .table-plantilla-asistencia .p-button,
-:host ::ng-deep .table-plantilla-asistencia .p-button.p-button-sm {
+:host ::ng-deep .plantilla-btn {
   height: 34px !important;
   font-size: 12px !important;
   padding: 0 0.85rem !important;
   border-radius: 8px !important;
 }
 
-:host ::ng-deep .table-plantilla-asistencia .p-button .p-button-icon,
-:host ::ng-deep .table-plantilla-asistencia .p-button .p-button-label {
+:host ::ng-deep .plantilla-btn .p-button-icon,
+:host ::ng-deep .plantilla-btn .p-button-label {
   font-size: 12px !important;
 }
 
+:host ::ng-deep .plantilla-icon-btn {
+  width: 34px !important;
+  height: 34px !important;
+  min-width: 34px !important;
+  padding: 0 !important;
+  border-radius: 8px !important;
+}
+
+:host ::ng-deep .plantilla-icon-btn .p-button-icon {
+  font-size: 12px !important;
+}
 
 :host ::ng-deep .table-plantilla-asistencia {
   width: 100%;
@@ -213,5 +222,5 @@
 .plantilla-toolbar-right {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.75rem;
 }

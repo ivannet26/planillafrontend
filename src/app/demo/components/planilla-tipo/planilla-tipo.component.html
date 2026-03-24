@@ -11,20 +11,78 @@
     </p-panel>
     
     <div class="shadow-xl rounded-full surface-card px-4 py-4">
-    <div class="flex justify-content-between align-items-center mb-3">
-      <button pButton type="button"
-                icon="pi pi-plus"
-                class="p-button-sm add-button"
-                (click)="agregarNuevo()"
-                label="Nueva Planilla"
-                pTooltip="Agregar nueva planilla tipo"
-                tooltipPosition="bottom"></button>
-    </div>
+      <div class="planilla-tipo-toolbar-row">
+        <div class="planilla-tipo-toolbar">
+        <div class="planilla-tipo-toolbar-left">
+          <button
+            pButton
+            type="button"
+            icon="pi pi-plus"
+            class="p-button-info planilla-tipo-btn"
+            (click)="agregarNuevo()"
+            label="Nueva Planilla"
+            pTooltip="Agregar nueva planilla tipo"
+            tooltipPosition="bottom"
+            [disabled]="hayPlanillaEditando">
+          </button>
+        </div>
 
+        <div class="planilla-tipo-toolbar-right">
+          <button
+            *ngIf="editingRowIndex === null"
+            pButton
+            type="button"
+            icon="pi pi-pencil"
+            class="p-button-info planilla-tipo-icon-btn"
+            (click)="editarSeleccionado()"
+            [disabled]="!selectedPlanilla || hayPlanillaEditando"
+            pTooltip="Editar"
+            tooltipPosition="bottom">
+          </button>
+
+          <button
+            *ngIf="editingRowIndex === null"
+            pButton
+            type="button"
+            icon="pi pi-trash"
+            class="p-button-danger planilla-tipo-icon-btn"
+            (click)="eliminarSeleccionado()"
+            [disabled]="!selectedPlanilla || hayPlanillaEditando"
+            pTooltip="Eliminar"
+            tooltipPosition="bottom">
+          </button>
+
+          <button
+            *ngIf="editingRowIndex !== null"
+            pButton
+            type="button"
+            icon="pi pi-check"
+            class="p-button-success planilla-tipo-icon-btn"
+            (click)="guardarSeleccionado()"
+            pTooltip="Guardar"
+            tooltipPosition="bottom">
+          </button>
+
+          <button
+            *ngIf="editingRowIndex !== null"
+            pButton
+            type="button"
+            icon="pi pi-times"
+            class="p-button-danger planilla-tipo-icon-btn"
+            (click)="cancelarSeleccionado()"
+            pTooltip="Cancelar"
+            tooltipPosition="bottom">
+          </button>
+        </div>
+      </div>
+      </div>
 
     <p-table
       [value]="planillasTipo"
       [paginator]="true"
+      selectionMode="single"
+      [(selection)]="selectedPlanilla"
+      dataKey="codigo"
       [rows]="10"
       [rowsPerPageOptions]="[5, 10, 20, 50]"
       [showCurrentPageReport]="true"
@@ -38,13 +96,12 @@
         <tr>
           <th style="width: 120px">Codigo</th>
           <th>Descripcion</th>
-          <th style="width: 200px; text-align: center">Acciones</th>
         </tr>
       </ng-template>
 
       <!-- Filas -->
       <ng-template pTemplate="body" let-planilla let-rowIndex="rowIndex">
-        <tr>
+        <tr [pSelectableRow]="planilla">
           <!-- Código -->
           <td>
             <input
@@ -70,56 +127,7 @@
             <span *ngIf="!planilla.isEditing">{{ planilla.descripcion }}</span>
           </td>
 
-          <!-- Acciones -->
-          <td class="actions-cell">
-            <div class="action-buttons">
-              <!-- Botón Editar -->
-              <button
-                pButton
-                type="button"
-                icon="pi pi-pencil"
-                class="p-button-rounded p-button-text p-button-sm"
-                (click)="editar(planilla)"
-                pTooltip="Editar"
-                tooltipPosition="top">
-              </button>
 
-              <!-- Botón Eliminar -->
-              <button
-                pButton
-                type="button"
-                icon="pi pi-trash"
-                class="p-button-rounded p-button-text p-button-sm p-button-danger"
-                (click)="eliminar(planilla, rowIndex)"
-                pTooltip="Eliminar"
-                tooltipPosition="top">
-              </button>
-
-              <!-- Botón Cancelar -->
-              <button
-                pButton
-                type="button"
-                icon="pi pi-undo"
-                class="p-button-rounded p-button-text p-button-sm p-button-secondary"
-                (click)="cancelar(planilla, rowIndex)"
-                [disabled]="!planilla.isEditing"
-                pTooltip="Cancelar"
-                tooltipPosition="top">
-              </button>
-
-              <!-- Botón Guardar -->
-              <button
-                pButton
-                type="button"
-                icon="pi pi-save"
-                class="p-button-rounded p-button-text p-button-sm p-button-success"
-                (click)="guardar(planilla, rowIndex)"
-                [disabled]="!planilla.isEditing"
-                pTooltip="Guardar"
-                tooltipPosition="top">
-              </button>
-            </div>
-          </td>
         </tr>
       </ng-template>
 
