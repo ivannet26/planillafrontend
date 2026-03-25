@@ -3,145 +3,161 @@
     <p-confirmDialog></p-confirmDialog>
 
     <div class="mb-2">
-        <p-panel header="CARGOS" styleClass="custom-panel-header shadow-xl rounded-xl mb-3">
+        <p-panel header="Cargo" styleClass="custom-panel-header shadow-xl rounded-xl mb-3">
             <p-breadcrumb [model]="items" class="max-w-full"></p-breadcrumb>
             </p-panel>
 
-            <div class="shadow-xl rounded-full surface-card px-4 py-4">
-            <div class="aligned-content-container">
-                <div class="mb-2 cargo-toolbar-row">
-                    <div class="cargo-toolbar">
-                        <div class="cargo-toolbar-left">
-                            
-                            <button
-                            pButton
-                            type="button"
-                            icon="pi pi-plus"
-                            label="Nuevo"
-                            class="p-button-info cargo-btn"
-                            (click)="agregarCargo()"
-                            pTooltip="Nuevo cargo"
-                            tooltipPosition="bottom"
-                            [disabled]="!!editingCargo"></button>
-                        </div>
-                        
-                        <div class="cargo-toolbar-right">
-                            <button
-                            *ngIf="editingRowIndex === null"
-                            pButton
-                            type="button"
-                            icon="pi pi-pencil"
-                            class="p-button-info cargo-icon-btn"
-                            pTooltip="Editar"
-                            tooltipPosition="bottom"
-                            [disabled]="!selectedCargo || !!editingCargo"
-                            (click)="editarCargoSeleccionado()"></button>
+            <p-panel styleClass="shadow-xl py-2 header-large cargo-content-panel">
+  <div class="content-wrapper cargo-content">
+    <div class="aligned-content-container">
+      <div class="mb-2 cargo-toolbar-row">
+        <div class="cargo-toolbar">
+          <div class="cargo-toolbar-left">
+            <button
+              pButton
+              type="button"
+              icon="pi pi-plus"
+              label="Nuevo"
+              class="p-button-info cargo-btn"
+              (click)="agregarCargo()"
+              pTooltip="Nuevo cargo"
+              tooltipPosition="bottom"
+              [disabled]="!!editingCargo">
+            </button>
+          </div>
 
-                            <button
-                            *ngIf="editingRowIndex === null"
-                            pButton
-                            type="button"
-                            icon="pi pi-trash"
-                            class="p-button-danger cargo-icon-btn"
-                            pTooltip="Eliminar"
-                            tooltipPosition="bottom"
-                            [disabled]="!selectedCargo || !!editingCargo"
-                            (click)="eliminarCargoSeleccionado()"></button>
-                            
-                            
-                            <button
-                            *ngIf="editingRowIndex !== null"
-                            pButton
-                            type="button"
-                            icon="pi pi-check"
-                            class="p-button-success cargo-icon-btn"
-                            pTooltip="Guardar"
-                            tooltipPosition="bottom"
-                            (click)="guardarEdicionSeleccionada()"></button>
+          <div class="cargo-toolbar-right">
+            <button
+              *ngIf="editingRowIndex === null"
+              pButton
+              type="button"
+              icon="pi pi-pencil"
+              class="p-button-info cargo-icon-btn"
+              pTooltip="Editar"
+              tooltipPosition="bottom"
+              [disabled]="!selectedCargo || !!editingCargo"
+              (click)="editarCargoSeleccionado()">
+            </button>
 
-                            <button
-                            *ngIf="editingRowIndex !== null"
-                            pButton
-                            type="button"
-                            icon="pi pi-times"
-                            class="p-button-danger cargo-icon-btn"
-                            pTooltip="Cancelar"
-                            tooltipPosition="bottom"
-                            (click)="cancelarEdicionSeleccionada()">
-                        </button>
-                    </div>
+            <button
+              *ngIf="editingRowIndex === null"
+              pButton
+              type="button"
+              icon="pi pi-trash"
+              class="p-button-danger cargo-icon-btn"
+              pTooltip="Eliminar"
+              tooltipPosition="bottom"
+              [disabled]="!selectedCargo || !!editingCargo"
+              (click)="eliminarCargoSeleccionado()">
+            </button>
+
+            <button
+              *ngIf="editingRowIndex !== null"
+              pButton
+              type="button"
+              icon="pi pi-check"
+              class="p-button-success cargo-icon-btn"
+              pTooltip="Guardar"
+              tooltipPosition="bottom"
+              (click)="guardarEdicionSeleccionada()">
+            </button>
+
+            <button
+              *ngIf="editingRowIndex !== null"
+              pButton
+              type="button"
+              icon="pi pi-times"
+              class="p-button-danger cargo-icon-btn"
+              pTooltip="Cancelar"
+              tooltipPosition="bottom"
+              (click)="cancelarEdicionSeleccionada()">
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="cargo-table-wrapper">
+        <p-table
+          [value]="cargos"
+          [rows]="rowsPerPage"
+          [paginator]="true"
+          responsiveLayout="scroll"
+          [rowsPerPageOptions]="[5, 10, 20, 50]"
+          selectionMode="single"
+          [(selection)]="selectedCargo"
+          dataKey="pla51codigo"
+          styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines cargo-table">
+
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="width: auto; text-align: center;">Código</th>
+              <th style="width: auto; text-align: center;">Descripción</th>
+              <th style="width: auto; text-align: center;">Activo</th>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="body" let-cargo let-ri="rowIndex">
+            <tr [pSelectableRow]="cargo">
+              <td class="text-center">
+                <div *ngIf="editingCargo?.pla51codigo === cargo.pla51codigo; else displayCodigo">
+                  <input
+                    pInputText
+                    type="text"
+                    [(ngModel)]="editingCargo!.pla51codigo"
+                    placeholder="Código"
+                    class="w-full text-sm text-center font-bold"
+                    [disabled]="!isAddMode"
+                    style="text-transform: uppercase;" />
                 </div>
-            </div>
+                <ng-template #displayCodigo>
+                  {{ cargo.pla51codigo.startsWith('TEMP-') ? '---' : cargo.pla51codigo }}
+                </ng-template>
+              </td>
 
-                <div class="cargo-table-wrapper">
-                    <p-table 
-                    [value]="cargos" 
-                    [rows]="rowsPerPage" 
-                    [paginator]="true" 
-                    responsiveLayout="scroll"
-                    [rowsPerPageOptions]="[5, 10, 20, 50]"
-                    selectionMode="single"
-                    [(selection)]="selectedCargo"
-                    dataKey="pla51codigo" 
-                    styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines cargo-table">
-                        <ng-template pTemplate="header">
-                            <tr>
-                                <th style="width: auto; text-align: center;">Código</th>
-                                <th style="width: auto; text-align: center;">Descripción</th>
-                                <th style="width: auto; text-align: center;">Activo</th>
-                            </tr>
-                        </ng-template>
-
-                        <ng-template pTemplate="body" let-cargo let-ri="rowIndex">
-                            <tr [pSelectableRow]="cargo">
-                                <td class="text-center">
-                                    <div *ngIf="editingCargo?.pla51codigo === cargo.pla51codigo; else displayCodigo">
-                                        <input pInputText type="text" [(ngModel)]="editingCargo!.pla51codigo"
-                                            placeholder="Código" class="w-full text-sm text-center font-bold"
-                                            [disabled]="!isAddMode" style="text-transform: uppercase;" />
-                                    </div>
-                                    <ng-template #displayCodigo>
-                                        {{ cargo.pla51codigo.startsWith('TEMP-') ? '---' : cargo.pla51codigo }}
-                                    </ng-template>
-                                </td>
-
-                                <td class="text-center">
-                                    <div
-                                        *ngIf="editingCargo?.pla51codigo === cargo.pla51codigo; else displayDescripcion">
-                                        <input pInputText type="text" [(ngModel)]="editingCargo!.pla51descripcion"
-                                            class="w-full text-sm text-left" />
-                                    </div>
-                                    <ng-template #displayDescripcion>
-                                        {{ cargo.pla51descripcion }}
-                                    </ng-template>
-                                </td>
-
-                                <td class="text-center">
-                                    <div
-                                        *ngIf="editingCargo?.pla51codigo === cargo.pla51codigo; else displayActivoVisual">
-                                        <p-checkbox [binary]="true"
-                                            [(ngModel)]="editingCargo!.pla51flagactivo"></p-checkbox>
-                                    </div>
-
-                                    <ng-template #displayActivoVisual>
-                                        <p-checkbox [binary]="true" [ngModel]="cargo.pla51flagactivo" [disabled]="true"
-                                            [readonly]="true">
-                                        </p-checkbox>
-                                    </ng-template>
-                                </td>
-                            </tr>
-                        </ng-template>
-
-                        <ng-template pTemplate="emptymessage">
-                            <tr>
-                                <td colspan="3" style="text-align: center;">
-                                    No se encontraron cargos.
-                                </td>
-                            </tr>
-                        </ng-template>
-                    </p-table>
+              <td class="text-center">
+                <div *ngIf="editingCargo?.pla51codigo === cargo.pla51codigo; else displayDescripcion">
+                  <input
+                    pInputText
+                    type="text"
+                    [(ngModel)]="editingCargo!.pla51descripcion"
+                    class="w-full text-sm text-left" />
                 </div>
-            </div>
-            </div>
+                <ng-template #displayDescripcion>
+                  {{ cargo.pla51descripcion }}
+                </ng-template>
+              </td>
+
+              <td class="text-center">
+                <div *ngIf="editingCargo?.pla51codigo === cargo.pla51codigo; else displayActivoVisual">
+                  <p-checkbox
+                    [binary]="true"
+                    [(ngModel)]="editingCargo!.pla51flagactivo">
+                  </p-checkbox>
+                </div>
+
+                <ng-template #displayActivoVisual>
+                  <p-checkbox
+                    [binary]="true"
+                    [ngModel]="cargo.pla51flagactivo"
+                    [disabled]="true"
+                    [readonly]="true">
+                  </p-checkbox>
+                </ng-template>
+              </td>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td colspan="3" style="text-align: center;">
+                No se encontraron cargos.
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </div>
+</p-panel>
     </div>
 </div>

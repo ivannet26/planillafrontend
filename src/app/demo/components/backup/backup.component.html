@@ -1,15 +1,14 @@
 <p-toast></p-toast>
 
-<p-panel header="Generar Backup Base Datos">
-  <p-breadcrumb [model]="items"></p-breadcrumb>
+<p-panel header="Generar Backup Base Datos" styleClass="shadow-xl rounded-xl mb-3">
+  <p-breadcrumb [model]="items" class="max-w-full"></p-breadcrumb>
 </p-panel>
 
-<div class="surface-card shadow-2 border-round-xl px-4 py-4 mt-3">
+<div class="surface-card shadow-2 border-round-xl backup-card mt-3">
   <div class="grid gap-3">
 
-    <!-- Ruta -->
     <div class="col-12 lg:col-6">
-      <label class="block mb-2 font-medium">Ruta</label>
+      <label class="backup-label">Ruta</label>
 
       <div class="p-inputgroup w-full">
         <input
@@ -18,47 +17,49 @@
           [(ngModel)]="ruta"
           placeholder="Seleccionar carpeta destino"
           readonly
-          class="w-full"
+          class="w-full backup-input"
         />
         <button
           pButton
           type="button"
           icon="pi pi-ellipsis-h"
-          class="p-button-outlined"
+          class="p-button-outlined backup-route-btn"
           (click)="seleccionarCarpeta()"
           aria-label="Seleccionar ruta"
         ></button>
       </div>
     </div>
 
-    <!-- Nombre -->
     <div class="col-12 lg:col-6">
-      <label class="block mb-2 font-medium">Nombre</label>
+      <label class="backup-label">Nombre</label>
       <input
         pInputText
         type="text"
         [(ngModel)]="nombre"
         placeholder="Ej: BckMasterpla"
-        class="w-full"
+        class="w-full backup-input"
       />
     </div>
 
   </div>
 
-  <div class="flex justify-content-end gap-2 mt-4">
-    <button 
-    pButton type="button" 
-    label="Limpiar" 
-    class="p-button-outlined" 
-    (click)="limpiar()"
-    icon="pi pi-refresh">
+  <div class="backup-actions">
+    <button
+      pButton
+      type="button"
+      label="Limpiar"
+      class="p-button-outlined backup-action-btn"
+      (click)="limpiar()"
+      icon="pi pi-refresh">
     </button>
 
-    <button 
-    pButton type="button" 
-    label="Generar Backup" 
-    (click)="generarBackupMock()"
-    icon="pi pi-save">
+    <button
+      pButton
+      type="button"
+      label="Generar Backup"
+      class="backup-action-btn"
+      (click)="generarBackupMock()"
+      icon="pi pi-save">
     </button>
   </div>
 </div>

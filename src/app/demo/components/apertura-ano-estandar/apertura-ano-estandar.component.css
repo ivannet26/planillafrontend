@@ -1,0 +1,85 @@
+.apertura-card {
+  padding: 1rem !important;
+}
+
+/* Panel */
+:host ::ng-deep .p-panel .p-panel-header {
+  font-size: 15px !important;
+  padding: 0.85rem 1rem !important;
+}
+
+:host ::ng-deep .p-panel .p-panel-content {
+  padding: 0.9rem 1rem !important;
+}
+
+/* Breadcrumb */
+:host ::ng-deep .p-breadcrumb {
+  font-size: 12px !important;
+  padding: 0.5rem 0.75rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb .p-menuitem-link {
+  padding: 0 !important;
+  gap: 0.35rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb .pi {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .p-breadcrumb .p-breadcrumb-chevron {
+  font-size: 11px !important;
+}
+
+
+.apertura-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  max-width: 280px;
+}
+
+.apertura-label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 12px !important;
+  font-weight: 600;
+  color: #374151;
+}
+
+/* Inputs */
+:host ::ng-deep .apertura-input {
+  height: 34px !important;
+  font-size: 12px !important;
+  padding: 0.45rem 0.65rem !important;
+}
+
+/* Boton */
+.apertura-button-row {
+  margin-top: 0.15rem;
+}
+
+:host ::ng-deep .apertura-save-btn {
+  height: 30px !important;
+  min-height: 30px !important;
+  padding: 0 0.7rem !important;
+  font-size: 12px !important;
+  border-radius: 8px !important;
+}
+
+:host ::ng-deep .apertura-save-btn .p-button-icon {
+  font-size: 12px !important;
+  margin-right: 0.4rem !important;
+}
+
+:host ::ng-deep .apertura-save-btn .p-button-label {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+}
+
+.apertura-warning {
+  margin-top: 0.35rem;
+  font-size: 12px !important;
+  line-height: 1.35 !important;
+  color: #d32f2f;
+}

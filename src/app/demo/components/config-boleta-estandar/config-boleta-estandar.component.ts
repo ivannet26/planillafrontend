@@ -153,7 +153,7 @@ export class ConfigBoletaEstandarComponent {
   }
 
   activarEdicion(planilla: any) {
-    if (!this.planillaSelected) return;
+    if (!planilla) return;
 
     if (this.planillaSelected.codigo !== planilla.codigo) {
       this.messageService.add({
@@ -164,65 +164,78 @@ export class ConfigBoletaEstandarComponent {
       return;
     }
 
+    this.planillaSelected = planilla;
     this.isEditMode = true;
     this.editingPlanillaCodigo = planilla.codigo;
   }
 
   guardarEdicionMock() {
-  if (!this.planillaSelected || !this.isEditMode) return;
+    if (!this.planillaSelected || !this.isEditMode) return;
 
-  const payload = {
-    planilla: this.planillaSelected.codigo,
-    asignados: this.slots
-      .filter(s => s.codigoSeleccionado)
-      .map(s => ({
-        codigo: s.codigoSeleccionado,
-        descripcion: s.descripcion
-      }))
-  };
+    const payload = {
+      planilla: this.planillaSelected.codigo,
+      asignados: this.slots
+        .filter(s => s.codigoSeleccionado)
+        .map(s => ({
+          codigo: s.codigoSeleccionado,
+          descripcion: s.descripcion
+        }))
+    };
 
-  console.log('GUARDAR CONFIG MOCK =>', payload);
 
-  this.messageService.add({
-    severity: 'success',
-    summary: 'Éxito',
-    detail: `Configuración guardada para ${this.planillaSelected.codigo} (mock).`
-  });
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Éxito',
+      detail: `Configuración guardada para ${this.planillaSelected.codigo} (mock).`
+    });
 
-  this.isEditMode = false;
-  this.editingPlanillaCodigo = null;
-}
+    this.isEditMode = false;
+    this.editingPlanillaCodigo = null;
+  }
 
   eliminarPlanillaMock(planilla: any) {
-  this.confirmationService.confirm({
-    message: `¿Está seguro de eliminar la configuración de la planilla ${planilla.codigo}?`,
-    header: 'Confirmar Eliminación',
-    icon: 'pi pi-exclamation-triangle',
-    acceptLabel: 'Sí',
-    rejectLabel: 'No',
-    acceptButtonStyleClass: 'p-button-danger',
-    rejectButtonStyleClass: 'p-button',
+    this.confirmationService.confirm({
+      message: `¿Está seguro de eliminar la configuración de la planilla ${planilla.codigo}?`,
+      header: 'Confirmar Eliminación',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Sí',
+      rejectLabel: 'No',
+      acceptButtonStyleClass: 'p-button-danger',
+      rejectButtonStyleClass: 'p-button',
 
-    accept: () => {
-      this.planillaList = this.planillaList.filter(p => p.codigo !== planilla.codigo);
+      accept: () => {
+        this.planillaList = this.planillaList.filter(p => p.codigo !== planilla.codigo);
 
-      if (this.planillaSelected?.codigo === planilla.codigo) {
-        this.planillaSelected = null;
-        this.slots.forEach(s => {
-          s.codigoSeleccionado = null;
-          s.descripcion = '';
+        if (this.planillaSelected?.codigo === planilla.codigo) {
+          this.planillaSelected = null;
+
+          this.slots.forEach(s => {
+            s.codigoSeleccionado = null;
+            s.descripcion = '';
+          });
+
+          this.isEditMode = false;
+          this.editingPlanillaCodigo = null;
+        }
+
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Éxito',
+          detail: `Configuración ${planilla.codigo} eliminada (mock)`
         });
-        this.isEditMode = false;
-        this.editingPlanillaCodigo = null;
       }
+    });
+  }
 
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Éxito',
-        detail: `Configuración ${planilla.codigo} eliminada (mock).`
-      });
-    }
-  });
-}
+
+  editarSeleccionado() {
+    if (!this.planillaSelected) return;
+    this.activarEdicion(this.planillaSelected);
+  }
+
+  eliminarSeleccionado() {
+    if (!this.planillaSelected) return;
+    this.eliminarPlanillaMock(this.planillaSelected);
+  }
 
 }

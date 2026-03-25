@@ -1,0 +1,81 @@
+
+:host ::ng-deep .p-panel .p-panel-header {
+  font-size: 15px !important;
+  padding: 0.85rem 1rem !important;
+}
+
+:host ::ng-deep .p-panel .p-panel-content {
+  padding: 0.9rem 1rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb {
+  font-size: 12px !important;
+  padding: 0.5rem 0.75rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb .p-menuitem-link {
+  padding: 0 !important;
+  gap: 0.35rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb .pi {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .p-breadcrumb .p-breadcrumb-chevron {
+  font-size: 11px !important;
+}
+
+.backup-card {
+  padding: 1rem !important;
+}
+
+
+.backup-label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-size: 12px !important;
+  font-weight: 600;
+  color: #374151;
+}
+
+:host ::ng-deep .backup-input {
+  height: 34px !important;
+  font-size: 12px !important;
+  padding: 0.45rem 0.65rem !important;
+}
+
+
+:host ::ng-deep .backup-route-btn {
+  width: 34px !important;
+  min-width: 34px !important;
+  height: 34px !important;
+  padding: 0 !important;
+}
+
+:host ::ng-deep .backup-route-btn .p-button-icon {
+  font-size: 12px !important;
+}
+
+.backup-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+:host ::ng-deep .backup-action-btn {
+  height: 34px !important;
+  padding: 0 0.85rem !important;
+  font-size: 12px !important;
+  border-radius: 8px !important;
+}
+
+:host ::ng-deep .backup-action-btn .p-button-icon,
+:host ::ng-deep .backup-action-btn .p-button-label {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .backup-action-btn .p-button-label {
+  font-weight: 600;
+}

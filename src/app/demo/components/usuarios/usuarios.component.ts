@@ -180,6 +180,7 @@ this.bS.setBreadcrumbs([
       return;
     }
 
+    this.selectedUsuario = usuario;
     this.originalUsuario = { ...usuario };
     usuario.isEditing = true;
   }
@@ -258,8 +259,48 @@ this.bS.setBreadcrumbs([
     });
   }
 
+  get editingUsuario(): UsuarioView | null {
+    return this.usuarios.find(u => u.isEditing) || null;
+  }
+
+  editarSeleccionado() {
+    if (!this.selectedUsuario) return;
+    this.editar(this.selectedUsuario); 
+  }
+
+  eliminarSeleccionado() {
+    if (!this.selectedUsuario) return;
+
+    const index = this.usuarios.findIndex(u => u.id === this.selectedUsuario?.id);
+    if (index === -1) return;
+
+    this.eliminar(this.selectedUsuario, index);
+  }
+
+  cancelarSeleccionado() {
+    const usuario = this.editingUsuario;
+    if (!usuario) return;
+
+    const index = this.usuarios.findIndex(u => u === usuario);
+    if (index === -1) return;
+
+    this.cancelar(usuario, index);
+  }
+
+  guardarSeleccionado() {
+    const usuario = this.editingUsuario;
+    if (!usuario) return;
+
+    const index = this.usuarios.findIndex(u => u === usuario);
+    if (index === -1) return;
+
+    this.guardar(usuario, index);
+  }
+
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
   }
+
+
 }

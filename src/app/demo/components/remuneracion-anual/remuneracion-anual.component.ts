@@ -121,8 +121,31 @@ export class RemuneracionAnualComponent implements OnInit{
       
       accept: () => {
         this.remuneracionList = this.remuneracionList.filter(x => x.codigo !== row.codigo);
-        this.messageService.add({ severity: 'success', summary: 'Eliminado', detail: 'Registro eliminado', life: 2000 });
+        
+        if (this.selectedRow?.codigo === row.codigo) {
+          this.selectedRow = undefined;
+        }
+
+        if (this.selectedRemu?.codigo === row.codigo) {
+          this.closePreview();
+        }
+
+        this.messageService.add({ 
+          severity: 'success', 
+          summary: 'Eliminado', 
+          detail: 'Registro eliminado', 
+          life: 2000 });
       }
     });
+  }
+
+  verSeleccionado() {
+    if (!this.selectedRow) return;
+    this.openPreview(this.selectedRow);
+  }
+ 
+  eliminarSeleccionado() {
+    if (!this.selectedRow) return;
+    this.confirmEliminar(this.selectedRow);
   }
 }

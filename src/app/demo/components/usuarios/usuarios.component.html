@@ -22,13 +22,69 @@
   -->
 
   <div class="table-wrapper">
-    <button pButton type="button"
-              icon="pi pi-plus"
-              class="p-button-sm add-button mb-2"
-              (click)="agregarNuevo()"
-              label="Nuevo Usuario" 
-              pTooltip="Agregar nuevo usuario"
-              tooltipPosition="bottom"></button>
+    <div class="usuarios-toolbar-row">
+    <div class="usuarios-toolbar-left">
+      <button
+        pButton
+        type="button"
+        icon="pi pi-plus"
+        class="p-button-sm add-button usuarios-top-btn"
+        (click)="agregarNuevo()"
+        label="Nuevo Usuario"
+        pTooltip="Agregar nuevo usuario"
+        tooltipPosition="bottom">
+      </button>
+    </div>
+
+    <div class="usuarios-toolbar-right">
+      <button
+        *ngIf="!editingUsuario"
+        pButton
+        type="button"
+        icon="pi pi-pencil"
+        class="p-button-warning table-action-btn"
+        (click)="editarSeleccionado()"
+        [disabled]="!selectedUsuario"
+        pTooltip="Editar seleccionado"
+        tooltipPosition="bottom">
+      </button>
+
+      <button
+        *ngIf="!editingUsuario"
+        pButton
+        type="button"
+        icon="pi pi-trash"
+        class="p-button-danger table-action-btn"
+        (click)="eliminarSeleccionado()"
+        [disabled]="!selectedUsuario"
+        pTooltip="Eliminar seleccionado"
+        tooltipPosition="bottom">
+      </button>
+
+      <button
+        *ngIf="editingUsuario"
+        pButton
+        type="button"
+        icon="pi pi-undo"
+        class="p-button-secondary table-action-btn"
+        (click)="cancelarSeleccionado()"
+        pTooltip="Cancelar"
+        tooltipPosition="bottom">
+      </button>
+
+      <button
+        *ngIf="editingUsuario"
+        pButton
+        type="button"
+        icon="pi pi-save"
+        class="p-button-success table-action-btn"
+        (click)="guardarSeleccionado()"
+        pTooltip="Guardar"
+        tooltipPosition="bottom">
+      </button>
+    </div>
+  </div>
+
 
     <p-table
       [value]="usuarios"
@@ -41,7 +97,7 @@
       [(selection)]="selectedUsuario"
       (onRowSelect)="onUsuarioSelect($event)"
       dataKey="id"
-      styleClass="usuarios-table">
+      styleClass="usuarios-table empresas-table">
 
       <ng-template pTemplate="header">
         <tr>
@@ -49,13 +105,12 @@
           <th style="width: auto">Nombre</th>
           <th style="width: auto">Clave</th>
           <th>Perfil</th>
-          <th style="width: 200px; text-align: center">Acciones</th>
         </tr>
       </ng-template>
 
       <ng-template pTemplate="body" let-usuario let-rowIndex="rowIndex">
         <tr [pSelectableRow]="usuario" [pSelectableRowDisabled]="usuario.isEditing">
-          <td>
+          <td >
             <input
               *ngIf="usuario.isEditing"
               type="text"
@@ -106,44 +161,12 @@
             </p-dropdown>
             <span *ngIf="!usuario.isEditing">{{ usuario.perfil }}</span>
           </td>
-
-          <td class="actions-cell">
-            <div class="action-buttons">
-              <button *ngIf="!usuario.isEditing"
-                pButton type="button" icon="pi pi-pencil"
-                class="p-button-rounded p-button-text p-button-sm p-button-warning"
-                (click)="editar(usuario)"
-                pTooltip="Editar" tooltipPosition="top">
-              </button>
-
-              <button *ngIf="!usuario.isEditing"
-                pButton type="button" icon="pi pi-trash"
-                class="p-button-rounded p-button-text p-button-sm p-button-danger"
-                (click)="eliminar(usuario, rowIndex)"
-                pTooltip="Eliminar" tooltipPosition="top">
-              </button>
-
-              <button *ngIf="usuario.isEditing"
-                pButton type="button" icon="pi pi-undo"
-                class="p-button-rounded p-button-text p-button-sm p-button-secondary"
-                (click)="cancelar(usuario, rowIndex)"
-                pTooltip="Cancelar" tooltipPosition="top">
-              </button>
-
-              <button *ngIf="usuario.isEditing"
-                pButton type="button" icon="pi pi-save"
-                class="p-button-rounded p-button-text p-button-sm p-button-success"
-                (click)="guardar(usuario, rowIndex)"
-                pTooltip="Guardar" tooltipPosition="top">
-              </button>
-            </div>
-          </td>
         </tr>
       </ng-template>
 
       <ng-template pTemplate="emptymessage">
         <tr>
-          <td colspan="5" class="text-center empty-message">No se encontraron usuarios</td>
+          <td colspan="4" class="text-center empty-message">No se encontraron usuarios</td>
         </tr>
       </ng-template>
     </p-table>
@@ -156,7 +179,8 @@
       [value]="empresasUsuario"
       [paginator]="true"
       [rows]="5"
-      [tableStyle]="{ 'min-width': '100%' }">
+      [tableStyle]="{ 'min-width': '100%' }"
+      styleClass="empresas-table p-datatable-sm p-datatable-striped p-datatable-gridlines">
 
       <ng-template pTemplate="header">
         <tr>

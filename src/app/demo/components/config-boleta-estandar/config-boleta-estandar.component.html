@@ -12,57 +12,59 @@
 
       <div class="grid gap">
 
-        <!-- IZQUIERDA -->
-        <div class="col-12 lg:col-4">
-          <p-table
-            [value]="planillaList"
-            dataKey="codigo"
-            selectionMode="single"
-            [(selection)]="planillaSelected"
-            (onRowSelect)="onSelectPlanilla()"
-            responsiveLayout="scroll"
-            [paginator]="false"
-            styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines"
-          >
-            <ng-template pTemplate="header">
-              <tr>
-                <th style="width: 30%; text-align:center;">Código</th>
-                <th style="text-align:center;">Descripción</th>
-                <th style="width: 20%; text-align:center;">Acciones</th>
-              </tr>
-            </ng-template>
+        <div class="boleta-toolbar-row">
+            <div class="boleta-toolbar-right">
+              <button
+              pButton
+              type="button"
+              icon="pi pi-pencil"
+              class="p-button-info table-action-btn"
+              pTooltip="Editar seleccionado"
+              tooltipPosition="bottom"
+              (click)="editarSeleccionado()"
+              [disabled]="!planillaSelected || isEditMode"></button>
+              
+              <button
+              pButton
+              type="button"
+              icon="pi pi-trash"
+              class="p-button-danger table-action-btn"
+              pTooltip="Eliminar seleccionado"
+              tooltipPosition="bottom"
+              (click)="eliminarSeleccionado()"
+              [disabled]="!planillaSelected || isEditMode"></button>
+            </div>
+          </div>
 
-            <ng-template pTemplate="body" let-p>
-              <tr [pSelectableRow]="p">
-                <td style="text-align:center;">{{ p.codigo }}</td>
-                <td>{{ p.descripcion }}</td>
-                <td style="text-align:center;">
-                    <div class="flex justify-content-center gap-2">
-                        <button
-                        pButton
-                        type="button"
-                        icon="pi pi-pencil"
-                        class="p-button-rounded p-button-text p-button-sm"
-                        pTooltip="Editar"
-                        (click)="activarEdicion(p)"
-                        [disabled]="!planillaSelected || isEditMode || planillaSelected?.codigo !== p.codigo"
-                        ></button>
-                        
-                        <button
-                        pButton
-                        type="button"
-                        icon="pi pi-trash"
-                        class="p-button-rounded p-button-text p-button-sm p-button-danger"
-                        pTooltip="Eliminar"
-                        (click)="eliminarPlanillaMock(p)"
-                        [disabled]="isEditMode"
-                        ></button>
-                    </div>
-                </td>
-              </tr>
-            </ng-template>
-          </p-table>
-        </div>
+        <!-- IZQUIERDA -->
+         <div class="col-12 lg:col-4">
+          
+          
+          <p-table
+          [value]="planillaList"
+          dataKey="codigo"
+          selectionMode="single"
+          [(selection)]="planillaSelected"
+          (onRowSelect)="onSelectPlanilla()"
+          responsiveLayout="scroll"
+          [paginator]="false"
+          styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
+    
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="width: 30%; text-align:center;">Código</th>
+              <th style="text-align:center;">Descripción</th>
+            </tr>
+          </ng-template>
+          
+          <ng-template pTemplate="body" let-p>
+            <tr [pSelectableRow]="p">
+              <td style="text-align:center;">{{ p.codigo }}</td>
+              <td>{{ p.descripcion }}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
 
         <div class="col-12 lg:col-8">
 
@@ -74,7 +76,7 @@
                 pButton
                 icon="pi pi-save"
                 label="Guardar"
-                class="p-button-success p-button-sm"
+                class="p-button-success p-button-sm save-btn"
                 [disabled]="!planillaSelected || !isEditMode"
                 (click)="guardarMock()"
               ></button>

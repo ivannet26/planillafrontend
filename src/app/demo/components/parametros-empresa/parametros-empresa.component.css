@@ -1,11 +1,10 @@
-/* panel */
 :host ::ng-deep .p-panel .p-panel-header {
   font-size: 15px !important;
-  padding: 0.8rem 1rem !important;
+  padding: 0.85rem 1rem !important;
 }
 
 :host ::ng-deep .p-panel .p-panel-content {
-  padding: 0.8rem 0.9rem !important;
+  padding: 0.9rem 1rem !important;
 }
 
 /* breadcrumb */
@@ -25,12 +24,6 @@
 
 :host ::ng-deep .p-breadcrumb .p-breadcrumb-chevron {
   font-size: 11px !important;
-}
-
-/* card */
-:host ::ng-deep .surface-card {
-  padding: 0.9rem 1rem !important;
-  border-radius: 16px !important;
 }
 
 
@@ -172,13 +165,14 @@
 }
 
 .parametros-empresa-toolbar-row {
-  margin-bottom: 0.75rem !important;
+  margin-bottom: 0.85rem !important;
 }
 
 .parametros-empresa-toolbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
   gap: 0.75rem;
 }
 
@@ -186,7 +180,7 @@
 .parametros-empresa-toolbar-right {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.65rem;
 }
 
 :host ::ng-deep .parametros-empresa-btn {
@@ -211,4 +205,24 @@
 
 :host ::ng-deep .parametros-empresa-icon-btn .p-button-icon {
   font-size: 12px !important;
+}
+
+
+:host ::ng-deep .header-large .p-panel-header {
+  display: none !important;
+}
+
+:host ::ng-deep .header-large .p-panel-content {
+  border-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+:host ::ng-deep .content-wrapper {
+  overflow-x: auto;
+  width: 100%;
+  max-width: 100%;
+}
+
+.parametros-empresa-content {
+  padding: 1rem 1rem 0.75rem 1rem;
 }

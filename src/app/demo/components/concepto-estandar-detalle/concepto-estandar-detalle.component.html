@@ -1,29 +1,35 @@
 <div class="concepto-detalle-container">
   <p-toast></p-toast>
 
-  <!-- Header con breadcrumb -->
-  <div class="page-header">
-    <div class="breadcrumb">
-      <button pButton type="button" icon="pi pi-arrow-left" class="p-button-text p-button-sm"
-        (click)="volver()" pTooltip="Volver" tooltipPosition="bottom"></button>
-      <span class="breadcrumb-text">Concepto Estandar</span>
-      <i class="pi pi-angle-right breadcrumb-separator"></i>
-      <span class="breadcrumb-text">{{ getTitulo() }}</span>
-    </div>
-    <div class="header-actions" *ngIf="!esModoVisualizacion">
-      <button pButton type="button" label="Guardar" icon="pi pi-check"
-        class="p-button-success p-button-sm" (click)="guardarConcepto()"></button>
-      <button pButton type="button" label="Cancelar" icon="pi pi-times"
-        class="p-button-secondary p-button-sm" (click)="volver()"></button>
-    </div>
-    <div class="header-actions" *ngIf="esModoVisualizacion">
-      <button pButton type="button" label="Cerrar" icon="pi pi-times"
-        class="p-button-secondary p-button-sm" (click)="volver()"></button>
-    </div>
-  </div>
+  <p-panel [header]="getTitulo()" styleClass="shadow-xl rounded-xl mb-2 detalle-top-panel">
+    <p-breadcrumb [model]="items" class="max-w-full detalle-breadcrumb"></p-breadcrumb>
+  </p-panel>
+
 
   <!-- Contenido del formulario -->
   <div class="form-container">
+    <div class="detalle-toolbar-row">
+      <div class="detalle-toolbar-left">
+        <button
+        pButton
+        type="button"
+        icon="pi pi-arrow-left"
+        label="Regresar"
+        class="p-button-secondary detalle-regresar-btn"
+        (click)="volver()"></button>
+      </div>
+      
+      <div class="detalle-toolbar-right" *ngIf="!esModoVisualizacion">
+        <button
+        pButton
+        type="button"
+        icon="pi pi-check"
+        label="Guardar"
+        class="p-button-success detalle-guardar-btn"
+        (click)="guardarConcepto()"></button>
+      </div>
+    </div>
+  
     <div class="concepto-detalle">
       <!-- Información básica -->
       <div class="info-basica">

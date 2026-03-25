@@ -1,10 +1,205 @@
-::ng-deep .table-sub-tipo-planilla {
-  width: fit-content;
+/* panel */
+:host ::ng-deep .p-panel .p-panel-header {
+  font-size: 15px !important;
+  padding: 0.85rem 1rem !important;
+}
+
+:host ::ng-deep .p-panel .p-panel-content {
+  padding: 0.9rem 1rem !important;
+}
+
+/* breadcrumb */
+:host ::ng-deep .p-breadcrumb {
+  font-size: 12px !important;
+  padding: 0.5rem 0.75rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb .p-menuitem-link {
+  padding: 0 !important;
+  gap: 0.35rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb .pi {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .p-breadcrumb .p-breadcrumb-chevron {
+  font-size: 11px !important;
+}
+
+
+/* tabla */
+:host ::ng-deep .table-sub-tipo-planilla {
+  width: 100%;
   max-width: 100%;
 }
 
-::ng-deep .table-sub-tipo-planilla {
+:host ::ng-deep .table-sub-tipo-planilla table {
   border-collapse: collapse;
-  width: auto !important;
+  width: 100% !important;
   table-layout: auto;
+}
+
+:host ::ng-deep .table-sub-tipo-planilla .p-datatable-thead > tr > th {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  padding: 0.5rem 0.55rem !important;
+  line-height: 1.2 !important;
+  text-align: center !important;
+  white-space: nowrap;
+}
+
+:host ::ng-deep .table-sub-tipo-planilla .p-datatable-tbody > tr > td,
+:host ::ng-deep .table-sub-tipo-planilla .p-datatable-tfoot > tr > td {
+  font-size: 12px !important;
+  padding: 0.45rem 0.55rem !important;
+  line-height: 1.2 !important;
+  vertical-align: middle !important;
+}
+
+
+:host ::ng-deep .table-sub-tipo-planilla .p-inputtext {
+  height: 32px !important;
+  font-size: 12px !important;
+  padding: 0.35rem 0.5rem !important;
+}
+
+/* dropdown */
+:host ::ng-deep .table-sub-tipo-planilla .p-dropdown {
+  height: 32px !important;
+  font-size: 12px !important;
+  min-width: unset !important;
+}
+
+:host ::ng-deep .table-sub-tipo-planilla .p-dropdown .p-dropdown-label {
+  display: flex !important;
+  align-items: center !important;
+  height: 32px !important;
+  font-size: 12px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+:host ::ng-deep .table-sub-tipo-planilla .p-dropdown .p-dropdown-trigger {
+  width: 32px !important;
+}
+
+/* checkbox */
+:host ::ng-deep .table-sub-tipo-planilla .p-checkbox {
+  transform: scale(0.9);
+}
+
+:host ::ng-deep .table-sub-tipo-planilla .p-button-rounded,
+:host ::ng-deep .table-sub-tipo-planilla .p-button.p-button-sm {
+  width: 30px !important;
+  height: 30px !important;
+  min-width: 30px !important;
+  padding: 0 !important;
+}
+
+:host ::ng-deep .table-sub-tipo-planilla .p-button-rounded .p-button-icon,
+:host ::ng-deep .table-sub-tipo-planilla .p-button.p-button-sm .p-button-icon {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .table-sub-tipo-planilla .grid {
+  gap: 0.2rem 0.3rem !important;
+}
+
+:host ::ng-deep .table-sub-tipo-planilla .col-2,
+:host ::ng-deep .table-sub-tipo-planilla .col-4 {
+  padding: 0.2rem !important;
+}
+
+:host ::ng-deep .table-sub-tipo-planilla .p-paginator {
+  font-size: 12px !important;
+  padding: 0.45rem 0.6rem !important;
+}
+
+:host ::ng-deep .table-sub-tipo-planilla .p-paginator .p-paginator-pages .p-paginator-page,
+:host ::ng-deep .table-sub-tipo-planilla .p-paginator .p-dropdown,
+:host ::ng-deep .table-sub-tipo-planilla .p-paginator .p-dropdown-label,
+:host ::ng-deep .table-sub-tipo-planilla .p-paginator .p-paginator-current,
+:host ::ng-deep .table-sub-tipo-planilla .p-paginator .p-paginator-first,
+:host ::ng-deep .table-sub-tipo-planilla .p-paginator .p-paginator-prev,
+:host ::ng-deep .table-sub-tipo-planilla .p-paginator .p-paginator-next,
+:host ::ng-deep .table-sub-tipo-planilla .p-paginator .p-paginator-last {
+  font-size: 12px !important;
+}
+
+/* tooltip */
+:host ::ng-deep .p-tooltip .p-tooltip-text {
+  font-size: 11px !important;
+  padding: 0.3rem 0.45rem !important;
+  line-height: 1.15 !important;
+}
+
+:host ::ng-deep .p-tooltip {
+  max-width: 160px !important;
+}
+
+:host ::ng-deep .p-tooltip .p-tooltip-arrow {
+  transform: scale(0.8);
+}
+
+.subtipo-toolbar-row {
+  margin-bottom: 0.85rem !important;
+}
+
+.subtipo-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 0.75rem;
+}
+
+.subtipo-toolbar-left,
+.subtipo-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+:host ::ng-deep .subtipo-btn {
+  height: 34px !important;
+  font-size: 12px !important;
+  padding: 0 0.85rem !important;
+  border-radius: 8px !important;
+}
+
+:host ::ng-deep .subtipo-btn .p-button-icon,
+:host ::ng-deep .subtipo-btn .p-button-label {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .subtipo-icon-btn {
+  width: 34px !important;
+  height: 34px !important;
+  min-width: 34px !important;
+  padding: 0 !important;
+  border-radius: 8px !important;
+}
+
+:host ::ng-deep .subtipo-icon-btn .p-button-icon {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .header-large .p-panel-header {
+  display: none !important;
+}
+
+:host ::ng-deep .header-large .p-panel-content {
+  border-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+:host ::ng-deep .content-wrapper {
+  overflow-x: auto;
+  width: 100%;
+  max-width: 100%;
+}
+
+.subtipo-content {
+  padding: 1rem 1rem 0.75rem 1rem;
 }

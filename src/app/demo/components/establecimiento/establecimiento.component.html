@@ -7,180 +7,182 @@
             <p-breadcrumb [model]="items" class="max-w-full"></p-breadcrumb>
             </p-panel>
 
-            <div class="shadow-xl rounded-full surface-card px-4 py-4">
-            <div class="aligned-content-container">
-                <div class="mb-2 establecimiento-toolbar-row">
+            <p-panel styleClass="shadow-xl py-2 header-large establecimiento-content-panel">
+              <div class="content-wrapper establecimiento-content">
+                <div class="aligned-content-container">
+                  <div class="mb-2 establecimiento-toolbar-row">
                     <div class="establecimiento-toolbar">
+
+                      <div class="establecimiento-toolbar-left">
+
+                        <button
+                        pButton
+                        type="button"
+                        label="Nuevo"
+                        icon="pi pi-plus"
+                        class="p-button-sm establecimiento-btn"
+                        (click)="agregarEstablecimiento()"
+                        [disabled]="editingRowIndex !== null"></button>
+                      </div>
+
+                      <div class="establecimiento-toolbar-right">
+                        <button
+                        *ngIf="editingRowIndex === null"
+                        pButton
+                        type="button"
+                        icon="pi pi-pencil"
+                        class="p-button-sm establecimiento-icon-btn"
+                        pTooltip="Editar"
+                        tooltipPosition="bottom"
+                        [disabled]="!selectedEstablecimiento"
+                        (click)="editarEstablecimientoSeleccionado()"></button>
                         
-                        <div class="establecimiento-toolbar-left">
-                            <button
-                            pButton
-                            type="button"
-                            label="Nuevo"
-                            icon="pi pi-plus"
-                            class="p-button-sm establecimiento-btn"
-                            (click)="agregarEstablecimiento()"
-                            [disabled]="editingRowIndex !== null"></button>
-                        </div>
-                        
-                        <div class="establecimiento-toolbar-right">
-                            <button
-                            *ngIf="editingRowIndex === null"
-                            pButton
-                            type="button"
-                            icon="pi pi-pencil"
-                            class="p-button-sm establecimiento-icon-btn"
-                            pTooltip="Editar"
-                            tooltipPosition="bottom"
-                            [disabled]="!selectedEstablecimiento"
-                            (click)="editarEstablecimientoSeleccionado()"></button>
+                        <button
+                        *ngIf="editingRowIndex === null"
+                        pButton
+                        type="button"
+                        icon="pi pi-trash"
+                        class="p-button-sm establecimiento-icon-btn p-button-danger"
+                        pTooltip="Eliminar"
+                        tooltipPosition="bottom"
+                        [disabled]="!selectedEstablecimiento"
+                        (click)="eliminarEstablecimientoSeleccionado()"></button>
 
-                            <button
-                            *ngIf="editingRowIndex === null"
-                            pButton
-                            type="button"
-                            icon="pi pi-trash"
-                            class="p-button-sm establecimiento-icon-btn p-button-danger"
-                            pTooltip="Eliminar"
-                            tooltipPosition="bottom"
-                            [disabled]="!selectedEstablecimiento"
-                            (click)="eliminarEstablecimientoSeleccionado()"></button>
+            <button
+              *ngIf="editingRowIndex !== null"
+              pButton
+              type="button"
+              icon="pi pi-check"
+              class="p-button-sm establecimiento-icon-btn p-button-success"
+              pTooltip="Guardar"
+              tooltipPosition="bottom"
+              (click)="guardarEdicionSeleccionada()">
+            </button>
 
-                            <button
-                            *ngIf="editingRowIndex !== null"
-                            pButton
-                            type="button"
-                            icon="pi pi-check"
-                            class="p-button-sm establecimiento-icon-btn p-button-success"
-                            pTooltip="Guardar"
-                            tooltipPosition="bottom"
-                            (click)="guardarEdicionSeleccionada()"></button>
+            <button
+              *ngIf="editingRowIndex !== null"
+              pButton
+              type="button"
+              icon="pi pi-times"
+              class="p-button-sm establecimiento-icon-btn p-button-danger"
+              pTooltip="Cancelar"
+              tooltipPosition="bottom"
+              (click)="cancelarEdicionSeleccionada()">
+            </button>
+          </div>
+        </div>
+      </div>
 
-                            <button
-                            *ngIf="editingRowIndex !== null"
-                            pButton
-                            type="button"
-                            icon="pi pi-times"
-                            class="p-button-sm establecimiento-icon-btn p-button-danger"
-                            pTooltip="Cancelar"
-                            tooltipPosition="bottom"
-                            (click)="cancelarEdicionSeleccionada()"></button>
-                        </div>
-                    </div>
-                </div>
+      <div class="establecimiento-table-wrapper">
+        <p-table
+          [value]="establecimientos"
+          [rows]="rowsPerPage"
+          [paginator]="true"
+          responsiveLayout="scroll"
+          [rowsPerPageOptions]="[5, 10, 20, 50]"
+          selectionMode="single"
+          [(selection)]="selectedEstablecimiento"
+          dataKey="pla20codigo"
+          styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines establecimiento-table">
+          
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="width: auto; text-align: center;">Código</th>
+              <th style="width: auto; text-align: center;">Denominación</th>
+              <th style="width: auto; text-align: center;">EstablecimientoTipoDes</th>
+              <th style="width: auto; text-align: center;">SCRT</th>
+              <th style="width: auto; text-align: center;">SCTR - Tasa</th>
+            </tr>
+          </ng-template>
 
-                <!-- Contenedor de la Tabla -->
-                <div class="establecimiento-table-wrapper">
-                    <p-table 
-                    [value]="establecimientos"
-                     [rows]="rowsPerPage" 
-                     [paginator]="true"
-                    responsiveLayout="scroll" 
-                    [rowsPerPageOptions]="[5, 10, 20, 50]"
-                    selectionMode="single"
-                    [(selection)]="selectedEstablecimiento"
-                    dataKey="pla20codigo"
-                    styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines establecimiento-table">
-                        <!-- Encabezado de la Tabla -->
-                        <ng-template pTemplate="header">
-                            <tr>
-                                <th style="width: auto; text-align: center;">Código</th>
-                                <th style="width: auto; text-align: center;">Denominación</th>
-                                <th style="width: auto; text-align: center;">EstablecimientoTipoDes</th>
-                                <th style="width: auto; text-align: center;">SCRT</th>
-                                <th style="width: auto; text-align: center;">SCTR - Tasa</th>
-                            </tr>
-                        </ng-template>
+          <ng-template pTemplate="body" let-establecimiento let-ri="rowIndex">
+            <tr [pSelectableRow]="establecimiento">
+              <td class="text-center">
+                <ng-container *ngIf="editingRowIndex === ri; else displayCodigo">
+                  <input
+                    pInputText
+                    type="text"
+                    [(ngModel)]="establecimientos[ri].pla20codigo"
+                    placeholder="Código"
+                    class="w-full text-sm text-center font-bold"
+                    [disabled]="!isAddMode" />
+                </ng-container>
+                <ng-template #displayCodigo>
+                  {{ establecimiento.pla20codigo }}
+                </ng-template>
+              </td>
 
-                        <!-- Cuerpo de la Tabla (Edición en línea) -->
-                        <ng-template pTemplate="body" let-establecimiento let-ri="rowIndex">
-  <tr [pSelectableRow]="establecimiento">
+              <td class="text-center">
+                <ng-container *ngIf="editingRowIndex === ri; else displayDenominacion">
+                  <input
+                    pInputText
+                    type="text"
+                    [(ngModel)]="establecimientos[ri].pla20denominacion"
+                    class="w-full text-sm text-center" />
+                </ng-container>
+                <ng-template #displayDenominacion>
+                  {{ establecimiento.pla20denominacion }}
+                </ng-template>
+              </td>
 
-    <td class="text-center">
-      <ng-container *ngIf="editingRowIndex === ri; else displayCodigo">
-        <input
-          pInputText
-          type="text"
-          [(ngModel)]="establecimientos[ri].pla20codigo"
-          placeholder="Código"
-          class="w-full text-sm text-center font-bold"
-          [disabled]="!isAddMode" />
-      </ng-container>
-      <ng-template #displayCodigo>
-        {{ establecimiento.pla20codigo }}
-      </ng-template>
-    </td>
+              <td class="text-center">
+                <ng-container *ngIf="editingRowIndex === ri; else displayTipo">
+                  <p-dropdown
+                    [options]="tipoOptions"
+                    optionLabel="label"
+                    optionValue="value"
+                    [(ngModel)]="establecimientos[ri].pla20establecimientotipo"
+                    placeholder="Seleccionar Tipo"
+                    styleClass="w-full text-sm text-left"
+                    appendTo="body">
+                  </p-dropdown>
+                </ng-container>
+                <ng-template #displayTipo>
+                  <span class="font-medium text-gray-700">
+                    {{ getEstablecimientoTipoLabel(establecimiento.pla20establecimientotipo) }}
+                  </span>
+                </ng-template>
+              </td>
 
-    <td class="text-center">
-      <ng-container *ngIf="editingRowIndex === ri; else displayDenominacion">
-        <input
-          pInputText
-          type="text"
-          [(ngModel)]="establecimientos[ri].pla20denominacion"
-          class="w-full text-sm text-center" />
-      </ng-container>
-      <ng-template #displayDenominacion>
-        {{ establecimiento.pla20denominacion }}
-      </ng-template>
-    </td>
+              <td class="text-center">
+                <p-checkbox
+                  [binary]="true"
+                  [(ngModel)]="establecimientos[ri].pla20sctrflag"
+                  [disabled]="editingRowIndex !== ri">
+                </p-checkbox>
+              </td>
 
-    <td class="text-center">
-      <ng-container *ngIf="editingRowIndex === ri; else displayTipo">
-        <p-dropdown
-          [options]="tipoOptions"
-          optionLabel="label"
-          optionValue="value"
-          [(ngModel)]="establecimientos[ri].pla20establecimientotipo"
-          placeholder="Seleccionar Tipo"
-          styleClass="w-full text-sm text-left"
-          appendTo="body">
-        </p-dropdown>
-      </ng-container>
-      <ng-template #displayTipo>
-        <span class="font-medium text-gray-700">
-          {{ getEstablecimientoTipoLabel(establecimiento.pla20establecimientotipo) }}
-        </span>
-      </ng-template>
-    </td>
+              <td class="text-center">
+                <ng-container *ngIf="editingRowIndex === ri; else displaySctrTasa">
+                  <input
+                    pInputText
+                    type="number"
+                    [(ngModel)]="establecimientos[ri].pla20sctrtasa"
+                    [disabled]="!establecimientos[ri].pla20sctrflag"
+                    placeholder="0.00"
+                    class="w-full text-sm text-center" />
+                </ng-container>
+                <ng-template #displaySctrTasa>
+                  <span *ngIf="establecimiento.pla20sctrflag && establecimiento.pla20sctrtasa !== null">
+                    {{ establecimiento.pla20sctrtasa | number:'1.2-2' }}
+                  </span>
+                </ng-template>
+              </td>
+            </tr>
+          </ng-template>
 
-    <td class="text-center">
-      <p-checkbox
-        [binary]="true"
-        [(ngModel)]="establecimientos[ri].pla20sctrflag"
-        [disabled]="editingRowIndex !== ri">
-      </p-checkbox>
-    </td>
-
-    <td class="text-center">
-      <ng-container *ngIf="editingRowIndex === ri; else displaySctrTasa">
-        <input
-          pInputText
-          type="number"
-          [(ngModel)]="establecimientos[ri].pla20sctrtasa"
-          [disabled]="!establecimientos[ri].pla20sctrflag"
-          placeholder="0.00"
-          class="w-full text-sm text-center" />
-      </ng-container>
-      <ng-template #displaySctrTasa>
-        <span *ngIf="establecimiento.pla20sctrflag && establecimiento.pla20sctrtasa !== null">
-          {{ establecimiento.pla20sctrtasa | number:'1.2-2' }}
-        </span>
-      </ng-template>
-    </td>
-
-  </tr>
-</ng-template>
-                        <ng-template pTemplate="emptymessage">
-                            <tr>
-                                <td colspan="5" style="text-align: center;">
-                                    No se encontraron establecimientos.
-                                </td>
-                            </tr>
-                        </ng-template>
-                    </p-table>
-                </div>
-            </div>
-            </div>
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td colspan="5" style="text-align: center;">
+                No se encontraron establecimientos.
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </div>
+</p-panel>
         
     </div>
 </div>

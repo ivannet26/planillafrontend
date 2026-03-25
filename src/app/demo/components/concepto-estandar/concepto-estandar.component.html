@@ -10,20 +10,72 @@
   <div class="mb-2">
   <div class="shadow-xl rounded-xl surface-card px-4 py-4">
 
-    <!-- Botones arriba de la tabla -->
-    <div class="flex align-items-center mb-3" style="gap: 10px;">
-      <button pButton type="button" icon="pi pi-plus" label="Nuevo"
-        class="p-button-sm"
-        (click)="agregarNuevo()">
-      </button>
+    <div class="concepto-toolbar-row">
+        <div class="concepto-toolbar">
+          <div class="concepto-toolbar-left">
+            <button
+              pButton
+              type="button"
+              icon="pi pi-plus"
+              label="Nuevo"
+              class="p-button-sm concepto-btn"
+              (click)="agregarNuevo()"
+              pTooltip="Nuevo concepto"
+              tooltipPosition="bottom">
+            </button>
 
-      <button pButton type="button" icon="pi pi-refresh" label="Actualizar"
-        class="p-button-info p-button-sm"
-        (click)="refrescarTabla()">
-      </button>
-    </div>
+            <button
+              pButton
+              type="button"
+              icon="pi pi-refresh"
+              label="Actualizar"
+              class="p-button-info p-button-sm concepto-top-btn actualizar-btn"
+              (click)="refrescarTabla()"
+              pTooltip="Actualizar tabla"
+              tooltipPosition="bottom">
+            </button>
+          </div>
 
-     <p-table [value]="conceptos" [paginator]="true" [rows]="15" [rowsPerPageOptions]="[10, 15, 20, 50]"
+          <div class="concepto-toolbar-right">
+            <button
+              pButton
+              type="button"
+              icon="pi pi-eye"
+              class="p-button-info concepto-icon-btn"
+              (click)="verSeleccionado()"
+              [disabled]="!selectedConcepto"
+              pTooltip="Ver detalle"
+              tooltipPosition="bottom">
+            </button>
+
+            <button
+              pButton
+              type="button"
+              icon="pi pi-pencil"
+              class="p-button-warning concepto-icon-btn"
+              (click)="editarSeleccionado()"
+              [disabled]="!selectedConcepto"
+              pTooltip="Editar"
+              tooltipPosition="bottom">
+            </button>
+
+            <button
+              pButton
+              type="button"
+              icon="pi pi-trash"
+              class="p-button-danger concepto-icon-btn"
+              (click)="eliminarSeleccionado()"
+              [disabled]="!selectedConcepto"
+              pTooltip="Eliminar"
+              tooltipPosition="bottom">
+            </button>
+          </div>
+        </div>
+      </div>
+
+
+     <p-table [value]="conceptos" selectionMode="single" [(selection)]="selectedConcepto"
+      dataKey="codigo"[paginator]="true" [rows]="15" [rowsPerPageOptions]="[10, 15, 20, 50]"
       [showCurrentPageReport]="true"
       currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} conceptos"
       [globalFilterFields]="['codigo', 'descripcion', 'conceptoTipoDesc', 'conceptoSubTipoc']"
@@ -40,12 +92,12 @@
           <th style="width: auto">ConceptoTipoDesc</th>
         <th style="width: auto">Concepto SubTipoc</th>
           <th style="width: auto">Tipo</th>
-          <th style="width: auto">Acciones</th>
+          <th style="width: auto">Ayuda Local</th>
         </tr>
       </ng-template>
 
       <ng-template pTemplate="body" let-concepto>
-        <tr>
+        <tr [pSelectableRow]="concepto">
           <td>{{ concepto.codigo }}</td>
           <td>{{ concepto.descripcion }}</td>
           <td class="text-center">{{ concepto.impresion }}</td>
@@ -57,24 +109,10 @@
           <td>{{ concepto.tipo }}</td>
           <td class="text-center">
             <div class="actions-cell">
-            <button pButton type="button" icon="pi pi-eye"
-              class="p-button-rounded p-button-info p-button-text p-button-sm action-btn"
-              (click)="mostrarDetalleConcepto(concepto)" pTooltip="Ver" tooltipPosition="top">
-            </button>
 
             <button pButton type="button" icon="pi pi-question-circle"
               class="p-button-rounded p-button-info p-button-text p-button-sm action-btn"
               (click)="mostrarAyuda(concepto)" pTooltip="Ayuda Local" tooltipPosition="top">
-            </button>
-
-            <button pButton type="button" icon="pi pi-pencil"
-              class="p-button-rounded p-button-warning p-button-text p-button-sm action-btn"
-              (click)="editarConcepto(concepto)" pTooltip="Editar" tooltipPosition="top">
-            </button>
-
-            <button pButton type="button" icon="pi pi-trash"
-              class="p-button-rounded p-button-danger p-button-text p-button-sm action-btn"
-              (click)="eliminarConcepto(concepto)" pTooltip="Eliminar" tooltipPosition="top">
             </button>
             </div>
           </td>

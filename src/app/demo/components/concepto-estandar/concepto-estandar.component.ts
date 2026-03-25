@@ -34,6 +34,7 @@ import { ConceptoEstandar } from 'src/app/demo/model/ConceptoEstandar';
 })
 export class ConceptoEstandarComponent implements OnInit {
   conceptos: ConceptoEstandar[] = [];
+  selectedConcepto: ConceptoEstandar | null = null;
 
   items: any[] = [];
 
@@ -144,6 +145,11 @@ export class ConceptoEstandarComponent implements OnInit {
       rejectLabel: 'No',
       accept: () => {
         this.conceptos = this.conceptos.filter(c => c.codigo !== concepto.codigo);
+
+        if (this.selectedConcepto?.codigo === concepto.codigo) {
+          this.selectedConcepto = null;
+        }
+
         this.messageService.add({
           severity: 'success',
           summary: 'Éxito',
@@ -155,6 +161,8 @@ export class ConceptoEstandarComponent implements OnInit {
 
   refrescarTabla() {
     this.loadConceptos();
+    this.selectedConcepto = null;
+    
     this.messageService.add({
       severity: 'success',
       summary: 'Actualizado',
@@ -168,5 +176,20 @@ export class ConceptoEstandarComponent implements OnInit {
       summary: 'Ayuda del Concepto',
       detail: `Información sobre el concepto: ${concepto.descripcion}`
     });
+  }
+
+  verSeleccionado() {
+    if (!this.selectedConcepto) return;
+    this.mostrarDetalleConcepto(this.selectedConcepto);
+  }
+
+  editarSeleccionado() {
+    if (!this.selectedConcepto) return;
+    this.editarConcepto(this.selectedConcepto);
+  }
+
+  eliminarSeleccionado() {
+    if (!this.selectedConcepto) return;
+    this.eliminarConcepto(this.selectedConcepto);
   }
 }

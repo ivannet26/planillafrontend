@@ -1,11 +1,10 @@
-/* panel */
 :host ::ng-deep .p-panel .p-panel-header {
   font-size: 15px !important;
-  padding: 0.8rem 1rem !important;
+  padding: 0.85rem 1rem !important;
 }
 
 :host ::ng-deep .p-panel .p-panel-content {
-  padding: 0.8rem 0.9rem !important;
+  padding: 0.9rem 1rem !important;
 }
 
 /* breadcrumb */
@@ -27,11 +26,6 @@
   font-size: 11px !important;
 }
 
-/* card */
-:host ::ng-deep .surface-card {
-  padding: 0.9rem 1rem !important;
-  border-radius: 16px !important;
-}
 
 /* dialog */
 :host ::ng-deep .p-dialog .p-dialog-header {
@@ -207,7 +201,7 @@
 }
 
 .plantilla-toolbar-row {
-  margin-bottom: 0.75rem !important;
+  margin-bottom: 0.85rem !important;
 }
 
 .plantilla-toolbar {
@@ -222,5 +216,24 @@
 .plantilla-toolbar-right {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.65rem;
+}
+
+:host ::ng-deep .header-large .p-panel-header {
+  display: none !important;
+}
+
+:host ::ng-deep .header-large .p-panel-content {
+  border-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+:host ::ng-deep .content-wrapper {
+  overflow-x: auto;
+  width: 100%;
+  max-width: 100%;
+}
+
+.plantilla-content {
+  padding: 1rem 1rem 0.75rem 1rem;
 }

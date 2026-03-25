@@ -1,98 +1,219 @@
-
-.right-grid{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  align-items: start;
-  justify-items: start;
+.boleta-estandar-card {
+  padding: 1rem !important;
 }
 
-.right-grid > div{
-  width: 100%;
+/* Panel superior */
+:host ::ng-deep .p-panel .p-panel-header {
+  font-size: 15px !important;
+  padding: 0.85rem 1rem !important;
 }
 
-.slot-row{
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+:host ::ng-deep .p-panel .p-panel-content {
+  padding: 0.9rem 1rem !important;
 }
 
-.slot-code{
-  width: 5.5rem;
-  min-width: 4rem;
-  text-align: center;
+/* Breadcrumb */
+:host ::ng-deep .p-breadcrumb {
+  font-size: 12px !important;
+  padding: 0.5rem 0.75rem !important;
 }
 
-.slot-dd{
-  flex: 1;
+:host ::ng-deep .p-breadcrumb .p-menuitem-link {
+  padding: 0 !important;
+  gap: 0.35rem !important;
 }
 
-:host ::ng-deep .slot-dd .p-dropdown{
-  width: 100% !important;
+:host ::ng-deep .p-breadcrumb .pi {
+  font-size: 12px !important;
 }
 
-.conceptos-wrapper{
-  width: 100%;
-  display: flex;
-  justify-content: flex-start;
+:host ::ng-deep .p-breadcrumb .p-breadcrumb-chevron {
+  font-size: 11px !important;
 }
 
-.conceptos-header{
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 12px;
+/* Tabla */
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  padding: 0.55rem 0.65rem !important;
 }
 
-.button-save{
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
-  margin-bottom: 12px;
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr > td {
+  font-size: 12px !important;
+  padding: 0.5rem 0.65rem !important;
+  vertical-align: middle !important;
+}
+
+
+:host ::ng-deep .table-action-btn {
+  width: 30px !important;
+  height: 30px !important;
+  min-width: 30px !important;
+  padding: 0 !important;
+}
+
+:host ::ng-deep .table-action-btn .p-button-icon {
+  font-size: 12px !important;
 }
 
 
 .right-panel {
   width: 100%;
   min-width: 0;
-  overflow: hidden; 
+  overflow: hidden;
+  padding: 0.75rem !important;
+  margin-top: 45px;
+}
+
+/* Boton Guardar */
+.button-save {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-bottom: 0.75rem;
+}
+
+:host ::ng-deep .save-btn {
+  height: 34px !important;
+  padding: 0 0.85rem !important;
+  font-size: 12px !important;
+  border-radius: 8px !important;
+}
+
+:host ::ng-deep .save-btn .p-button-icon,
+:host ::ng-deep .save-btn .p-button-label {
+  font-size: 12px !important;
+}
+
+.conceptos-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
 }
 
 .right-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
+  gap: 0.75rem 1rem;
+  width: 100%;
+  align-items: start;
 }
 
+.right-grid > div {
+  width: 100%;
+}
 
-@media (max-width: 992px) { 
+@media (max-width: 992px) {
   .right-grid {
     grid-template-columns: 1fr;
   }
 }
 
-
 .slot-row {
+  width: 100%;
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.5rem;
   min-width: 0;
 }
 
-
-.slot-dd {
-  flex: 1 1 auto;
-  min-width: 0; 
+/* Dropdown */
+.slot-code-dd {
+  width: 110px;
+  min-width: 110px;
 }
 
-
-:host ::ng-deep .slot-dd .p-dropdown {
-  width: 100%;
+:host ::ng-deep .slot-code-dd .p-dropdown {
+  width: 100% !important;
+  height: 34px !important;
+  font-size: 12px !important;
 }
 
-:host ::ng-deep .slot-dd .p-dropdown-label {
+:host ::ng-deep .slot-code-dd .p-dropdown-label {
+  line-height: 34px !important;
+  font-size: 12px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+:host ::ng-deep .slot-code-dd .p-dropdown-trigger {
+  width: 34px !important;
+}
+
+
+.slot-desc {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 34px !important;
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .slot-clear-btn {
+  width: 30px !important;
+  height: 30px !important;
+  min-width: 30px !important;
+  padding: 0 !important;
+}
+
+:host ::ng-deep .slot-clear-btn .p-button-icon {
+  font-size: 12px !important;
+}
+
+/* Tooltips */
+:host ::ng-deep .p-tooltip .p-tooltip-text {
+  font-size: 11px !important;
+  padding: 0.35rem 0.5rem !important;
+}
+
+.boleta-toolbar-row {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.9rem;
+}
+
+.boleta-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+:host ::ng-deep .table-action-btn {
+  width: 34px !important;
+  height: 34px !important;
+  min-width: 34px !important;
+  border-radius: 8px !important;
+  padding: 0 !important;
+}
+
+:host ::ng-deep .table-action-btn .p-button-icon {
+  font-size: 12px !important;
+}
+
+.button-save {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-bottom: 0.75rem;
+}
+
+:host ::ng-deep .save-btn {
+  height: 30px !important;
+  min-height: 30px !important;
+  padding: 0 0.7rem !important;
+  font-size: 12px !important;
+  border-radius: 8px !important;
+}
+
+:host ::ng-deep .save-btn .p-button-icon {
+  font-size: 12px !important;
+  margin-right: 0.4rem !important;
+}
+
+:host ::ng-deep .save-btn .p-button-label {
+  font-size: 12px !important;
+  font-weight: 600 !important;
 }

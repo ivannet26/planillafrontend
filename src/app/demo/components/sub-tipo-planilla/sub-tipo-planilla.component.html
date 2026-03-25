@@ -2,305 +2,307 @@
 <p-confirmDialog></p-confirmDialog>
 
 <div class="container">
-    <p-panel header="SubTipo Planilla" class="mb-3">
-
+    <p-panel header="SubTipo Planilla" styleClass="shadow-xl rounded-xl mb-3">
         <p-breadcrumb [model]="items" class="max-w-full"></p-breadcrumb>
-        </p-panel>
-        <div class="shadow-xl rounded-xl surface-card px-4 py-4">
-      <!-- Botón Nuevo -->
-      <div class="flex justify-content-between align-items-center mb-3">
-          <button type="button" pButton icon="pi pi-plus" label="Agregar"
-                  (click)="showAddRow()" [disabled]="isEditingAnyRow"
-                  class="p-button-sm"></button>
-      </div>
+    </p-panel>
 
+    <p-panel styleClass="shadow-xl rounded-xl py-2 header-large">
+        <div class="content-wrapper subtipo-content">
+        <div class="subtipo-toolbar-row">
+            <div class="subtipo-toolbar">
+                <div class="subtipo-toolbar-left">
+                    <button
+                        type="button"
+                        pButton
+                        icon="pi pi-plus"
+                        label="Agregar"
+                        (click)="showAddRow()"
+                        [disabled]="isEditingAnyRow"
+                        class="p-button-info subtipo-btn"
+                        pTooltip="Agregar subtipo planilla"
+                        tooltipPosition="bottom">
+                    </button>
+                </div>
 
-      <!-- Tabla Principal -->
-      <p-table [value]="subTipoPlanillaList"
-              dataKey="pla55codigo"
-              editMode="row"
-              [paginator]="true"
-              [rows]="rowsPerPage"
-              [rowsPerPageOptions]="[5, 10, 20, 50]"
-              [showCurrentPageReport]="true"
-              responsiveLayout="scroll"
-              currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} planillas subtipo"
-              [tableStyle]="{ 'width': '1200px' }"
-              styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines"
-              class="table-sub-tipo-planilla"
-              >
-          <!-- Cabecera de Tabla -->
-          <ng-template pTemplate="header">
-              <tr>
-                  <th style="width: 20%;">PlanillaTipoDes</th>
-                  <th style="width: 10%;">Código</th>
-                  <th style="width: 20%;">Descripción</th>
-                  <th style="width: 15%;">Concepto Pago</th>
-                  <th style="width: 10%; text-align: center;">Flag Activo</th>
-                  <th style="width: 15%;">Asistencia Planilla</th>
-                  <th style="text-align: center; width: 10%;">Acciones</th>
-              </tr>
-          </ng-template>
+                <div class="subtipo-toolbar-right">
+                    <button
+                        pButton
+                        type="button"
+                        icon="pi pi-pencil"
+                        class="p-button-info subtipo-icon-btn"
+                        pTooltip="Editar"
+                        tooltipPosition="bottom">
+                    </button>
 
-          <!-- Cuerpo de Tabla -->
-          <ng-template pTemplate="body" let-planilla let-ri="rowIndex" let-editing="editing">
-              <tr [pEditableRow]="planilla">
+                    <button
+                        pButton
+                        type="button"
+                        icon="pi pi-trash"
+                        class="p-button-danger subtipo-icon-btn"
+                        pTooltip="Eliminar"
+                        tooltipPosition="bottom">
+                    </button>
 
-                  <td style="text-align: left;">
-                      <p-cellEditor>
-                          <ng-template pTemplate="input">
-                              <p-dropdown
-                                  [(ngModel)]="planilla.planillaTipoDes"
-                                  [options]="[
-                                      { label: 'PLANILLA MENSUAL', value: 'PLANILLA MENSUAL' },
-                                      { label: 'PLANILLA VACACIONES', value: 'PLANILLA VACACIONES' },
-                                      { label: 'PLANILLA GRATIFICACIONES', value: 'PLANILLA GRATIFICACIONES' }
-                                  ]"
-                                  placeholder="Tipo de planilla"
-                                  optionLabel="label"
-                                  optionValue="value"
-                                  class="p-inputtext-sm w-full"
-                                  appendTo="body">
-                              </p-dropdown>
-                          </ng-template>
-                          <ng-template pTemplate="output">
-                              {{planilla.planillaTipoDes}}
-                          </ng-template>
-                      </p-cellEditor>
-                  </td>
+                    <button
+                        pButton
+                        type="button"
+                        icon="pi pi-check"
+                        class="p-button-success subtipo-icon-btn"
+                        pTooltip="Guardar"
+                        tooltipPosition="bottom"
+                        style="display: none;">
+                    </button>
 
-                  <td style="text-align: left;">
-                      <p-cellEditor>
-                          <ng-template pTemplate="input">
-                              <input pInputText type="text" [(ngModel)]="planilla.pla55codigo"
-                                     class="p-inputtext-sm w-full" required>
-                          </ng-template>
-                          <ng-template pTemplate="output">
-                              {{planilla.pla55codigo}}
-                          </ng-template>
-                      </p-cellEditor>
-                  </td>
+                    <button
+                        pButton
+                        type="button"
+                        icon="pi pi-times"
+                        class="p-button-danger subtipo-icon-btn"
+                        pTooltip="Cancelar"
+                        tooltipPosition="bottom"
+                        style="display: none;">
+                    </button>
+                </div>
+            </div>
+        </div>
 
-                  <td style="text-align: left;">
-                      <p-cellEditor>
-                          <ng-template pTemplate="input">
-                              <input pInputText type="text" [(ngModel)]="planilla.pla55descripcion"
-                                     class="p-inputtext-sm w-full" required>
-                          </ng-template>
-                          <ng-template pTemplate="output">
-                              {{planilla.pla55descripcion}}
-                          </ng-template>
-                      </p-cellEditor>
-                  </td>
+        <p-table
+            [value]="subTipoPlanillaList"
+            dataKey="pla55codigo"
+            editMode="row"
+            selectionMode="single"
+            [paginator]="true"
+            [rows]="rowsPerPage"
+            [rowsPerPageOptions]="[5, 10, 20, 50]"
+            [showCurrentPageReport]="true"
+            responsiveLayout="scroll"
+            currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} planillas subtipo"
+            [tableStyle]="{ 'width': '1200px' }"
+            styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines"
+            class="table-sub-tipo-planilla">
 
-                  <td style="text-align: left;">
-                      <p-cellEditor>
-                          <ng-template pTemplate="input">
-                              <p-dropdown
-                                  [(ngModel)]="planilla.pla55conceptoxdefault"
-                                  [options]="[
-                                      { label: 'Remuneracion Basica', value: '1006' },
-                                      { label: 'Asignacion familiar', value: '1011' },
-                                      { label: 'Rem Adicional Trab Nocturno', value: '1019' },
-                                      { label: 'NETO A PAGAR', value: '3901' }
-                                  ]"
-                                  placeholder="Conceptos Estandar"
-                                  optionLabel="label"
-                                  optionValue="value"
-                                  class="p-inputtext-sm w-full"
-                                  appendTo="body">
-                              </p-dropdown>
-                          </ng-template>
-                          <ng-template pTemplate="output">
-                              {{planilla.pla55conceptoxdefault}}
-                          </ng-template>
-                      </p-cellEditor>
-                  </td>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 20%;">PlanillaTipoDes</th>
+                    <th style="width: 10%;">Código</th>
+                    <th style="width: 20%;">Descripción</th>
+                    <th style="width: 15%;">Concepto Pago</th>
+                    <th style="width: 10%; text-align: center;">Flag Activo</th>
+                    <th style="width: 15%;">Asistencia Planilla</th>
+                </tr>
+            </ng-template>
 
-                  <td style="text-align: center;">
-                      <p-checkbox
-                        [binary]="true"
-                        [(ngModel)]="planilla.pla55flagactivo"
-                        [trueValue]="1"
-                        [falseValue]="0"
-                        [disabled]="!editing">
-                      </p-checkbox>
-                  </td>
+            <ng-template pTemplate="body" let-planilla let-ri="rowIndex" let-editing="editing">
+                <tr [pEditableRow]="planilla">
+                    <td style="text-align: left;">
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <p-dropdown
+                                    [(ngModel)]="planilla.planillaTipoDes"
+                                    [options]="[
+                                        { label: 'PLANILLA MENSUAL', value: 'PLANILLA MENSUAL' },
+                                        { label: 'PLANILLA VACACIONES', value: 'PLANILLA VACACIONES' },
+                                        { label: 'PLANILLA GRATIFICACIONES', value: 'PLANILLA GRATIFICACIONES' }
+                                    ]"
+                                    placeholder="Tipo de planilla"
+                                    optionLabel="label"
+                                    optionValue="value"
+                                    class="p-inputtext-sm w-full"
+                                    appendTo="body">
+                                </p-dropdown>
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{ planilla.planillaTipoDes }}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
 
-                  <td style="text-align: left;">
-                      <p-cellEditor>
-                          <ng-template pTemplate="input">
-                              <p-dropdown
-                                  [(ngModel)]="planilla.pla55plantillaasistenciacod"
-                                  [options]="[
-                                      { label: 'PLANILLA MENSUAL', value: '001' },
-                                      { label: 'PLANILLA VACACIONES', value: '002' },
-                                      { label: 'PLANILLA GRATIFICACIONES' ,value: '003' }
-                                  ]"
-                                  placeholder="Plantilla"
-                                  optionLabel="label"
-                                  optionValue="value"
-                                  class="p-inputtext-sm w-full"
-                                  appendTo="body">
-                              </p-dropdown>
-                          </ng-template>
-                          <ng-template pTemplate="output">
-                              {{planilla.pla55plantillaasistenciacod}}
-                          </ng-template>
-                      </p-cellEditor>
-                  </td>
+                    <td style="text-align: left;">
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <input
+                                    pInputText
+                                    type="text"
+                                    [(ngModel)]="planilla.pla55codigo"
+                                    class="p-inputtext-sm w-full"
+                                    required />
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{ planilla.pla55codigo }}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
 
-                  <!-- Acciones -->
-                  <td>
-                      <div class="flex justify-content-center gap-2">
-                          <!-- Botón Editar -->
-                          <button *ngIf="!editing" pButton
-                                  pInitEditableRow
-                                  (click)="onRowEditInit(planilla)"
-                                  icon="pi pi-pencil"
-                                  pTooltip="Editar"
-                                  [disabled]="isNew || isEditingAnyRow"
-                                  class="p-button-rounded p-button-text p-button-sm"
-                                  ></button>
+                    <td style="text-align: left;">
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <input
+                                    pInputText
+                                    type="text"
+                                    [(ngModel)]="planilla.pla55descripcion"
+                                    class="p-inputtext-sm w-full"
+                                    required />
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{ planilla.pla55descripcion }}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
 
-                          <!-- Botón Guardar -->
-                          <button *ngIf="editing" pButton
-                                  pSaveEditableRow
-                                  (click)="onRowEditSave(planilla)"
-                                  icon="pi pi-check"
-                                  pTooltip="Guardar"
-                                  class="p-button-rounded p-button-text p-button-sm p-button-success"></button>
+                    <td style="text-align: left;">
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <p-dropdown
+                                    [(ngModel)]="planilla.pla55conceptoxdefault"
+                                    [options]="[
+                                        { label: 'Remuneracion Basica', value: '1006' },
+                                        { label: 'Asignacion familiar', value: '1011' },
+                                        { label: 'Rem Adicional Trab Nocturno', value: '1019' },
+                                        { label: 'NETO A PAGAR', value: '3901' }
+                                    ]"
+                                    placeholder="Conceptos Estandar"
+                                    optionLabel="label"
+                                    optionValue="value"
+                                    class="p-inputtext-sm w-full"
+                                    appendTo="body">
+                                </p-dropdown>
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{ planilla.pla55conceptoxdefault }}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
 
-                          <!-- Botón Cancelar -->
-                          <button *ngIf="editing" pButton
-                                  pCancelEditableRow
-                                  (click)="onRowEditCancel(planilla, ri)"
-                                  icon="pi pi-times"
-                                  pTooltip="Cancelar"
-                                  class="p-button-rounded p-button-text p-button-sm p-button-danger"></button>
+                    <td style="text-align: center;">
+                        <p-checkbox
+                            [binary]="true"
+                            [(ngModel)]="planilla.pla55flagactivo"
+                            [trueValue]="1"
+                            [falseValue]="0"
+                            [disabled]="!editing">
+                        </p-checkbox>
+                    </td>
 
-                          <!-- Botón Eliminar
-                          Ya no es necesario pasar el índice, se puede obtener del parámetro
-                          -->
-                          <button *ngIf="!editing" pButton
-                                  type="button"
-                                  (click)="onDelete(planilla)"
-                                  icon="pi pi-trash"
-                                  pTooltip="Eliminar"
-                                  [disabled]="isNew || isEditingAnyRow"
-                                  class="p-button-rounded p-button-text p-button-sm p-button-danger"></button>
+                    <td style="text-align: left;">
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <p-dropdown
+                                    [(ngModel)]="planilla.pla55plantillaasistenciacod"
+                                    [options]="[
+                                        { label: 'PLANILLA MENSUAL', value: '001' },
+                                        { label: 'PLANILLA VACACIONES', value: '002' },
+                                        { label: 'PLANILLA GRATIFICACIONES', value: '003' }
+                                    ]"
+                                    placeholder="Plantilla"
+                                    optionLabel="label"
+                                    optionValue="value"
+                                    class="p-inputtext-sm w-full"
+                                    appendTo="body">
+                                </p-dropdown>
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{ planilla.pla55plantillaasistenciacod }}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                </tr>
+            </ng-template>
 
-                      </div>
-                  </td>
-              </tr>
-          </ng-template>
+            <ng-template pTemplate="footer">
+                <tr *ngIf="isEditing">
+                    <td colspan="6">
+                        <form [formGroup]="subTipoPlanillaForm" class="grid p-fluid">
+                            <div class="col-2" style="width: 20%;">
+                                <span class="w-full">
+                                    <p-dropdown
+                                        formControlName="planillaTipoDes"
+                                        [options]="[
+                                            { label: 'PLANILLA MENSUAL', value: 'PLANILLA MENSUAL' },
+                                            { label: 'PLANILLA VACACIONES', value: 'PLANILLA VACACIONES' },
+                                            { label: 'PLANILLA GRATIFICACIONES', value: 'PLANILLA GRATIFICACIONES' }
+                                        ]"
+                                        placeholder="Tipo de planilla"
+                                        optionLabel="label"
+                                        optionValue="value"
+                                        class="p-inputtext-sm w-full"
+                                        appendTo="body">
+                                    </p-dropdown>
+                                </span>
+                            </div>
 
-          <!-- Footer para Nuevo Registro -->
-          <ng-template pTemplate="footer">
-              <tr *ngIf="isEditing">
-                  <td colspan="7">
-                      <form [formGroup]="subTipoPlanillaForm" class="grid p-fluid">
-
-                          <div class="col-2" style="width: 20%;">
-                              <span class="w-full">
-                                  <p-dropdown
-                                      formControlName="planillaTipoDes"
-                                      [options]="[
-                                          { label: 'PLANILLA MENSUAL', value: 'PLANILLA MENSUAL' },
-                                          { label: 'PLANILLA VACACIONES', value: 'PLANILLA VACACIONES' },
-                                          { label: 'PLANILLA GRATIFICACIONES', value: 'PLANILLA GRATIFICACIONES' }
-                                      ]"
-                                      placeholder="Tipo de planilla"
-                                      optionLabel="label"
-                                      optionValue="value"
-                                      class="p-inputtext-sm w-full"
-                                      appendTo="body">
-                                  </p-dropdown>
-                              </span>
-                          </div>
-
-                          <div class="col-4" style="width: 10%;">
-                              <span class="w-full">
-                                  <input pInputText
+                            <div class="col-4" style="width: 10%;">
+                                <span class="w-full">
+                                    <input
+                                        pInputText
                                         formControlName="pla55codigo"
                                         placeholder="Código"
                                         class="p-inputtext-sm w-full"
-                                        readonly/>
-                              </span>
-                          </div>
+                                        readonly />
+                                </span>
+                            </div>
 
-                          <div class="col-4" style="width: 20%;">
-                              <span class="w-full">
-                                  <input pInputText
+                            <div class="col-4" style="width: 20%;">
+                                <span class="w-full">
+                                    <input
+                                        pInputText
                                         formControlName="pla55descripcion"
                                         placeholder="Descripción"
-                                        class="p-inputtext-sm w-full"/>
-                              </span>
-                          </div>
-
-                          <div class="col-4" style="width: 15%;">
-                              <span class="w-full">
-                                <p-dropdown
-                                      formControlName="pla55conceptoxdefault"
-                                      [options]="[
-                                          { label: 'Remuneracion Basica', value: '1006' },
-                                          { label: 'Asignacion familiar', value: '1011' },
-                                          { label: 'Rem Adicional Trab Nocturno', value: '1019' },
-                                          { label: 'NETO A PAGAR', value: '3901' }
-                                      ]"
-                                      placeholder="Conceptos Estandar"
-                                      optionLabel="label"
-                                      optionValue="value"
-                                      class="p-inputtext-sm w-full"
-                                      appendTo="body">
-                                  </p-dropdown>
+                                        class="p-inputtext-sm w-full" />
                                 </span>
-                              </div>
+                            </div>
 
-                              <div class="col-2" style="width: 10%; text-align: center;">
-                                  <span class="w-full">
-                                      <p-checkbox
-                                      [binary]="true"
-                                      formControlName="pla55flagactivo"
-                                      [trueValue]="1"
-                                      [falseValue]="0"
-                                      ></p-checkbox>
-                                  </span>
-                              </div>
-
-                              <div class="col-2" style="width: 15%;">
+                            <div class="col-4" style="width: 15%;">
                                 <span class="w-full">
-                                  <p-dropdown
-                                      formControlName="pla55plantillaasistenciacod"
-                                      [options]="[
-                                          { label: 'PLANILLA MENSUAL', value: '001' },
-                                          { label: 'PLANILLA VACACIONES', value: '002' },
-                                          { label: 'PLANILLA GRATIFICACIONES' ,value: '003' }
-                                      ]"
-                                      placeholder="Plantilla"
-                                      optionLabel="label"
-                                      optionValue="value"
-                                      class="p-inputtext-sm w-full"
-                                      appendTo="body">
-                                  </p-dropdown>
-                              </span>
-                          </div>
+                                    <p-dropdown
+                                        formControlName="pla55conceptoxdefault"
+                                        [options]="[
+                                            { label: 'Remuneracion Basica', value: '1006' },
+                                            { label: 'Asignacion familiar', value: '1011' },
+                                            { label: 'Rem Adicional Trab Nocturno', value: '1019' },
+                                            { label: 'NETO A PAGAR', value: '3901' }
+                                        ]"
+                                        placeholder="Conceptos Estandar"
+                                        optionLabel="label"
+                                        optionValue="value"
+                                        class="p-inputtext-sm w-full"
+                                        appendTo="body">
+                                    </p-dropdown>
+                                </span>
+                            </div>
 
+                            <div class="col-2" style="width: 10%; text-align: center;">
+                                <span class="w-full">
+                                    <p-checkbox
+                                        [binary]="true"
+                                        formControlName="pla55flagactivo"
+                                        [trueValue]="1"
+                                        [falseValue]="0">
+                                    </p-checkbox>
+                                </span>
+                            </div>
 
-                          <!-- Botones de Acción -->
-                          <div class="col-2" style="width: 10%;">
-                              <div class="flex gap-2 justify-content-center">
-
-                                  <p-button icon="pi pi-check" styleClass="p-button-success p-button-sm" [text]="true"
-                                          (onClick)="onSave()" pTooltip="Guardar"></p-button>
-                                  <p-button icon="pi pi-times" styleClass="p-button-danger p-button-sm" [text]="true"
-                                          (onClick)="onCancel()" pTooltip="Cancelar"></p-button>
-                              </div>
-                          </div>
-                      </form>
-                  </td>
-              </tr>
-          </ng-template>
-      </p-table>
+                            <div class="col-2" style="width: 15%;">
+                                <span class="w-full">
+                                    <p-dropdown
+                                        formControlName="pla55plantillaasistenciacod"
+                                        [options]="[
+                                            { label: 'PLANILLA MENSUAL', value: '001' },
+                                            { label: 'PLANILLA VACACIONES', value: '002' },
+                                            { label: 'PLANILLA GRATIFICACIONES', value: '003' }
+                                        ]"
+                                        placeholder="Plantilla"
+                                        optionLabel="label"
+                                        optionValue="value"
+                                        class="p-inputtext-sm w-full"
+                                        appendTo="body">
+                                    </p-dropdown>
+                                </span>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
     </div>
+    </p-panel>
 </div>

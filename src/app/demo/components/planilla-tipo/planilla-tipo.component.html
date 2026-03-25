@@ -7,10 +7,11 @@
 
 
   <p-panel header="Planilla tipo" styleClass="shadow-xl rounded-xl mb-3">
-    <p-breadcrumb [model]="items" class="max-w-full"></p-breadcrumb>
-    </p-panel>
-    
-    <div class="shadow-xl rounded-full surface-card px-4 py-4">
+  <p-breadcrumb [model]="items" class="max-w-full"></p-breadcrumb>
+</p-panel>
+
+<p-panel styleClass="shadow-xl rounded-xl py-2 header-large">
+  <div class="content-wrapper planilla-tipo-content">
       <div class="planilla-tipo-toolbar-row">
         <div class="planilla-tipo-toolbar">
         <div class="planilla-tipo-toolbar-left">
@@ -134,7 +135,7 @@
       <!-- Empty message -->
       <ng-template pTemplate="emptymessage">
         <tr>
-          <td colspan="3" class="text-center empty-message">
+          <td colspan="2" class="text-center empty-message">
             <i class="pi pi-info-circle"></i>
             <p>No se encontraron planillas tipo</p>
           </td>
@@ -142,5 +143,5 @@
       </ng-template>
     </p-table>
     </div>
-
+</p-panel>
 </div>

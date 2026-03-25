@@ -1,50 +1,84 @@
-/* Contenedor principal */
+
 .usuarios-container {
-  padding: 1.5rem;
+  padding: 1rem;
 }
 
-/* Estilos de la cabecera */
-.page-header {
-  margin-bottom: 1.5rem;
+/* Panel superior */
+:host ::ng-deep .p-panel .p-panel-header {
+  font-size: 15px !important;
+  padding: 0.85rem 1rem !important;
 }
 
-.header-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+:host ::ng-deep .p-panel .p-panel-content {
+  padding: 0.9rem 1rem !important;
 }
 
-.header-title {
-  font-size: 1.75rem;
-  font-weight: 600;
-  color: var(--text-color);
+/* Breadcrumb */
+:host ::ng-deep .p-breadcrumb {
+  font-size: 12px !important;
+  padding: 0.5rem 0.75rem !important;
 }
 
-.add-button {
-  font-weight: 600;
+:host ::ng-deep .p-breadcrumb .p-menuitem-link {
+  padding: 0 !important;
+  gap: 0.35rem !important;
 }
 
-/* Contenedor de tabla */
+:host ::ng-deep .p-breadcrumb .pi {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .p-breadcrumb .p-breadcrumb-chevron {
+  font-size: 11px !important;
+}
+
+:host ::ng-deep .usuarios-top-btn {
+  height: 34px !important;
+  padding: 0 0.85rem !important;
+  font-size: 12px !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+}
+
+:host ::ng-deep .usuarios-top-btn .p-button-icon,
+:host ::ng-deep .usuarios-top-btn .p-button-label {
+  font-size: 12px !important;
+}
+
 .table-wrapper {
   background: var(--surface-card);
   border-radius: 8px;
-  padding: 1rem;
+  padding: 0.85rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  gap: 10px;
+  margin-bottom: 0.85rem;
 }
 
-/* Título de la tabla de detalle */
+
 .detail-title {
-  font-size: 1.25rem;
+  font-size: 13px;
   font-weight: 600;
   color: var(--primary-color);
-  margin-top: 2rem;
-  margin-bottom: 1rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 2px solid var(--surface-d);
+  margin-top: 0.75rem;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.2rem;
+  border-bottom: 1px solid var(--surface-d);
 }
 
-/* Celdas de acciones */
+/* Tablas */
+:host ::ng-deep .usuarios-table .p-datatable-thead > tr > th,
+:host ::ng-deep .empresas-table .p-datatable-thead > tr > th {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  padding: 0.55rem 0.65rem !important;
+}
+
+:host ::ng-deep .usuarios-table .p-datatable-tbody > tr > td,
+:host ::ng-deep .empresas-table .p-datatable-tbody > tr > td {
+  font-size: 12px !important;
+  padding: 0.5rem 0.65rem !important;
+  vertical-align: middle !important;
+}
+
 .actions-cell {
   text-align: center;
 }
@@ -52,59 +86,204 @@
 .action-buttons {
   display: flex;
   justify-content: center;
-  gap: 0.25rem;
+  gap: 0.35rem;
 }
 
-/* Inputs y Dropdowns dentro de la tabla */
+:host ::ng-deep .action-buttons .p-button {
+  width: 30px !important;
+  height: 30px !important;
+  min-width: 30px !important;
+  padding: 0 !important;
+}
+
+:host ::ng-deep .action-buttons .p-button .p-button-icon {
+  font-size: 12px !important;
+}
+
+
 .table-input,
-::ng-deep .table-dropdown .p-dropdown {
+:host ::ng-deep .table-dropdown .p-dropdown {
   width: 100% !important;
 }
 
-::ng-deep .table-dropdown .p-dropdown {
-  min-width: 150px;
+:host ::ng-deep .table-input,
+:host ::ng-deep .p-password-input.table-input {
+  height: 34px !important;
+  font-size: 12px !important;
+  padding: 0.45rem 0.6rem !important;
 }
 
-::ng-deep .p-password-input.table-input {
-  width: 100%;
+:host ::ng-deep .table-dropdown .p-dropdown {
+  min-width: 140px;
+  height: 34px !important;
+  font-size: 12px !important;
 }
 
-/* Mensaje de tabla vacía */
+:host ::ng-deep .table-dropdown .p-dropdown-label {
+  line-height: 34px !important;
+  font-size: 12px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+:host ::ng-deep .table-dropdown .p-dropdown-trigger {
+  width: 34px !important;
+}
+
+:host ::ng-deep .p-password {
+  width: 100% !important;
+}
+
+:host ::ng-deep .p-password-input.table-input {
+  width: 100% !important;
+}
+
+:host ::ng-deep .p-password-panel {
+  font-size: 12px !important;
+}
+
 .empty-message {
-  padding: 2rem 1rem;
+  padding: 1.25rem 0.75rem;
   color: var(--text-color-secondary);
   text-align: center;
+  font-size: 12px !important;
 }
 
 .empty-message i {
-  font-size: 2rem;
+  font-size: 1.2rem;
   display: block;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.35rem;
   color: var(--surface-d);
 }
 
 .empty-message p {
   margin: 0;
-  font-size: 1rem;
+  font-size: 12px;
 }
 
-/* Ajuste para la fila seleccionada */
-::ng-deep .p-datatable .p-datatable-tbody > tr.p-highlight {
+
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr.p-highlight {
   background-color: var(--blue-50) !important;
   color: var(--primary-color) !important;
 }
-/* ================================
-   TABLA
-================================ */
-::ng-deep .usuarios-container {
-  width: fit-content;
-  max-width: 100%;
 
+:host ::ng-deep .p-paginator {
+  font-size: 12px !important;
 }
 
-::ng-deep .banco-table table {
-  border-collapse: collapse;
-  width: auto !important;
-  table-layout: auto;
+:host ::ng-deep .p-paginator .p-paginator-pages .p-paginator-page,
+:host ::ng-deep .p-paginator .p-paginator-next,
+:host ::ng-deep .p-paginator .p-paginator-prev,
+:host ::ng-deep .p-paginator .p-paginator-first,
+:host ::ng-deep .p-paginator .p-paginator-last {
+  min-width: 2rem !important;
+  height: 2rem !important;
+  font-size: 12px !important;
+}
 
+:host ::ng-deep .p-paginator .p-dropdown {
+  height: 30px !important;
+}
+
+:host ::ng-deep .p-paginator .p-dropdown-label {
+  font-size: 12px !important;
+  line-height: 30px !important;
+}
+
+/* Checkbox */
+:host ::ng-deep .p-checkbox {
+  width: 16px !important;
+  height: 16px !important;
+}
+
+:host ::ng-deep .p-checkbox .p-checkbox-box {
+  width: 16px !important;
+  height: 16px !important;
+  border-radius: 4px !important;
+}
+
+:host ::ng-deep .p-checkbox .p-checkbox-icon {
+  font-size: 10px !important;
+}
+
+/* Tooltip */
+:host ::ng-deep .p-tooltip .p-tooltip-text {
+  font-size: 11px !important;
+  padding: 0.35rem 0.5rem !important;
+}
+
+.usuarios-toolbar-row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  gap: 0.75rem;
+}
+
+.usuarios-toolbar-left,
+.usuarios-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+:host ::ng-deep .table-action-btn {
+  width: 34px !important;
+  height: 34px !important;
+  min-width: 34px !important;
+  border-radius: 8px !important;
+  padding: 0 !important;
+}
+
+:host ::ng-deep .table-action-btn .p-button-icon {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .empresas-table .p-datatable-wrapper {
+  overflow-x: auto;
+}
+
+:host ::ng-deep .empresas-table .p-datatable-thead > tr > th {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  padding: 0.5rem 0.6rem !important;
+  text-align: left;
+}
+
+:host ::ng-deep .empresas-table .p-datatable-tbody > tr > td {
+  font-size: 12px !important;
+  padding: 0.5rem 0.6rem !important;
+  vertical-align: middle !important;
+  line-height: 1.35 !important;
+}
+
+:host ::ng-deep .empresas-table .p-paginator {
+  font-size: 12px !important;
+  padding: 0.5rem 0.25rem !important;
+}
+
+:host ::ng-deep .empresas-table .p-paginator .p-paginator-pages .p-paginator-page,
+:host ::ng-deep .empresas-table .p-paginator .p-paginator-next,
+:host ::ng-deep .empresas-table .p-paginator .p-paginator-prev,
+:host ::ng-deep .empresas-table .p-paginator .p-paginator-first,
+:host ::ng-deep .empresas-table .p-paginator .p-paginator-last {
+  min-width: 1.9rem !important;
+  height: 1.9rem !important;
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .empresas-table .p-checkbox {
+  width: 15px !important;
+  height: 15px !important;
+}
+
+:host ::ng-deep .empresas-table .p-checkbox .p-checkbox-box {
+  width: 15px !important;
+  height: 15px !important;
+  border-radius: 4px !important;
+}
+
+:host ::ng-deep .empresas-table .p-checkbox .p-checkbox-icon {
+  font-size: 9px !important;
 }

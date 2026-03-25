@@ -10,7 +10,8 @@ import { TableModule } from 'primeng/table';
 import { DropdownModule } from 'primeng/dropdown';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
-
+import { PanelModule } from 'primeng/panel';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 // Importar las interfaces desde el archivo de modelo
 import {
   TipoCalculo,
@@ -20,6 +21,7 @@ import {
   AfectacionItem,
   ConceptoEstandarDetalle
 } from 'src/app/demo/model/ConceptoEstandar';
+import { BreadcrumbService } from '../../service/breadcrumb.service';
 
 @Component({
   selector: 'app-concepto-estandar-detalle',
@@ -33,13 +35,18 @@ import {
     InputTextareaModule,
     TableModule,
     DropdownModule,
-    ToastModule
+    ToastModule,
+    PanelModule,
+    BreadcrumbModule,
   ],
-  providers: [MessageService],
+  providers: [MessageService,BreadcrumbService],
   templateUrl: './concepto-estandar-detalle.component.html',
   styleUrls: ['./concepto-estandar-detalle.component.css']
 })
 export class ConceptoEstandarDetalleComponent implements OnInit {
+  items: any[] = [];
+
+
   // Modos de operación
   isNewRecord: boolean = false;
   esModoVisualizacion: boolean = false;
@@ -129,10 +136,23 @@ export class ConceptoEstandarDetalleComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private bS: BreadcrumbService
   ) {}
 
   ngOnInit() {
+    this.bS.setBreadcrumbs([
+      { icon: 'pi pi-home', routerLink: '/home' },
+      { label: 'Sistema' },
+      { label: 'Maestro Estandar' },
+      { label: 'Concepto estandar', routerLink: '/home/maestro-estandar/concepto' },
+      { label: 'Concepto estandar detalle' },
+    ]);
+
+    this.bS.currentBreadcrumbs$.subscribe((bc) => {
+      this.items = bc;
+    });
+
     this.route.params.subscribe(params => {
       this.codigoConcepto = params['codigo'];
 

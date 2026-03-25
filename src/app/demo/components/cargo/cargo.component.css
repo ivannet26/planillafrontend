@@ -394,3 +394,22 @@
   max-width: 100%;
   margin-right: auto;
 }
+
+:host ::ng-deep .header-large .p-panel-header {
+  display: none !important;
+}
+
+:host ::ng-deep .header-large .p-panel-content {
+  border-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+:host ::ng-deep .content-wrapper {
+  overflow-x: auto;
+  width: 100%;
+  max-width: 100%;
+}
+
+.cargo-content {
+  padding: 1rem 1rem 0.75rem 1rem;
+}

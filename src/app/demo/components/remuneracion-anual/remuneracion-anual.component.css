@@ -1,13 +1,208 @@
-.actions-cell{
+.remuneracion-card {
+  padding: 1rem !important;
+}
+
+/* Panel */
+:host ::ng-deep .p-panel .p-panel-header {
+  font-size: 15px !important;
+  padding: 0.85rem 1rem !important;
+}
+
+:host ::ng-deep .p-panel .p-panel-content {
+  padding: 0.9rem 1rem !important;
+}
+
+/* Breadcrumb */
+:host ::ng-deep .p-breadcrumb {
+  font-size: 12px !important;
+  padding: 0.5rem 0.75rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb .p-menuitem-link {
+  padding: 0 !important;
+  gap: 0.35rem !important;
+}
+
+:host ::ng-deep .p-breadcrumb .pi {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .p-breadcrumb .p-breadcrumb-chevron {
+  font-size: 11px !important;
+}
+
+/* Filtros */
+.filter-label {
+  min-width: 78px;
+  white-space: nowrap;
+  font-size: 12px !important;
+  font-weight: 600;
+  color: #374151;
+}
+
+:host ::ng-deep .remu-filter-dd.p-dropdown,
+:host ::ng-deep .remu-filter-dd .p-dropdown {
+  max-width: 190px;
+  height: 34px !important;
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .remu-filter-dd .p-dropdown-label {
+  line-height: 34px !important;
+  font-size: 12px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+:host ::ng-deep .remu-filter-dd .p-dropdown-trigger {
+  width: 34px !important;
+}
+
+/* Tabla */
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  padding: 0.55rem 0.65rem !important;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr > td {
+  font-size: 12px !important;
+  padding: 0.5rem 0.65rem !important;
+  vertical-align: middle !important;
+}
+
+.actions-cell {
   flex-wrap: nowrap;
   white-space: nowrap;
 }
 
-.filter-label{
-  min-width: 85px;
-  white-space: nowrap;
+:host ::ng-deep .remu-action-btn {
+  width: 30px !important;
+  height: 30px !important;
+  min-width: 30px !important;
+  padding: 0 !important;
 }
 
-:host ::ng-deep .p-dropdown {
-  max-width: 240px;
+:host ::ng-deep .remu-action-btn .p-button-icon {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .p-paginator {
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .p-paginator .p-paginator-pages .p-paginator-page,
+:host ::ng-deep .p-paginator .p-paginator-next,
+:host ::ng-deep .p-paginator .p-paginator-prev,
+:host ::ng-deep .p-paginator .p-paginator-first,
+:host ::ng-deep .p-paginator .p-paginator-last {
+  min-width: 2rem !important;
+  height: 2rem !important;
+  font-size: 12px !important;
+}
+
+:host ::ng-deep .p-paginator .p-dropdown {
+  height: 30px !important;
+}
+
+:host ::ng-deep .p-paginator .p-dropdown-label {
+  font-size: 12px !important;
+  line-height: 30px !important;
+}
+
+
+:host ::ng-deep .p-dialog .p-dialog-header {
+  padding: 0.85rem 1rem !important;
+  font-size: 14px !important;
+}
+
+:host ::ng-deep .p-dialog .p-dialog-content {
+  padding: 0.9rem 1rem 1rem 1rem !important;
+}
+
+:host ::ng-deep .preview-table .p-datatable-thead > tr > th {
+  font-size: 12px !important;
+  padding: 0.5rem 0.65rem !important;
+}
+
+:host ::ng-deep .preview-table .p-datatable-tbody > tr > td {
+  font-size: 12px !important;
+  padding: 0.5rem 0.65rem !important;
+}
+
+/* tooltip */
+:host ::ng-deep .p-tooltip .p-tooltip-text {
+  font-size: 11px !important;
+  padding: 0.35rem 0.5rem !important;
+}
+
+.remu-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.remu-filter-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.filter-label {
+  min-width: 78px;
+  white-space: nowrap;
+  font-size: 12px !important;
+  font-weight: 600;
+  color: #374151;
+}
+
+.remu-toolbar-row {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.9rem;
+}
+
+.remu-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+:host ::ng-deep .table-action-btn {
+  width: 34px !important;
+  height: 34px !important;
+  min-width: 34px !important;
+  border-radius: 8px !important;
+  padding: 0 !important;
+}
+
+:host ::ng-deep .table-action-btn .p-button-icon {
+  font-size: 12px !important;
+}
+
+.remu-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.remu-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.remu-filter-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.remu-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-top: 4.1rem;
 }

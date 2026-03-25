@@ -2,12 +2,12 @@
     <p-toast></p-toast>
     <p-confirmDialog></p-confirmDialog>
 
-    <div class="mb-2">
-        <p-panel header="Centro costo" styleClass="custom-panel-header shadow-xl rounded-xl mb-3">
-            <p-breadcrumb [model]="items" class="max-w-full"></p-breadcrumb>
-            </p-panel>
-            
-            <div class="shadow-xl rounded-full surface-card px-4 py-4">
+    <p-panel header="Centro costo" styleClass="custom-panel-header shadow-xl rounded-xl mb-3">
+        <p-breadcrumb [model]="items" class="max-w-full"></p-breadcrumb>
+    </p-panel>
+
+    <p-panel styleClass="shadow-xl rounded-xl py-2 header-large">
+        <div class="content-wrapper centrocosto-content">
             <div class="aligned-content-container">
                 <div class="mb-2 centrocosto-toolbar-row">
                     <div class="centrocosto-toolbar">
@@ -75,11 +75,18 @@
                     </div>
                 </div>
 
-
                 <div class="centrocosto-table-wrapper">
-                    <p-table [value]="centrosCosto" [rows]="rowsPerPage" [paginator]="true" responsiveLayout="scroll"
+                    <p-table
+                        [value]="centrosCosto"
+                        [rows]="rowsPerPage"
+                        [paginator]="true"
+                        responsiveLayout="scroll"
                         [rowsPerPageOptions]="[5, 10, 20, 50]"
-                        selectionMode="single" [(selection)]="selectedCentroCosto" dataKey="pla57codigo"styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines centrocosto-table">
+                        selectionMode="single"
+                        [(selection)]="selectedCentroCosto"
+                        dataKey="pla57codigo"
+                        styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines centrocosto-table">
+
                         <ng-template pTemplate="header">
                             <tr>
                                 <th style="width: auto; text-align: center;">Código</th>
@@ -91,23 +98,28 @@
                         <ng-template pTemplate="body" let-centroCosto>
                             <tr [pSelectableRow]="centroCosto">
                                 <td class="text-center">
-                                    <div
-                                        *ngIf="editingCentroCosto?.pla57codigo === centroCosto.pla57codigo; else displayCodigo">
-                                        <input pInputText type="text" [(ngModel)]="editingCentroCosto!.pla57codigo"
-                                            placeholder="Código" class="w-full text-sm text-center font-bold"
-                                            [disabled]="!isAddMode" style="text-transform: uppercase;" />
+                                    <div *ngIf="editingCentroCosto?.pla57codigo === centroCosto.pla57codigo; else displayCodigo">
+                                        <input
+                                            pInputText
+                                            type="text"
+                                            [(ngModel)]="editingCentroCosto!.pla57codigo"
+                                            placeholder="Código"
+                                            class="w-full centrocosto-input text-center font-bold"
+                                            [disabled]="!isAddMode"
+                                            style="text-transform: uppercase;" />
                                     </div>
                                     <ng-template #displayCodigo>
-                                        {{ centroCosto.pla57codigo.startsWith('TEMP-') ? '---' : centroCosto.pla57codigo
-                                        }}
+                                        {{ centroCosto.pla57codigo.startsWith('TEMP-') ? '---' : centroCosto.pla57codigo }}
                                     </ng-template>
                                 </td>
 
                                 <td class="text-center">
-                                    <div
-                                        *ngIf="editingCentroCosto?.pla57codigo === centroCosto.pla57codigo; else displayDescripcion">
-                                        <input pInputText type="text" [(ngModel)]="editingCentroCosto!.pla57descripcion"
-                                            class="w-full text-sm text-left" />
+                                    <div *ngIf="editingCentroCosto?.pla57codigo === centroCosto.pla57codigo; else displayDescripcion">
+                                        <input
+                                            pInputText
+                                            type="text"
+                                            [(ngModel)]="editingCentroCosto!.pla57descripcion"
+                                            class="w-full centrocosto-input text-left" />
                                     </div>
                                     <ng-template #displayDescripcion>
                                         {{ centroCosto.pla57descripcion }}
@@ -115,32 +127,35 @@
                                 </td>
 
                                 <td class="text-center">
-                                    <div
-                                        *ngIf="editingCentroCosto?.pla57codigo === centroCosto.pla57codigo; else displayActivoVisual">
-                                        <p-checkbox [binary]="true"
-                                            [(ngModel)]="editingCentroCosto!.pla57flagactivo"></p-checkbox>
+                                    <div *ngIf="editingCentroCosto?.pla57codigo === centroCosto.pla57codigo; else displayActivoVisual">
+                                        <p-checkbox
+                                            [binary]="true"
+                                            [(ngModel)]="editingCentroCosto!.pla57flagactivo">
+                                        </p-checkbox>
                                     </div>
 
                                     <ng-template #displayActivoVisual>
-                                        <p-checkbox [binary]="true" [ngModel]="centroCosto.pla57flagactivo"
-                                            [disabled]="true" [readonly]="true">
+                                        <p-checkbox
+                                            [binary]="true"
+                                            [ngModel]="centroCosto.pla57flagactivo"
+                                            [disabled]="true"
+                                            [readonly]="true">
                                         </p-checkbox>
                                     </ng-template>
                                 </td>
-
                             </tr>
                         </ng-template>
 
                         <ng-template pTemplate="emptymessage">
                             <tr>
-                                <td colspan="4" style="text-align: center;">
-                                    No se encontraron cargos.
+                                <td colspan="3" style="text-align: center;">
+                                    No se encontraron centros de costo.
                                 </td>
                             </tr>
                         </ng-template>
                     </p-table>
                 </div>
             </div>
-            </div>
-    </div>
+        </div>
+    </p-panel>
 </div>

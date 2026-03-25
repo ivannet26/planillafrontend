@@ -1,158 +1,147 @@
 <div class="banco-container">
-  <!-- Toast para notificaciones -->
   <p-toast></p-toast>
-
-  <!-- Confirm Dialog -->
   <p-confirmDialog></p-confirmDialog>
 
   <p-panel header="Banco" styleClass="shadow-xl rounded-xl mb-3">
     <p-breadcrumb [model]="items" class="max-w-full"></p-breadcrumb>
-    </p-panel>
-    
-    <div class="banco-section-wrapper">
-  <div class="shadow-xl rounded-full surface-card px-4 py-4">
-    <div class="banco-toolbar-row">
-  <div class="banco-toolbar">
-    <div class="banco-toolbar-left">
-      <button
-        pButton
-        type="button"
-        icon="pi pi-plus"
-        class="p-button-sm add-button banco-btn"
-        (click)="agregarNuevo()"
-        label="Nuevo Banco"
-        pTooltip="Agregar nuevo banco"
-        tooltipPosition="bottom"
-        [disabled]="hayBancoEditando">
-      </button>
+  </p-panel>
+
+  <p-panel styleClass="shadow-xl rounded-xl py-2 header-large">
+    <div class="content-wrapper banco-content">
+      <div class="banco-toolbar-row">
+        <div class="banco-toolbar">
+          <div class="banco-toolbar-left">
+            <button
+              pButton
+              type="button"
+              icon="pi pi-plus"
+              class="p-button-sm add-button banco-btn"
+              (click)="agregarNuevo()"
+              label="Nuevo Banco"
+              pTooltip="Agregar nuevo banco"
+              tooltipPosition="bottom"
+              [disabled]="hayBancoEditando">
+            </button>
+          </div>
+
+          <div class="banco-toolbar-right">
+            <button
+              *ngIf="editingRowIndex === null"
+              pButton
+              type="button"
+              icon="pi pi-pencil"
+              class="p-button-info banco-icon-btn"
+              (click)="editarSeleccionado()"
+              [disabled]="!selectedBanco || hayBancoEditando"
+              pTooltip="Editar"
+              tooltipPosition="bottom">
+            </button>
+
+            <button
+              *ngIf="editingRowIndex === null"
+              pButton
+              type="button"
+              icon="pi pi-trash"
+              class="p-button-danger banco-icon-btn"
+              (click)="eliminarSeleccionado()"
+              [disabled]="!selectedBanco || hayBancoEditando"
+              pTooltip="Eliminar"
+              tooltipPosition="bottom">
+            </button>
+
+            <button
+              *ngIf="editingRowIndex !== null"
+              pButton
+              type="button"
+              icon="pi pi-check"
+              class="p-button-success banco-icon-btn"
+              (click)="guardarSeleccionado()"
+              pTooltip="Guardar"
+              tooltipPosition="bottom">
+            </button>
+
+            <button
+              *ngIf="editingRowIndex !== null"
+              pButton
+              type="button"
+              icon="pi pi-times"
+              class="p-button-danger banco-icon-btn"
+              (click)="cancelarSeleccionado()"
+              pTooltip="Cancelar"
+              tooltipPosition="bottom">
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <p-table
+        #dt
+        [value]="bancos"
+        [paginator]="true"
+        [rows]="10"
+        selectionMode="single"
+        [(selection)]="selectedBanco"
+        dataKey="codigo"
+        [rowsPerPageOptions]="[5, 10, 20, 50]"
+        [showCurrentPageReport]="true"
+        currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} bancos"
+        [globalFilterFields]="['codigo', 'descripcion']"
+        [tableStyle]="{ 'min-width': '100%' }"
+        styleClass="banco-table p-datatable-sm p-datatable-striped p-datatable-gridlines">
+
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="width: auto">Codigo</th>
+            <th style="width: auto">Descripcion</th>
+            <th style="width: auto; text-align: center">Activo</th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-banco let-rowIndex="rowIndex">
+          <tr [pSelectableRow]="banco">
+            <td>
+              <input
+                *ngIf="banco.isEditing"
+                type="text"
+                pInputText
+                [(ngModel)]="banco.codigo"
+                [disabled]="!banco.isNew"
+                class="table-input"
+                maxlength="10" />
+              <span *ngIf="!banco.isEditing">{{ banco.codigo }}</span>
+            </td>
+
+            <td>
+              <input
+                *ngIf="banco.isEditing"
+                type="text"
+                pInputText
+                [(ngModel)]="banco.descripcion"
+                class="table-input"
+                maxlength="100" />
+              <span *ngIf="!banco.isEditing">{{ banco.descripcion }}</span>
+            </td>
+
+            <td class="text-center">
+              <p-checkbox
+                [(ngModel)]="banco.activo"
+                [binary]="true"
+                [disabled]="!banco.isEditing"
+                inputId="activo-{{ rowIndex }}">
+              </p-checkbox>
+            </td>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="3" class="text-center empty-message">
+              <i class="pi pi-info-circle"></i>
+              <p>No se encontraron bancos</p>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
     </div>
-
-    <div class="banco-toolbar-right">
-  <button
-    *ngIf="editingRowIndex === null"
-    pButton
-    type="button"
-    icon="pi pi-pencil"
-    class="p-button-info banco-icon-btn"
-    (click)="editarSeleccionado()"
-    [disabled]="!selectedBanco || hayBancoEditando"
-    pTooltip="Editar"
-    tooltipPosition="bottom">
-  </button>
-
-  <button
-    *ngIf="editingRowIndex === null"
-    pButton
-    type="button"
-    icon="pi pi-trash"
-    class="p-button-danger banco-icon-btn"
-    (click)="eliminarSeleccionado()"
-    [disabled]="!selectedBanco || hayBancoEditando"
-    pTooltip="Eliminar"
-    tooltipPosition="bottom">
-  </button>
-
-  <button
-    *ngIf="editingRowIndex !== null"
-    pButton
-    type="button"
-    icon="pi pi-check"
-    class="p-button-success banco-icon-btn"
-    (click)="guardarSeleccionado()"
-    pTooltip="Guardar"
-    tooltipPosition="bottom">
-  </button>
-
-  <button
-    *ngIf="editingRowIndex !== null"
-    pButton
-    type="button"
-    icon="pi pi-times"
-    class="p-button-danger banco-icon-btn"
-    (click)="cancelarSeleccionado()"
-    pTooltip="Cancelar"
-    tooltipPosition="bottom">
-  </button>
-</div>
-  </div>
-</div>
-
-    <p-table
-      #dt
-      [value]="bancos"
-      [paginator]="true"
-      [rows]="10"
-      selectionMode="single"
-      [(selection)]="selectedBanco"
-      dataKey="codigo"
-      [rowsPerPageOptions]="[5, 10, 20, 50]"
-      [showCurrentPageReport]="true"
-      currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} bancos"
-      [globalFilterFields]="['codigo', 'descripcion']"
-      [tableStyle]="{ 'min-width': '100%' }"
-      styleClass="banco-table p-datatable-sm p-datatable-striped p-datatable-gridlines">
-
-      <!-- Columnas -->
-      <!-- Columnas -->
-      <ng-template pTemplate="header">
-        <tr >
-          <th style="width: auto">Codigo</th>
-          <th style="width: auto">Descripcion</th>
-          <th style="width: auto; text-align: center">Activo</th>
-        </tr>
-      </ng-template>
-
-      <!-- Filas -->
-      <ng-template pTemplate="body" let-banco let-rowIndex="rowIndex">
-        <tr [pSelectableRow]="banco">
-          <!-- Código -->
-          <td>
-            <input
-              *ngIf="banco.isEditing"
-              type="text"
-              pInputText
-              [(ngModel)]="banco.codigo"
-              [disabled]="!banco.isNew"
-              class="table-input"
-              maxlength="10" />
-            <span *ngIf="!banco.isEditing">{{ banco.codigo }}</span>
-          </td>
-
-          <!-- Descripción -->
-          <td>
-            <input
-              *ngIf="banco.isEditing"
-              type="text"
-              pInputText
-              [(ngModel)]="banco.descripcion"
-              class="table-input"
-              maxlength="100" />
-            <span *ngIf="!banco.isEditing">{{ banco.descripcion }}</span>
-          </td>
-
-          <!-- Activo (checkbox) -->
-          <td class="text-center">
-            <p-checkbox
-              [(ngModel)]="banco.activo"
-              [binary]="true"
-              [disabled]="!banco.isEditing"
-              inputId="activo-{{rowIndex}}">
-            </p-checkbox>
-          </td>
-
-        </tr>
-      </ng-template>
-
-      <!-- Empty message -->
-      <ng-template pTemplate="emptymessage">
-        <tr>
-          <td colspan="3" class="text-center empty-message">
-            <i class="pi pi-info-circle"></i>
-            <p>No se encontraron bancos</p>
-          </td>
-        </tr>
-      </ng-template>
-    </p-table>
-    </div>
-
+  </p-panel>
 </div>

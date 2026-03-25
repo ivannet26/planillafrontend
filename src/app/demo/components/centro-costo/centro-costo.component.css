@@ -1,11 +1,31 @@
+
+:host ::ng-deep .header-large .p-panel-header {
+  display: none !important;
+}
+
+:host ::ng-deep .header-large .p-panel-content {
+  border-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+:host ::ng-deep .content-wrapper {
+  overflow-x: auto;
+  width: 100%;
+  max-width: 100%;
+}
+
+.centrocosto-content {
+  padding: 1rem 1rem 0.75rem 1rem;
+}
+
 /* panel */
 :host ::ng-deep .p-panel .p-panel-header {
   font-size: 15px !important;
-  padding: 0.8rem 1rem !important;
+  padding: 0.85rem 1rem !important;
 }
 
 :host ::ng-deep .p-panel .p-panel-content {
-  padding: 0.8rem 0.9rem !important;
+  padding: 0.9rem 1rem !important;
 }
 
 /* breadcrumb */
@@ -27,37 +47,64 @@
   font-size: 11px !important;
 }
 
-/* card */
-:host ::ng-deep .surface-card {
-  padding: 0.9rem 1rem !important;
-  border-radius: 16px !important;
+
+:host ::ng-deep .aligned-content-container {
+  width: 100%;
+  max-width: 100%;
 }
 
 /* toolbar */
-:host ::ng-deep .p-toolbar {
-  padding: 0.45rem 0.6rem !important;
-  font-size: 12px !important;
+.centrocosto-toolbar-row {
+  margin-bottom: 0.85rem !important;
 }
 
-:host ::ng-deep .p-toolbar .p-toolbar-group-start,
-:host ::ng-deep .p-toolbar .p-toolbar-group-end {
-  gap: 0.5rem !important;
+.centrocosto-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 0.75rem;
 }
 
-/* boton */
-:host ::ng-deep .toolbar-button {
+.centrocosto-toolbar-left,
+.centrocosto-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+
+.centrocosto-btn {
   height: 34px !important;
-  font-size: 12px !important;
   padding: 0 0.85rem !important;
+  font-size: 12px !important;
   border-radius: 8px !important;
 }
 
-:host ::ng-deep .toolbar-button .p-button-icon,
-:host ::ng-deep .toolbar-button .p-button-label {
+.centrocosto-icon-btn {
+  width: 34px !important;
+  height: 34px !important;
+  min-width: 34px !important;
+  padding: 0 !important;
+  border-radius: 8px !important;
+}
+
+:host ::ng-deep .centrocosto-btn .p-button-icon,
+:host ::ng-deep .centrocosto-btn .p-button-label,
+:host ::ng-deep .centrocosto-icon-btn .p-button-icon {
   font-size: 12px !important;
 }
 
-/* table */
+:host ::ng-deep .centrocosto-btn .p-button-label {
+  font-weight: 600 !important;
+}
+
+/* tabla */
+.centrocosto-table-wrapper {
+  width: 100%;
+  padding: 0 !important;
+}
+
 :host ::ng-deep .centrocosto-table {
   width: 100%;
   max-width: 100%;
@@ -68,7 +115,6 @@
   border-collapse: collapse;
   table-layout: fixed;
 }
-
 
 :host ::ng-deep .centrocosto-table .p-datatable-thead > tr > th {
   font-size: 12px !important;
@@ -92,27 +138,22 @@
 }
 
 
-:host ::ng-deep .centrocosto-table .p-inputtext {
+:host ::ng-deep .centrocosto-table .p-datatable-tbody > tr.p-highlight > td {
+  background: #eef4ff !important;
+  color: #1f2937 !important;
+}
+
+
+:host ::ng-deep .centrocosto-table .p-inputtext,
+.centrocosto-input {
   height: 32px !important;
   font-size: 12px !important;
   padding: 0.4rem 0.55rem !important;
 }
 
+/* checkbox */
 :host ::ng-deep .centrocosto-table .p-checkbox {
   transform: scale(0.9);
-}
-
-
-:host ::ng-deep .centrocosto-table .p-button.p-button-sm,
-:host ::ng-deep .centrocosto-table .p-button-rounded {
-  width: 30px !important;
-  height: 30px !important;
-  min-width: 30px !important;
-  padding: 0 !important;
-}
-
-:host ::ng-deep .centrocosto-table .p-button .p-button-icon {
-  font-size: 12px !important;
 }
 
 :host ::ng-deep .centrocosto-table .p-paginator {
@@ -123,78 +164,44 @@
 :host ::ng-deep .centrocosto-table .p-paginator .p-paginator-pages .p-paginator-page,
 :host ::ng-deep .centrocosto-table .p-paginator .p-dropdown,
 :host ::ng-deep .centrocosto-table .p-paginator .p-dropdown-label,
-:host ::ng-deep .centrocosto-table .p-paginator .p-paginator-current {
+:host ::ng-deep .centrocosto-table .p-paginator .p-paginator-current,
+:host ::ng-deep .centrocosto-table .p-paginator .p-paginator-first,
+:host ::ng-deep .centrocosto-table .p-paginator .p-paginator-prev,
+:host ::ng-deep .centrocosto-table .p-paginator .p-paginator-next,
+:host ::ng-deep .centrocosto-table .p-paginator .p-paginator-last {
   font-size: 12px !important;
 }
 
+:host ::ng-deep .centrocosto-table .p-paginator .p-paginator-pages .p-paginator-page {
+  min-width: 2rem !important;
+  height: 2rem !important;
+}
+
+:host ::ng-deep .centrocosto-table .p-paginator .p-dropdown {
+  height: 32px !important;
+  align-items: center !important;
+}
+
+:host ::ng-deep .centrocosto-table .p-paginator .p-dropdown .p-dropdown-label {
+  padding-top: 0.45rem !important;
+  padding-bottom: 0.45rem !important;
+}
+
+:host ::ng-deep .centrocosto-table .p-paginator .p-dropdown-trigger {
+  width: 2.2rem !important;
+}
+
 /* tooltip */
-::ng-deep .p-tooltip .p-tooltip-text {
+:host ::ng-deep .p-tooltip .p-tooltip-text {
   font-size: 11px !important;
   padding: 0.3rem 0.45rem !important;
   line-height: 1.15 !important;
 }
 
-::ng-deep .p-tooltip {
+:host ::ng-deep .p-tooltip {
   max-width: 160px !important;
 }
 
-::ng-deep .p-tooltip .p-tooltip-arrow {
+:host ::ng-deep .p-tooltip .p-tooltip-arrow {
   transform: scale(0.8);
-}
-
-:host ::ng-deep .aligned-content-container {
-  width: 100%;
-  max-width: 100%;
-}
-
-
-.centrocosto-table-wrapper {
-  padding-left: 1rem !important;
-  padding-right: 0 !important;
-}
-
-.centrocosto-toolbar-row {
-  margin-bottom: 0.75rem !important;
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-}
-
-.centrocosto-table-wrapper {
-  width: 100%;
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-}
-
-.centrocosto-toolbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  gap: 0.75rem;
-}
-
-.centrocosto-toolbar-left,
-.centrocosto-toolbar-right {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.centrocosto-btn {
-  height: 34px !important;
-  font-size: 12px !important;
-  padding: 0 0.85rem !important;
-}
-
-.centrocosto-icon-btn {
-  width: 34px !important;
-  height: 34px !important;
-  min-width: 34px !important;
-  padding: 0 !important;
-}
-
-:host ::ng-deep .centrocosto-btn .p-button-icon,
-:host ::ng-deep .centrocosto-btn .p-button-label,
-:host ::ng-deep .centrocosto-icon-btn .p-button-icon {
-  font-size: 12px !important;
 }
