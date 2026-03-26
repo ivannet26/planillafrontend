@@ -264,3 +264,31 @@
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
+
+
+.empresa-form-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 1rem 0.75rem 1rem;
+}
+
+:host ::ng-deep .empresa-form-btn {
+  height: 34px !important;
+  padding: 0 0.9rem !important;
+  font-size: 12px !important;
+  border-radius: 8px !important;
+}
+
+:host ::ng-deep .empresa-form-btn .p-button-icon,
+:host ::ng-deep .empresa-form-btn .p-button-label {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+}
+
+.empresa-save-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0 1.5rem 0;
+}

@@ -10,66 +10,65 @@
         <div class="content-wrapper parametros-content">
           <!-- Botón Nuevo y Dropdown Filas por Página -->
           <div class="mb-2 parametros-toolbar-row">
-            <div class="parametros-toolbar">
-                <div class="parametros-toolbar-left">
-                    <button
-                    type="button"
-                    pButton
-                    icon="pi pi-plus"
-                    label="Nuevo Parámetro"
-                    (click)="showAddRow()"
-                    [disabled]="isEditingAnyRow || isEditing"
-                    class="p-button-info parametros-btn"
-                    pTooltip="Nuevo parámetro"
-                    tooltipPosition="bottom"></button>
-                </div>
-                
-                <div class="parametros-toolbar-right">
-                    <button
-                    *ngIf="editingRowIndex === null"
-                    pButton
-                    type="button"
-                    icon="pi pi-pencil"
-                    class="p-button-info parametros-icon-btn"
-                    pTooltip="Editar"
-                    tooltipPosition="bottom"
-                    [disabled]="!selectedParametroGeneral || isEditing || isEditingAnyRow"
-                    (click)="editarParametroSeleccionado()"></button>
-                    
-                    <button
-                    *ngIf="editingRowIndex === null"
-                    pButton
-                    type="button"
-                    icon="pi pi-trash"
-                    class="p-button-danger parametros-icon-btn"
-                    pTooltip="Eliminar"
-                    tooltipPosition="bottom"
-                    [disabled]="!selectedParametroGeneral || isEditing || isEditingAnyRow"
-                    (click)="eliminarParametroSeleccionado()"></button>
-                    
-                    <button
-                    *ngIf="editingRowIndex !== null"
-                    pButton
-                    type="button"
-                    icon="pi pi-check"
-                    class="p-button-success parametros-icon-btn"
-                    pTooltip="Guardar"
-                    tooltipPosition="bottom"
-                    (click)="guardarEdicionSeleccionada()"></button>
-                    
-                    <button
-                    *ngIf="editingRowIndex !== null"
-                    pButton
-                    type="button"
-                    icon="pi pi-times"
-                    class="p-button-danger parametros-icon-btn"
-                    pTooltip="Cancelar"
-                    tooltipPosition="bottom"
-                    (click)="cancelarEdicionSeleccionada()">
-                </button>
+            <div class="parametros-toolbar-left">
+              <button
+              type="button"
+              pButton
+              icon="pi pi-plus"
+              label="Nuevo Parámetro"
+              (click)="showAddRow()"
+              [disabled]="isEditingAnyRow || isEditing"
+              class="p-button-info parametros-btn"
+              pTooltip="Nuevo parámetro"
+              tooltipPosition="bottom"></button>
+
             </div>
-        </div>
-    </div>
+            
+            <div class="parametros-toolbar-right">
+              <button
+              *ngIf="editingRowIndex === null && !isEditing"
+              pButton
+              type="button"
+              icon="pi pi-pencil"
+              class="p-button-info parametros-icon-btn"
+              pTooltip="Editar"
+              tooltipPosition="bottom"
+              [disabled]="!selectedParametroGeneral || isEditing || isEditingAnyRow"
+              (click)="editarParametroSeleccionado()"></button>
+              
+              
+              <button
+              *ngIf="editingRowIndex === null && !isEditing"
+              pButton
+              type="button"
+              icon="pi pi-trash"
+              class="p-button-danger parametros-icon-btn"
+              pTooltip="Eliminar"
+              tooltipPosition="bottom"
+              [disabled]="!selectedParametroGeneral || isEditing || isEditingAnyRow"
+              (click)="eliminarParametroSeleccionado()"></button>
+              
+              <button
+              *ngIf="editingRowIndex !== null || isEditing"
+              pButton
+              type="button"
+              icon="pi pi-check"
+              class="p-button-success parametros-icon-btn"
+              pTooltip="Guardar"
+              tooltipPosition="bottom"
+              (click)="editingRowIndex !== null ? guardarEdicionSeleccionada() : onSave()"></button>
+              
+              <button
+              *ngIf="editingRowIndex !== null || isEditing"
+              pButton
+              type="button"
+              icon="pi pi-times"
+              class="p-button-danger parametros-icon-btn"
+              pTooltip="Cancelar"
+              tooltipPosition="bottom"
+              (click)="editingRowIndex !== null ? cancelarEdicionSeleccionada() : onCancel()"></button>
+            </div>
+          </div>
 
           <!-- Tabla Principal -->
           <p-table [value]="parametroGeneralList"
@@ -504,16 +503,6 @@
                                   </span>
                               </div>
 
-                              <!-- Botones de Acción -->
-                              <div class="col-2" style="width: 10%">
-                                  <div class="flex gap-2 justify-content-center">
-
-                                      <p-button icon="pi pi-check" styleClass="p-button-success p-button-sm" [text]="true"
-                                              (onClick)="onSave()" pTooltip="Guardar"></p-button>
-                                      <p-button icon="pi pi-times" styleClass="p-button-danger p-button-sm" [text]="true"
-                                              (onClick)="onCancel()" pTooltip="Cancelar"></p-button>
-                                  </div>
-                              </div>
                           </form>
                       </td>
                   </tr>

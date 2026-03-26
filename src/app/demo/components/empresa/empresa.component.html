@@ -141,6 +141,16 @@
             </div>
         </div>
         <div *ngIf="!isViewMode">
+            <div class="empresa-form-toolbar">
+                <button
+                pButton
+                type="button"
+                icon="pi pi-arrow-left"
+                label="Cancelar"
+                class="p-button-secondary empresa-form-btn"
+                (click)="cancelar()"></button>
+            </div>
+
             <div class="grid gap-2 justify-content-center py-1 px-4">
                 <div class="col-12 md:col-12 justify-content-center ">
                     <p-panel header="Datos de la Empresa" [toggleable]="false" styleClass="border-round">
@@ -362,6 +372,17 @@
                         </div>
                     </p-panel>
                 </div>
+            </div>
+
+            <div class="empresa-save-row">
+                <button
+                pButton
+                type="button"
+                icon="pi pi-save"
+                [label]="isAddMode ? 'Guardar' : 'Guardar cambios'"
+                class="p-button-success empresa-form-btn"
+                (click)="guardar()"
+                [disabled]="isDisabled()"></button>
             </div>
         </div>
         </div>

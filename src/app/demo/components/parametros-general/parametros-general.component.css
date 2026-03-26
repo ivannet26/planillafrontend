@@ -214,3 +214,30 @@
 .parametros-content {
   padding: 1rem 1rem 0.75rem 1rem;
 }
+
+.parametros-toolbar-row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.9rem;
+}
+
+.parametros-toolbar-left,
+.parametros-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+:host ::ng-deep .parametros-icon-btn {
+  width: 34px !important;
+  height: 34px !important;
+  min-width: 34px !important;
+  border-radius: 8px !important;
+  padding: 0 !important;
+}
+
+:host ::ng-deep .parametros-icon-btn .p-button-icon {
+  font-size: 12px !important;
+}
