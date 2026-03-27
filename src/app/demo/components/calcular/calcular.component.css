@@ -1,4 +1,4 @@
-/* Estilo original de la tabla */
+
 :host ::ng-deep .calcular-table {
     width: fit-content;
     max-width: 100%;
@@ -460,4 +460,19 @@
 
 .ajuste-desc-cell .text-700 {
   font-size: 12px !important;
+}
+
+:host ::ng-deep .calcular-table .p-datatable-thead > tr > th {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  padding: 0.38rem 0.5rem !important;
+  text-align: center !important;
+  vertical-align: middle !important;
+}
+
+:host ::ng-deep .calcular-table .p-datatable-tbody > tr > td {
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  padding: 0.34rem 0.5rem !important;
+  vertical-align: middle !important;
 }

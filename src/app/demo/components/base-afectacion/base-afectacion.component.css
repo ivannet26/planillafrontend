@@ -87,19 +87,20 @@
 }
 
 :host ::ng-deep .base-afectacion-table .p-datatable-thead > tr > th {
-  font-size: 12px !important;
+  font-size: 11.5px !important;
   font-weight: 600 !important;
-  padding: 0.5rem 0.55rem !important;
+  padding: 0.38rem 0.5rem !important;
   text-align: center !important;
-  line-height: 1.2 !important;
+  line-height: 1.15 !important;
   white-space: nowrap;
+  vertical-align: middle !important;
 }
 
 :host ::ng-deep .base-afectacion-table .p-datatable-tbody > tr > td {
-  font-size: 12px !important;
-  padding: 0.4rem 0.55rem !important;
+  font-size: 11.5px !important;
+  padding: 0.34rem 0.5rem !important;
   vertical-align: middle !important;
-  line-height: 1.2 !important;
+  line-height: 1.15 !important;
 }
 
 
@@ -112,16 +113,6 @@
   background: #f8fafc !important;
 }
 
-
-.table-input {
-  width: 100%;
-  height: 30px !important;
-  padding: 0.3rem 0.45rem !important;
-  border: 1px solid #ddd !important;
-  border-radius: 4px !important;
-  font-size: 12px !important;
-  background-color: #ffffff !important;
-}
 
 .table-input[type="number"] {
   text-align: center;
@@ -144,10 +135,21 @@
   text-align: center;
 }
 
+.table-input {
+  width: 100%;
+  height: 28px !important;
+  padding: 0.25rem 0.4rem !important;
+  border: 1px solid #ddd !important;
+  border-radius: 4px !important;
+  font-size: 11.5px !important;
+  background-color: #ffffff !important;
+}
+
 :host ::ng-deep .base-afectacion-table .p-checkbox {
   display: inline-flex;
-  transform: scale(0.9);
+  transform: scale(0.82);
 }
+
 
 :host ::ng-deep .base-afectacion-table .p-checkbox .p-checkbox-box {
   width: 16px;
@@ -195,20 +197,23 @@
   margin: 0.25rem 0 0 0;
 }
 
-
 :host ::ng-deep .base-afectacion-table .p-paginator {
-  font-size: 12px !important;
-  padding: 0.45rem 0.6rem !important;
+  font-size: 11.5px !important;
+  padding: 0.32rem 0.45rem !important;
 }
 
 :host ::ng-deep .base-afectacion-table .p-paginator .p-paginator-current,
-:host ::ng-deep .base-afectacion-table .p-paginator .p-paginator-pages .p-paginator-page {
-  font-size: 12px !important;
+:host ::ng-deep .base-afectacion-table .p-paginator .p-paginator-pages .p-paginator-page,
+:host ::ng-deep .base-afectacion-table .p-paginator .p-paginator-first,
+:host ::ng-deep .base-afectacion-table .p-paginator .p-paginator-prev,
+:host ::ng-deep .base-afectacion-table .p-paginator .p-paginator-next,
+:host ::ng-deep .base-afectacion-table .p-paginator .p-paginator-last {
+  font-size: 11.5px !important;
 }
 
 :host ::ng-deep .base-afectacion-table .p-paginator .p-paginator-pages .p-paginator-page {
-  min-width: 28px;
-  height: 28px;
+  min-width: 1.8rem !important;
+  height: 1.8rem !important;
 }
 
 /* tooltip */
@@ -247,12 +252,6 @@
 }
 
 
-.base-afectacion-toolbar-right {
-  display: flex;
-  align-items: center;
-  gap: 0.9rem;
-}
-
 :host ::ng-deep .header-large .p-panel-header {
   display: none !important;
 }
@@ -269,12 +268,12 @@
 }
 
 .base-afectacion-content {
-  padding: 1rem 1rem 0.75rem 1rem;
+  padding: 0.85rem 0.9rem 0.65rem 0.9rem;
 }
 
 .base-afectacion-toolbar-row {
   width: 100%;
-  margin-bottom: 0.85rem !important;
+  margin-bottom: 0.45rem !important;
 }
 
 .base-afectacion-toolbar {
@@ -282,12 +281,12 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  gap: 0.75rem;
+  gap: 0.5rem;
 }
 
 .base-afectacion-toolbar-left,
 .base-afectacion-toolbar-right {
   display: flex;
   align-items: center;
-  gap: 0.65rem;
+  gap: 0.5rem;
 }

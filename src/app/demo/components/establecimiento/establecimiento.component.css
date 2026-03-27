@@ -58,22 +58,23 @@
   font-size: 12px !important;
 }
 
-/* tabla */
 :host ::ng-deep .establecimiento-table .p-datatable-thead > tr > th {
-  font-size: 12px !important;
+  font-size: 11.5px !important;
   font-weight: 600 !important;
-  padding: 0.55rem 0.65rem !important;
+  padding: 0.38rem 0.5rem !important;
   text-align: center !important;
-  line-height: 1.25 !important;
+  line-height: 1.15 !important;
+  vertical-align: middle !important;
 }
 
 :host ::ng-deep .establecimiento-table .p-datatable-tbody > tr > td {
-  font-size: 12px !important;
+  font-size: 11.5px !important;
   font-weight: 400 !important;
-  padding: 0.5rem 0.65rem !important;
+  padding: 0.34rem 0.5rem !important;
   vertical-align: middle !important;
-  line-height: 1.3 !important;
+  line-height: 1.15 !important;
 }
+
 
 :host ::ng-deep .establecimiento-table .p-datatable-emptymessage td {
   font-size: 12px !important;
@@ -81,27 +82,28 @@
 }
 
 :host ::ng-deep .establecimiento-table .p-inputtext {
-  height: 32px !important;
-  font-size: 12px !important;
-  padding: 0.4rem 0.55rem !important;
+  height: 30px !important;
+  font-size: 11.5px !important;
+  padding: 0.3rem 0.45rem !important;
 }
 
 :host ::ng-deep .establecimiento-table .p-dropdown {
-  height: 32px !important;
-  font-size: 12px !important;
+  height: 30px !important;
+  font-size: 11.5px !important;
 }
 
 :host ::ng-deep .establecimiento-table .p-dropdown .p-dropdown-label {
   display: flex !important;
   align-items: center !important;
-  height: 32px !important;
-  font-size: 12px !important;
+  height: 30px !important;
+  font-size: 11.5px !important;
   padding-top: 0 !important;
   padding-bottom: 0 !important;
+  padding-left: 0.45rem !important;
 }
 
 :host ::ng-deep .establecimiento-table .p-dropdown .p-dropdown-trigger {
-  width: 32px !important;
+  width: 30px !important;
 }
 
 :host ::ng-deep .establecimiento-table .p-checkbox {
@@ -122,15 +124,15 @@
 }
 
 :host ::ng-deep .establecimiento-table .p-paginator {
-  font-size: 12px !important;
-  padding: 0.45rem 0.6rem !important;
+  font-size: 11.5px !important;
+  padding: 0.32rem 0.45 !important;
 }
 
 :host ::ng-deep .establecimiento-table .p-paginator .p-paginator-pages .p-paginator-page,
 :host ::ng-deep .establecimiento-table .p-paginator .p-dropdown,
 :host ::ng-deep .establecimiento-table .p-paginator .p-dropdown-label,
 :host ::ng-deep .establecimiento-table .p-paginator .p-paginator-current {
-  font-size: 12px !important;
+  font-size: 11px !important;
 }
 
 /* tooltip */

@@ -68,11 +68,6 @@
 }
 
 
-.right-panel {
-  width: 100%;
-  min-width: 0;
-  overflow: hidden; 
-}
 
 .right-grid {
   display: grid;
@@ -166,12 +161,6 @@
   font-size: 12px !important;
 }
 
-.right-panel {
-  width: 100%;
-  min-width: 0;
-  overflow: hidden;
-  padding: 0.75rem !important;
-}
 
 .button-save {
   display: flex;
@@ -482,7 +471,7 @@
   min-width: 0;
   overflow: hidden;
   padding: 0.9rem !important;
-  margin-top: 66px;
+  margin-top: 37px;
 }
 
 .button-save {

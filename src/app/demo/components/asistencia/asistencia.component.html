@@ -7,7 +7,7 @@
 
 <p-panel styleClass="shadow-xl rounded-lg header-large">
     <div class="content-wrapper asistencia-content">
-        <p-toolbar styleClass="mb-4 toolbar-clean align-to-table">
+        <p-toolbar styleClass="mb-3 toolbar-clean align-to-table asistencia-toolbar">
             <div class="flex justify-center gap-3">
                 <!--
                 <button pButton pRipple icon="pi pi-trash" class="p-button-info p-button-sm" (click)="limpiarDias()"
@@ -24,7 +24,7 @@
                 -->
 
                 <!-- Botón Vista Previa -->
-                <button pButton pRipple icon="pi pi-search" label="Vista Previa" class="p-button-sm" (click)="vistaPreviaGeneral()"
+                <button pButton pRipple icon="pi pi-search" label="Vista Previa" class="p-button-sm toolbar-button-text" (click)="vistaPreviaGeneral()"
                     pTooltip="Vista Previa" tooltipPosition="bottom">
                 </button>
 
@@ -53,7 +53,7 @@
             <div class="p-toolbar-group-start flex flex-wrap gap-3 ">
             </div>
 
-            <div class="p-toolbar-group-end flex flex-wrap items-center space-x-2">
+            <div class="p-toolbar-group-end flex flex-wrap items-center gap-2">
                 <span class="text-sm font-semibold whitespace-nowrap px-2">Período Pago:</span>
                 <p-dropdown 
                 [options]="periodoPagoOptions" 
@@ -125,24 +125,19 @@
                     <td class="text-center">{{ empleado.pla01fechaingreso | date: 'dd/MM/yyyy' }}</td>
                     <td class="text-center">{{ getEstadoLabel(empleado.pla01estado) }}</td>
 
-                    <td class="w-24 text-center p-3">
-                        <div class="flex justify-center w-full">
-                            <input pInputText type="number" [min]="0" step="any" [max]="360"
-                                class="w-14 border text-center border-gray-300 rounded input-dias-asistencia"
-                                *ngIf="selectedPeriodoPago === 'UTILIDADES'" [(ngModel)]="empleado.pla02utilidad"
-                                (ngModelChange)="empleado.pla02utilidad = $event > 360 ? 360 : $event < 0 ? 0 : $event" />
-
-                            <input pInputText type="number" [min]="0" step="any" [max]="180"
-                                class="w-14 border text-center border-gray-300 rounded input-dias-asistencia"
-                                *ngIf="selectedPeriodoPago === 'GRATIFICACIONES'"
-                                [(ngModel)]="empleado.pla02gratificacion"
-                                (ngModelChange)="empleado.pla02gratificacion = $event > 180 ? 180 : $event < 0 ? 0 : $event" />
-                        </div>
+                    <td class="text-center dias-utilidad-text-cell">
+                        <span class="dias-utilidad-text" *ngIf="selectedPeriodoPago === 'UTILIDADES'">
+                            {{ empleado.pla02utilidad }}
+                        </span>
+                        
+                        <span class="dias-utilidad-text" *ngIf="selectedPeriodoPago === 'GRATIFICACIONES'">
+                            {{ empleado.pla02gratificacion }}
+                        </span>
                     </td>
 
                     <td class="text-center">
                         <button pButton pRipple icon="pi pi-user"
-                            class="p-button-rounded p-button-info p-button-text p-button-sm"
+                            class="p-button-rounded p-button-info p-button-text p-button-sm btn-inasistencia"
                             pTooltip="Ver/Registrar Inasistencias" (click)="openInasistenciaDialog(empleado)">
                         </button>
                     </td>
